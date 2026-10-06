@@ -17,6 +17,7 @@ const ROOT = path.dirname(path.dirname(fileURLToPath(import.meta.url)));
 const STATUS = { bad_input: 400, not_found: 404, rate_limited: 429, budget: 429, ai_off: 503, bad_json: 502, upstream: 502 };
 
 const coded = (message, code) => Object.assign(new Error(message), { code });
+const GLOBAL = '_all_sessions';
 
 const urlKey = (u) => String(u || '').toLowerCase().replace(/\/rules\/?$/, '').replace(/\/+$/, '');
 
@@ -55,6 +56,9 @@ export async function createApp({ store, llm = null, env = process.env, fetchImp
   const dataset = mergeSources(seeds, scannedFile);
   const sample = JSON.parse(await readFile(path.join(ROOT, 'data', 'sample-dossier.json'), 'utf8'));
   const dailyTokens = Number(env.AI_DAILY_TOKENS || 400000);
+  // A public URL lets anyone open new sessions, so per-session budgets alone don't
+  // bound the bill: there is also one daily cap for the whole deployment.
+  const globalTokens = Number(env.AI_GLOBAL_DAILY_TOKENS || 3000000);
   const perSession = rateLimiter({ windowMs: 10 * 60 * 1000, max: Number(env.AI_REQUESTS_PER_10_MIN || 30) });
 
   async function allOpps(sid) {
@@ -65,21 +69,24 @@ export async function createApp({ store, llm = null, env = process.env, fetchImp
   }
   const findOpp = async (sid, id) => (await allOpps(sid)).find((o) => o.id === id) || null;
 
-  // Rate limits, a daily token budget per session, and error mapping for every model-backed route.
-  const guarded = (handler, { needsAI = false } = {}) => async (req, res) => {
+  // Error mapping for every route; rate limits and token budgets for the ones that can call the model.
+  const guarded = (handler, { needsAI = false, usesAI = needsAI } = {}) => async (req, res) => {
     let spent = 0;
     const day = today();
     try {
       if (needsAI && !llm) throw coded('AI is not configured on this server.', 'ai_off');
-      if (!perSession(req.sid)) throw coded('Too many requests; wait a few minutes.', 'rate_limited');
-      if (llm && (await store.usage(req.sid, day)) > dailyTokens) throw coded("Today's AI budget for this session is used up.", 'budget');
+      if (usesAI && llm) {
+        if (!perSession(req.sid)) throw coded('Too many requests; wait a few minutes.', 'rate_limited');
+        if ((await store.usage(req.sid, day)) > dailyTokens) throw coded("Today's AI budget for this session is used up.", 'budget');
+        if ((await store.usage(GLOBAL, day)) > globalTokens) throw coded('The demo has used its AI budget for today. The rules engine still works.', 'budget');
+      }
       const scoped = llm && { ...llm, generate: (o) => llm.generate({ ...o, meter: (n) => { spent += n; } }) };
       await handler(req, res, scoped);
     } catch (e) {
       if (!STATUS[e.code]) console.error(e);
       res.status(STATUS[e.code] || 500).json({ error: { code: e.code || 'internal', message: STATUS[e.code] ? e.message : 'Something went wrong on our side.' } });
     } finally {
-      if (spent > 0) await store.addUsage(req.sid, day, spent).catch(() => {});
+      if (spent > 0) await Promise.all([store.addUsage(req.sid, day, spent), store.addUsage(GLOBAL, day, spent)]).catch(() => {});
     }
   };
 
@@ -115,7 +122,7 @@ export async function createApp({ store, llm = null, env = process.env, fetchImp
 
   app.post('/api/dossiers/from-github', guarded(async (req, res, scoped) => {
     res.json(await buildDossier({ repoUrl: req.body?.url, llm: scoped, fetchImpl, token: env.GITHUB_TOKEN }));
-  }));
+  }, { usesAI: true }));
 
   app.post('/api/rank', guarded(async (req, res) => {
     const dossier = cleanDossier(req.body?.dossier);

@@ -144,3 +144,14 @@ test('dossiers are stored per session and sanitised', async () => {
     assert.equal((await call('/api/dossiers', undefined, 'b')).body.dossiers.length, 0);
   } finally { close(); }
 });
+
+test('the whole deployment has one daily cap, and the rules engine is never rate limited', async () => {
+  const { call, close } = await start({ env: { AI_GLOBAL_DAILY_TOKENS: '1500', AI_REQUESTS_PER_10_MIN: '2' } });
+  try {
+    assert.equal((await call('/api/kit', { dossier: sample, oppId: 'sg-aibuildercup-2026' }, 'a')).status, 200);
+    assert.equal((await call('/api/kit', { dossier: sample, oppId: 'sg-aibuildercup-2026' }, 'b')).status, 200);
+    const third = await call('/api/kit', { dossier: sample, oppId: 'sg-aibuildercup-2026' }, 'c');
+    assert.equal(third.status, 429, 'a fresh session does not get a fresh budget');
+    for (let i = 0; i < 6; i++) assert.equal((await call('/api/rank', { dossier: sample }, 'a')).status, 200);
+  } finally { close(); }
+});
