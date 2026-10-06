@@ -1,0 +1,23 @@
+{
+  "name": "no-fine-print",
+  "version": "0.1.0",
+  "description": "Find the competitions, grants and challenges your team can actually win — with every eligibility verdict traced to the clause it came from.",
+  "license": "Apache-2.0",
+  "type": "module",
+  "private": true,
+  "engines": {
+    "node": ">=22"
+  },
+  "scripts": {
+    "start": "node src/server.js",
+    "dev": "node --watch src/server.js",
+    "test": "node --test \"test/*.test.js\"",
+    "eval": "node eval/run.js",
+    "scan": "node jobs/scan.js"
+  },
+  "dependencies": {
+    "@google-cloud/firestore": "^9.3.1",
+    "@google/genai": "^2.27.0",
+    "express": "^5.2.1"
+  }
+}

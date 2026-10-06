@@ -1,0 +1,38 @@
+{
+  "about": "Hand-labelled eligibility terms for the Clerk extraction eval. Each label was checked against the live official page on the asOf date. Arrays list every acceptable answer; null means the rules do not state it, so the right answer is 'unknown' (inventing a value is an error). 'contains:x' passes if the extracted list has an entry containing x.",
+  "asOf": "2026-10-06",
+  "events": [
+    {
+      "id": "google-ai-builder-cup-2026",
+      "name": "Google Cloud AI Builder Cup 2026: terms and conditions",
+      "url": "https://docs.google.com/document/d/e/2PACX-1vRm7ChZ6Ij9fG7uFDkxzUMpwgVeBmnQ6cMDnAIEEX84AiLBOOQ9cYbl3S5OzFBbcVb8TF55s-eVpiXb/pub",
+      "expect": {
+        "students": ["excluded"],
+        "region": ["japac"],
+        "team_min": [2],
+        "team_max": [4],
+        "age_min": [21],
+        "accepts_existing": ["no"],
+        "deadline": [null],
+        "build_start": [null],
+        "ip_first_refusal": [true],
+        "excludes_employees_of": [[]]
+      },
+      "notes": "The terms give the roster lock (October 11) but no prototype deadline; the deadline lives on the event microsite. A model that answers 2026-10-18 is guessing."
+    },
+    {
+      "id": "paypal-ai-hackathon-2026",
+      "name": "PayPal AI Hackathon: official rules",
+      "url": "https://paypalaihackathon.devpost.com/rules",
+      "expect": {
+        "students": ["open", "unknown"],
+        "region": ["global"],
+        "accepts_existing": ["partial"],
+        "deadline": ["2026-11-12"],
+        "build_start": ["2026-10-01"],
+        "excludes_judge_employers": [true],
+        "excludes_employees_of": ["contains:paypal"]
+      }
+    }
+  ]
+}

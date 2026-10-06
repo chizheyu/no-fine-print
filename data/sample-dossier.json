@@ -1,0 +1,21 @@
+{
+  "name": "No Fine Print",
+  "oneLiner": "Tells small teams which competitions they can actually win, and traces every eligibility verdict to the rule it came from.",
+  "description": "Builders chase hackathons, grants and challenges with no decision support: eligibility rules are scattered across microsites, FAQs and living terms documents. No Fine Print reads the rules, checks every team member against them with a deterministic engine, ranks what is left by expected prize per entry, and drafts application kits that cannot overclaim.",
+  "stage": "prototype",
+  "themes": ["future of work", "productivity", "ai agents", "eligibility", "open source"],
+  "techStack": ["Gemini", "Vertex AI", "Cloud Run", "Firestore", "Node.js"],
+  "links": ["https://github.com/chizheyu/no-fine-print"],
+  "codeStartedAt": "2026-10-06",
+  "evidence": [
+    { "fact": "Eligibility verdicts are computed by code, not by the model, and each links to the clause it came from", "source": "README" },
+    { "fact": "175 competitions, grants and programmes in the seed dataset, checked against official pages between 28 Sep and 6 Oct 2026", "source": "data/opportunities.json" },
+    { "fact": "Every eligibility field Gemini extracts must quote the rules verbatim; fields whose quote is not found are reset to unknown", "source": "src/agents/clerk.js" },
+    { "fact": "Guard tests cover two cases that misjudged real projects: repository date instead of first commit, and sponsor employees when the rules are silent", "source": "test/eligibility.test.js" }
+  ],
+  "team": [
+    { "role": "Engineer", "base": "SG", "pass": "SC", "employed": "yes", "student": "no", "age": "21", "employer": "" },
+    { "role": "Designer", "base": "JAPAC", "pass": "UNK", "employed": "yes", "student": "no", "age": "21", "employer": "" },
+    { "role": "Data scientist", "base": "SG", "pass": "PR", "employed": "yes", "student": "yes", "age": "21", "employer": "" }
+  ]
+}

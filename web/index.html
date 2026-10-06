@@ -1,0 +1,42 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>No Fine Print</title>
+<meta name="description" content="Find the competitions your team can actually win, with every eligibility verdict traced to the clause it came from.">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='7' fill='%23171512'/%3E%3Cpath d='M9 22V10l7 12V10M20 10h4M20 16h3M20 22h4' stroke='%23f4efe6' stroke-width='2.2' fill='none' stroke-linecap='round'/%3E%3C/svg%3E">
+<link rel="stylesheet" href="/styles.css">
+</head>
+<body>
+<header class="top">
+  <a class="brand" href="/">
+    <span class="mark" aria-hidden="true">NFP</span>
+    <span><strong>No Fine Print</strong><em>Which competitions can your team actually win?</em></span>
+  </a>
+  <nav aria-label="Views">
+    <button type="button" data-view="find" aria-current="page">Find</button>
+    <button type="button" data-view="ledger">Ledger</button>
+  </nav>
+  <span id="ai-pill" class="pill" title="Model status">connecting…</span>
+</header>
+
+<main>
+  <section id="view-find" class="find">
+    <aside id="dossier" class="panel" aria-label="Project dossier"></aside>
+    <section id="results" aria-label="Ranked opportunities"></section>
+  </section>
+  <section id="view-ledger" class="ledger" hidden></section>
+</main>
+
+<div id="scrim" hidden></div>
+<aside id="drawer" class="drawer" hidden aria-label="Event details"></aside>
+<div id="toast" role="status" aria-live="polite"></div>
+
+<footer class="foot">
+  <p><strong>How it decides.</strong> Gemini reads the rules; code makes the call. Every eligibility field must come with a sentence copied from the rules, and a field whose quote can't be found in the fetched text stays "unknown". The verdicts themselves come from a rule engine you can read, not from a model.</p>
+  <p>Drafts are drafts: teams rewrite and submit their own work. Prize money for Singapore work-pass holders has no published guidance from the Ministry of Manpower, so we never call it allowed. Open source under Apache-2.0 · <a href="https://github.com/chizheyu/no-fine-print">source</a></p>
+</footer>
+<script type="module" src="/app.js"></script>
+</body>
+</html>
