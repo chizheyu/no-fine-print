@@ -20,7 +20,7 @@ for role in roles/aiplatform.user roles/datastore.user; do
   gcloud projects add-iam-policy-binding "$PROJECT_ID" --member "serviceAccount:$SA" --role "$role" --condition=None >/dev/null
 done
 
-ENV_VARS="GOOGLE_GENAI_USE_VERTEXAI=true,GOOGLE_CLOUD_PROJECT=$PROJECT_ID,GOOGLE_CLOUD_LOCATION=global,STORE=firestore"
+ENV_VARS="GOOGLE_GENAI_USE_VERTEXAI=true,GOOGLE_CLOUD_PROJECT=$PROJECT_ID,GOOGLE_CLOUD_LOCATION=global,STORE=firestore${GEMINI_MODEL:+,GEMINI_MODEL=$GEMINI_MODEL}"
 
 gcloud run deploy no-fine-print --source . --region "$REGION" --service-account "$SA" \
   --allow-unauthenticated --memory 512Mi --max-instances 3 --set-env-vars "$ENV_VARS"

@@ -115,3 +115,14 @@ test('html to text drops scripts and keeps structure; thin or garbled pages are 
   assert.equal(assessText('PK\u0003\u0004'.repeat(200) + '�'.repeat(50)).ok, false);
   assert.equal(assessText('word '.repeat(200)).ok, true);
 });
+
+test('a 403 that still carries the full page is read; a bare refusal is not', async () => {
+  const rules = `<html><body><h1>Official Rules</h1><p>${'Projects must be either newly created by the Entrant or significantly updated. '.repeat(12)}</p></body></html>`;
+  const full = await fetchPage('https://example.org/rules', { resolve: publicDNS, fetchImpl: async () => new Response(rules, { status: 403, headers: { 'content-type': 'text/html' } }) });
+  assert.equal(full.ok, true);
+  assert.match(full.text, /significantly updated/);
+  const bare = await fetchPage('https://example.org/rules', { resolve: publicDNS, fetchImpl: async () => new Response('<h1>403 Forbidden</h1>', { status: 403, headers: { 'content-type': 'text/html' } }) });
+  assert.equal(bare.ok, false);
+  const gone = await fetchPage('https://example.org/rules', { resolve: publicDNS, fetchImpl: async () => new Response(rules, { status: 404, headers: { 'content-type': 'text/html' } }) });
+  assert.equal(gone.ok, false);
+});

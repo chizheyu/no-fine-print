@@ -89,7 +89,10 @@ export async function fetchPage(raw, { fetchImpl = fetch, resolve = lookup, time
       target = new URL(res.headers.get('location'), checked.url).toString();
       continue;
     }
-    if (!res.ok) return { ok: false, reason: `The page answered HTTP ${res.status}.` };
+    // Some sites (Devpost, for one) answer 403 to non-browser clients yet still send the
+    // full page. Keep the body and let the text check below decide; a real refusal page
+    // is too thin to pass it.
+    if (!res.ok && res.status !== 403) return { ok: false, reason: `The page answered HTTP ${res.status}.` };
     const type = res.headers.get('content-type') || '';
     if (/pdf/i.test(type)) return { ok: false, reason: 'That link is a PDF. Paste the rules text instead.' };
     const body = await res.text();
