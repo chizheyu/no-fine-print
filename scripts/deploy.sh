@@ -16,8 +16,13 @@ gcloud firestore databases describe --database='(default)' >/dev/null 2>&1 || \
 
 gcloud iam service-accounts describe "$SA" >/dev/null 2>&1 || \
   gcloud iam service-accounts create "$SA_NAME" --display-name "No Fine Print (Cloud Run)"
+# A new service account takes a few seconds to become visible to IAM; retry instead of failing.
 for role in roles/aiplatform.user roles/datastore.user; do
-  gcloud projects add-iam-policy-binding "$PROJECT_ID" --member "serviceAccount:$SA" --role "$role" --condition=None >/dev/null
+  for attempt in 1 2 3 4 5 6 7 8 9 10 11 12; do
+    gcloud projects add-iam-policy-binding "$PROJECT_ID" --member "serviceAccount:$SA" --role "$role" --condition=None >/dev/null 2>&1 && break
+    [ "$attempt" = 12 ] && { echo "Could not grant $role to $SA" >&2; exit 1; }
+    sleep 10
+  done
 done
 
 ENV_VARS="GOOGLE_GENAI_USE_VERTEXAI=true,GOOGLE_CLOUD_PROJECT=$PROJECT_ID,GOOGLE_CLOUD_LOCATION=global,STORE=firestore${GEMINI_MODEL:+,GEMINI_MODEL=$GEMINI_MODEL}"

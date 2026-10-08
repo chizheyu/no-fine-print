@@ -4,6 +4,8 @@
 
 Built for the Google Cloud AI Builder Cup 2026 (theme: Future of Work & Enterprise Productivity).
 
+**Live:** https://no-fine-print-233540464251.asia-southeast1.run.app (Cloud Run, asia-southeast1; Gemini through Vertex AI; Firestore)
+
 ## The problem
 
 Small teams pick competitions with almost no decision support. Eligibility rules are scattered across microsites, FAQs and terms documents that change without notice, and the clauses that disqualify you are the ones nobody reads:
@@ -57,7 +59,7 @@ Gemini reads; code decides. Three rules hold everywhere:
 
 ```bash
 npm install
-npm test                       # 43 tests, no network, no model
+npm test                       # 46 tests, no network, no model
 npm start                      # http://localhost:8080 — rules engine only
 GEMINI_API_KEY=... npm start   # with Gemini (or GOOGLE_GENAI_USE_VERTEXAI=true + GOOGLE_CLOUD_PROJECT)
 npm run scan                   # pull open Devpost hackathons into data/scanned.json
@@ -79,11 +81,18 @@ The script enables the APIs, creates a Firestore database and a least-privilege 
 
 `eval/gold.json` holds terms we labelled by hand against the official pages. The eval reports field accuracy, how many claims came with a verifiable quote, and **confident errors**: wrong values that still carried a quote we could verify, the failure that would mislead a user. One label is a trap on purpose: the AI Builder Cup terms never state the prototype deadline, so the correct answer is "unknown".
 
+| Run | Model | Fields correct | Quotes verified | Confident errors |
+|:--|:--|:--|:--|:--|
+| 2026-10-08 | gemini-3.8-flash (Vertex AI) | 17 / 17 | 14 / 14 | 0 |
+
+The model passed the trap (it left the AI Builder Cup deadline unknown). Full rows: `eval/results/`. Two events is a small set; we add labelled events as we verify them.
+
 ## Limits
 
 - Not legal advice. For Singapore work-pass holders, the Ministry of Manpower has published no guidance on winning cash prizes; we say so rather than guess.
 - Employer matching knows the big corporate families (Alphabet, Meta, Amazon and others). Smaller sponsors match by name only.
 - The seed dataset reflects the official pages on the dates shown; rules change, so the app links every quote to its source.
+- Devpost puts its rules pages behind a Cloudflare check for server traffic, so the nightly scout gets the open-event list (dates, prizes, registrant counts) but often not the rules text. For those events, paste the rules into "Add an event".
 
 ## Built during the event
 
