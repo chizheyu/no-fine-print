@@ -37,7 +37,8 @@ export function numbersNotIn(text, source) {
     const kind = kindOf(unit);
     const value = /^k$/i.test(unit) ? String(Number(raw) * 1000) : raw;
     if (have.get(raw)?.has(kind) || have.get(value)?.has(kind)) continue;
-    const label = m[1] + unit;
+    // "100 percent" keeps its space so the page can find and highlight it; "40%", "10k" do not have one.
+    const label = unit.length > 1 ? `${m[1]} ${unit}` : m[1] + unit;
     if (!seen.has(label)) { seen.add(label); out.push(label); }
   }
   return out;

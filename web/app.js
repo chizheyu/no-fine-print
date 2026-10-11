@@ -153,17 +153,25 @@ function renderDossier() {
     <section><button class="linkish" data-act="reset">Start over with another repository</button></section>`;
 }
 
-const saveDossier = debounce(async () => {
-  try {
-    const { dossier } = await api('/api/dossiers', { __method: 'PUT', dossier: S.dossier });
-    S.dossier.id = dossier.id;
-  } catch (e) { toast(e.message); }
+// Saves run one after another, so an older copy of the team can never land after a newer one.
+let saving = Promise.resolve();
+const saveDossier = debounce(() => {
+  saving = saving.then(async () => {
+    try {
+      const { dossier } = await api('/api/dossiers', { __method: 'PUT', dossier: S.dossier });
+      S.dossier.id = dossier.id;
+    } catch (e) { toast(e.message); }
+  });
 }, 600);
 
+// Rankings can come back out of order when the team changes quickly; only the newest counts.
+let rankSeq = 0;
 async function rank() {
   if (!S.dossier) return renderResults();
+  const seq = ++rankSeq;
   try {
     const { results } = await api('/api/rank', { dossier: S.dossier });
+    if (seq !== rankSeq) return;
     S.results = results;
     if (S.filter !== 'all' && !results.some((r) => r.elig.status === S.filter)) S.filter = results.some((r) => r.elig.status === 'ok') ? 'ok' : 'all';
   } catch (e) { toast(e.message); }
@@ -301,7 +309,9 @@ function ddHTML({ card: c, cached }) {
   const sections = c.sections.map((sec) => `<h5>${esc(sec.title)}</h5>${sec.claims.length
     ? `<ul class="claims">${sec.claims.map((x) => `<li>${esc(x.text)}${cite(x.sources)}</li>`).join('')}</ul>`
     : '<p class="hint">Nothing found that a source backs.</p>'}`).join('');
-  const conflicts = c.contradictions.length ? c.contradictions.map((k) => `<div class="conflict"><b>${esc(k.topic)}</b>
+  // Cards cached before 11 Oct 17:00 SGT carry the old fallback heading, which is wrong when both sides share a page.
+  const heading = (k) => (k.samePage && k.topic === 'Two pages disagree' ? 'These statements disagree' : k.topic);
+  const conflicts = c.contradictions.length ? c.contradictions.map((k) => `<div class="conflict"><b>${esc(heading(k))}</b>
       ${k.sides.map((sd) => `<p><span class="side">${esc(sd.label)}</span>${esc(sd.text)}${cite(sd.sources)}${sd.eventSite ? '' : ' <span class="tag weak">not from the event\'s own pages</span>'}</p>`).join('')}
       ${k.samePage ? '<p class="hint">Both statements are on the same page.</p>' : ''}</div>`).join('')
     : '<p class="hint">None found with a source on each side.</p>';

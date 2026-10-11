@@ -59,3 +59,8 @@ test('quotes may run across list items; bullets are layout, hyphens inside a lin
   assert.equal(verifyQuote('A wellknown rule', src).ok, false);
   assert.equal(verifyQuote('Employees, representatives and agents of the Sponsor.', src).ok, false);
 });
+
+test('a flagged "100 percent" keeps its space so the page can highlight it', () => {
+  assert.deepEqual(numbersNotIn('Our checks cover 100 percent of the rules.', 'All numbers come from the dossier.'), ['100 percent']);
+  assert.deepEqual(numbersNotIn('A 40% weight.', 'Nothing here.'), ['40%']);
+});
