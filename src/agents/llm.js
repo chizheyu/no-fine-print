@@ -40,8 +40,41 @@ export function createLLM(env = process.env, { client } = {}) {
     return resolving;
   }
 
-  async function generate({ system, prompt, schema, temperature = 0.2, maxOutputTokens = 8192, meter }) {
-    const res = await ai.models.generateContent({
+  // Search results fed back to the model (toolUsePromptTokenCount) are billed as input.
+  function record(u = {}, meter) {
+    const inTok = (u.promptTokenCount || 0) + (u.toolUsePromptTokenCount || 0);
+    const outTok = (u.candidatesTokenCount || 0) + (u.thoughtsTokenCount || 0);
+    usage.calls += 1;
+    usage.inputTokens += inTok;
+    usage.outputTokens += outTok;
+    meter?.(inTok + outTok);
+  }
+
+  // Streams when the caller wants to watch the text grow (onText gets everything so far).
+  async function run(request, onText) {
+    if (!onText) {
+      const res = await ai.models.generateContent(request);
+      const c = res.candidates?.[0];
+      return { text: res.text ?? '', usage: res.usageMetadata, metadata: c?.groundingMetadata, pages: c?.urlContextMetadata?.urlMetadata };
+    }
+    let text = '';
+    let last = {};
+    let metadata;
+    let pages;
+    for await (const chunk of await ai.models.generateContentStream(request)) {
+      const c = chunk.candidates?.[0];
+      const part = (c?.content?.parts || []).filter((p) => typeof p.text === 'string' && !p.thought).map((p) => p.text).join('');
+      if (part) { text += part; onText(text); }
+      if (chunk.usageMetadata) last = chunk.usageMetadata;
+      // Grounding metadata comes with the last chunk; keep the latest one that has supports.
+      if (c?.groundingMetadata && (c.groundingMetadata.groundingSupports?.length || !metadata)) metadata = c.groundingMetadata;
+      if (c?.urlContextMetadata?.urlMetadata?.length) pages = c.urlContextMetadata.urlMetadata;
+    }
+    return { text, usage: last, metadata, pages };
+  }
+
+  async function generate({ system, prompt, schema, temperature = 0.2, maxOutputTokens = 8192, meter, onText }) {
+    const { text, usage: u } = await run({
       model: await resolveModel(),
       contents: prompt,
       config: {
@@ -50,15 +83,8 @@ export function createLLM(env = process.env, { client } = {}) {
         maxOutputTokens,
         ...(schema ? { responseMimeType: 'application/json', responseJsonSchema: schema } : {}),
       },
-    });
-    const u = res.usageMetadata || {};
-    const inTok = u.promptTokenCount || 0;
-    const outTok = (u.candidatesTokenCount || 0) + (u.thoughtsTokenCount || 0);
-    usage.calls += 1;
-    usage.inputTokens += inTok;
-    usage.outputTokens += outTok;
-    meter?.(inTok + outTok);
-    const text = res.text ?? '';
+    }, onText);
+    record(u, meter);
     if (!schema) return text;
     try {
       return JSON.parse(text);
@@ -67,5 +93,29 @@ export function createLLM(env = process.env, { client } = {}) {
     }
   }
 
-  return { generate, resolveModel, usage, backend: vertex ? 'vertex-ai' : 'gemini-api', get model() { return model; } };
+  // Gemini grounded in Google Search, plus URL context when the caller names pages to
+  // read directly. Returns the text and the grounding metadata as the API sends it:
+  // groundingChunks (web pages), groundingSupports (which span of the text each page
+  // supports), webSearchQueries and the searchEntryPoint widget; `pages` says which
+  // named pages were actually retrieved.
+  async function ground({ system, prompt, urls = [], temperature = 0, maxOutputTokens = 8192, meter, onText, timeoutMs = 150000 }) {
+    const name = await resolveModel();
+    const { text, usage: u, metadata, pages } = await run({
+      model: name,
+      contents: prompt,
+      config: {
+        systemInstruction: system,
+        temperature,
+        maxOutputTokens,
+        tools: [{ googleSearch: {} }, ...(urls.length ? [{ urlContext: {} }] : [])],
+        // Gemini 3 bills grounding per search query; low thinking runs fewer of them.
+        ...(/^gemini-([3-9]|\d\d)/.test(name) ? { thinkingConfig: { thinkingLevel: 'low' } } : {}),
+        abortSignal: AbortSignal.timeout(timeoutMs),
+      },
+    }, onText || (() => {}));
+    record(u, meter);
+    return { text, metadata: metadata || {}, pages: pages || [], model: name };
+  }
+
+  return { generate, ground, resolveModel, usage, backend: vertex ? 'vertex-ai' : 'gemini-api', get model() { return model; } };
 }
