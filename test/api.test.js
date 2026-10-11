@@ -38,6 +38,11 @@ const GROUNDING = {
   ],
 };
 
+// A complete seven-section kit; the first section carries the claims the guard must catch.
+const KIT = ['## One-line pitch\nWe saved teams 40 hours [E1]. Built on Gemini [E9].', '## Title options (3)\nA; B; C',
+  '## How we map to the judging criteria\n| Impact | [TODO: user numbers] | run a trial |', '## Submission text\nProblem and solution.',
+  '## 3-minute demo script\n0:00 intro', '## Deliverables checklist\nVideo, deck, repo, live URL.', '## Risks and compliance\nFresh code only.'].join('\n\n');
+
 // A stand-in for Gemini that answers by task, so the whole pipeline runs offline.
 function fakeLLM() {
   return {
@@ -57,7 +62,7 @@ function fakeLLM() {
           quotes: { deadline: 'Submissions close on 30 November 2026 at 23:59 SGT.', students: 'Full-time or part-time students are strictly ineligible.', team: 'Teams may range from Two (2) participants up to four (4) members.', region: 'Open worldwide.', existing: 'All work must be created during the event.' },
         };
       }
-      if (o.prompt.includes('<dossier>')) return '## One-line pitch\nWe saved teams 40 hours [E1]. Built on Gemini [E9].\n'.padEnd(300, ' ');
+      if (o.prompt.includes('<dossier>')) return KIT;
       if (o.prompt.includes('<submission>')) return { scores: [{ criterion: 'Impact', score: 6, why: 'ok' }], overall: 6, verdict: 'Fine', fixes: ['a', 'b', 'c'] };
       throw new Error('unexpected prompt');
     },

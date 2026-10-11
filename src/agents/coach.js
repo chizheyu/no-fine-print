@@ -36,6 +36,26 @@ const KIT_FORMAT = `Return Markdown with these sections, in order:
 ## Deliverables checklist (with deadlines)
 ## Risks and compliance`;
 
+const KIT_SECTIONS = KIT_FORMAT.split('\n').filter((l) => l.startsWith('## ')).map((l) => l.replace(/\s*\(.*$/, '').trim());
+
+// A kit is usable only if it has every section, in order, and nothing before the first one
+// (a cut-off draft once arrived with the model's own notes on top and ended at "## One-").
+export function completeKit(raw) {
+  const text = String(raw || '');
+  const start = text.indexOf(KIT_SECTIONS[0]);
+  const body = start >= 0 ? text.slice(start).trim() : '';
+  let at = 0;
+  const missing = [];
+  for (const h of KIT_SECTIONS) {
+    const i = body.indexOf(h, at);
+    if (i < 0) missing.push(h.replace(/^## /, ''));
+    else at = i + h.length;
+  }
+  const lastBody = missing.length ? '' : body.slice(body.lastIndexOf(KIT_SECTIONS.at(-1)) + KIT_SECTIONS.at(-1).length).trim();
+  if (!missing.length && !lastBody) missing.push('text under the last section');
+  return { ok: !missing.length, text: body, missing };
+}
+
 // Progress while the draft streams in: a note every 40 words, not every chunk.
 export function wordCounter(note, every = 40) {
   let shown = 0;
@@ -50,12 +70,26 @@ export async function draftKit({ opp, dossier, eligibility, llm, step = () => {}
   const d = dossierForPrompt(dossier);
   const o = oppForPrompt(opp);
   step('Gemini is drafting the kit from your dossier and the rules.');
-  const text = await llm.generate({
-    system: KIT_SYSTEM,
-    prompt: `${KIT_FORMAT}\n\n<dossier>\n${JSON.stringify(d)}\n</dossier>\n\n<event>\n${JSON.stringify(o)}\n</event>\n\n<eligibility_findings>\n${(eligibility?.reasons || []).map((r) => `${r.level}: ${r.text}`).join('\n')}\n</eligibility_findings>`,
-    temperature: 0.4,
-    onText: wordCounter(note),
-  });
+  const prompt = `${KIT_FORMAT}\n\n<dossier>\n${JSON.stringify(d)}\n</dossier>\n\n<event>\n${JSON.stringify(o)}\n</event>\n\n<eligibility_findings>\n${(eligibility?.reasons || []).map((r) => `${r.level}: ${r.text}`).join('\n')}\n</eligibility_findings>`;
+  let kit;
+  for (let attempt = 1; attempt <= 2 && !kit?.ok; attempt++) {
+    if (attempt === 2) step(`The first draft came back incomplete (${kit.missing.join(', ') || 'cut off'}); drafting once more.`);
+    let raw = '';
+    try {
+      raw = await llm.generate({
+        system: KIT_SYSTEM,
+        prompt: attempt === 1 ? prompt : `${prompt}\n\nReturn only the seven sections above, starting with "## One-line pitch". No notes, no preamble.`,
+        temperature: 0.4,
+        maxOutputTokens: 16384,
+        onText: wordCounter(note),
+      });
+    } catch (e) {
+      if (e.code !== 'truncated') throw e;
+    }
+    kit = completeKit(raw);
+  }
+  if (!kit.ok) throw Object.assign(new Error('The draft came back incomplete twice; try again in a minute.'), { code: 'incomplete_kit' });
+  const text = kit.text;
   step('Checking every number and citation against your dossier.');
   return { text, audit: audit(text, { dossierText: JSON.stringify(d) + JSON.stringify(o), evidenceCount: d.evidence.length }) };
 }

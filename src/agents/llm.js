@@ -55,14 +55,16 @@ export function createLLM(env = process.env, { client } = {}) {
     if (!onText) {
       const res = await ai.models.generateContent(request);
       const c = res.candidates?.[0];
-      return { text: res.text ?? '', usage: res.usageMetadata, metadata: c?.groundingMetadata, pages: c?.urlContextMetadata?.urlMetadata };
+      return { text: res.text ?? '', usage: res.usageMetadata, metadata: c?.groundingMetadata, pages: c?.urlContextMetadata?.urlMetadata, finishReason: c?.finishReason };
     }
     let text = '';
     let last = {};
     let metadata;
     let pages;
+    let finishReason;
     for await (const chunk of await ai.models.generateContentStream(request)) {
       const c = chunk.candidates?.[0];
+      if (c?.finishReason) finishReason = c.finishReason;
       const part = (c?.content?.parts || []).filter((p) => typeof p.text === 'string' && !p.thought).map((p) => p.text).join('');
       if (part) { text += part; onText(text); }
       if (chunk.usageMetadata) last = chunk.usageMetadata;
@@ -70,21 +72,28 @@ export function createLLM(env = process.env, { client } = {}) {
       if (c?.groundingMetadata && (c.groundingMetadata.groundingSupports?.length || !metadata)) metadata = c.groundingMetadata;
       if (c?.urlContextMetadata?.urlMetadata?.length) pages = c.urlContextMetadata.urlMetadata;
     }
-    return { text, usage: last, metadata, pages };
+    return { text, usage: last, metadata, pages, finishReason };
   }
 
   async function generate({ system, prompt, schema, temperature = 0.2, maxOutputTokens = 8192, meter, onText }) {
-    const { text, usage: u } = await run({
-      model: await resolveModel(),
+    const name = await resolveModel();
+    const { text, usage: u, finishReason } = await run({
+      model: name,
       contents: prompt,
       config: {
         systemInstruction: system,
         temperature,
         maxOutputTokens,
         ...(schema ? { responseMimeType: 'application/json', responseJsonSchema: schema } : {}),
+        // Gemini 3 counts its thinking against maxOutputTokens; at the default level a long
+        // draft could run out of room before the answer ended (seen live on 11 Oct).
+        ...(/^gemini-([3-9]|\d\d)/.test(name) ? { thinkingConfig: { thinkingLevel: 'low' } } : {}),
       },
     }, onText);
     record(u, meter);
+    if (finishReason === 'MAX_TOKENS') {
+      throw Object.assign(new Error('The model ran out of room before finishing; try again.'), { code: 'truncated' });
+    }
     if (!schema) return text;
     try {
       return JSON.parse(text);
