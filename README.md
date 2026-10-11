@@ -4,7 +4,7 @@
 
 Built for the Google Cloud AI Builder Cup 2026 (theme: Future of Work & Enterprise Productivity).
 
-**Live:** https://no-fine-print-233540464251.asia-southeast1.run.app (Cloud Run, asia-southeast1; Gemini through Vertex AI; Firestore)
+**Live:** https://no-fine-print-2026.web.app (Firebase Hosting in front; the same app answers directly at https://no-fine-print-233540464251.asia-southeast1.run.app on Cloud Run, asia-southeast1; Gemini through Vertex AI; Firestore)
 
 **Deck:** [docs/No_Fine_Print_deck.pdf](docs/No_Fine_Print_deck.pdf) (13 slides: problem, how it decides, architecture on Google Cloud, evaluation, business case). The slide source and the architecture diagram are in [docs/deck/](docs/deck/).
 
@@ -48,7 +48,10 @@ The steps appear as they happen (reading and searching usually takes 10 to 60 se
  Devpost API ──► Scout (Cloud Run Job) ──► Firestore: opportunities
  rules pages        clause patterns, no model          │
                                                        ▼
- Browser ──► Cloud Run service (Node.js) ─────────────────────────────────────────────┐
+ Browser ──► Firebase Hosting (web client on Google's CDN; /api/** rewritten to Cloud Run)
+                │
+                ▼
+             Cloud Run service (Node.js) ─────────────────────────────────────────────┐
               │  Profiler   GitHub API (first commit, licence, stars) + Gemini README summary (quotes verified)
               │  Clerk      Gemini structured extraction of rules → quote verification → unknown if unquoted
               │  Engine     deterministic eligibility per member + expected prize per registrant
@@ -93,7 +96,13 @@ gcloud auth login
 PROJECT_ID=your-project ./scripts/deploy.sh
 ```
 
-The script enables the APIs, creates a Firestore database and a least-privilege service account, deploys the service and the nightly scan job to Cloud Run in `asia-southeast1`, and schedules the scan. Grounding with Google Search and URL context need no role beyond `roles/aiplatform.user`. Set `GEMINI_MODEL` when deploying to pin a model.
+The script enables the APIs, creates a Firestore database and a least-privilege service account, deploys the service and the nightly scan job to Cloud Run in `asia-southeast1`, and schedules the scan. Then put Firebase Hosting in front:
+
+```bash
+firebase deploy --only hosting --project your-project
+```
+
+`firebase.json` serves `web/` from Firebase Hosting and rewrites `/api/**` to the Cloud Run service. Hosting forwards only a cookie named `__session`, so that is the session cookie, and API answers are sent `Cache-Control: private, no-store` so the CDN never caches one session's data for another. Requests through Hosting time out after 60 seconds; the Cloud Run URL serves the same app without that limit. Grounding with Google Search and URL context need no role beyond `roles/aiplatform.user`. Set `GEMINI_MODEL` when deploying to pin a model.
 
 Spending is capped per day: 400,000 tokens per session and 3,000,000 for the whole deployment (`AI_DAILY_TOKENS`, `AI_GLOBAL_DAILY_TOKENS`), 30 model calls per session per 10 minutes, and, because grounding is also billed per search query, 8 investigations per session and 40 for the deployment (`AI_SESSION_INVESTIGATIONS`, `AI_DAILY_INVESTIGATIONS`). The rules engine is never rate-limited.
 

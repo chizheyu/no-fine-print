@@ -282,3 +282,20 @@ test('other long tasks report progress too; a failure after the first step arriv
     assert.deepEqual(k.lines.at(-1), { error: { code: 'bad_json', message: 'The model returned malformed JSON; try again.' } });
   } finally { broken.close(); }
 });
+
+test('the session rides on __session (the only cookie Firebase Hosting forwards) and API answers are never cached', async () => {
+  const app = await createApp({ store: memoryStore(), llm: null, today: () => '2026-10-06' });
+  const server = app.listen(0);
+  const base = `http://127.0.0.1:${server.address().port}`;
+  try {
+    const first = await fetch(`${base}/api/status`);
+    const set = first.headers.get('set-cookie') || '';
+    assert.match(set, /__session=[0-9a-f-]{36}/);
+    assert.equal(first.headers.get('cache-control'), 'private, no-store');
+    const sid = /__session=([0-9a-f-]{36})/.exec(set)[1];
+    const again = await fetch(`${base}/api/status`, { headers: { cookie: `__session=${sid}` } });
+    assert.equal(again.headers.get('set-cookie'), null);
+    const old = await fetch(`${base}/api/status`, { headers: { cookie: `nfp_sid=${sid}` } });
+    assert.match(old.headers.get('set-cookie') || '', new RegExp(`__session=${sid}`));
+  } finally { server.close(); }
+});

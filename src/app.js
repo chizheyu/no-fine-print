@@ -137,9 +137,15 @@ export async function createApp({ store, llm = null, env = process.env, fetchImp
       'X-Frame-Options': 'DENY',
       'Content-Security-Policy': "default-src 'self'; img-src 'self' data:; style-src 'self' 'unsafe-inline'; connect-src 'self'; frame-ancestors 'none'; base-uri 'none'",
     });
-    const m = /(?:^|;\s*)nfp_sid=([0-9a-f-]{36})/.exec(req.headers.cookie || '');
+    // API answers belong to one session; the Firebase Hosting CDN in front must never cache them.
+    if (req.path.startsWith('/api/')) res.set('Cache-Control', 'private, no-store');
+    // Firebase Hosting forwards only a cookie named __session to Cloud Run, so that is the
+    // session cookie; nfp_sid is still read for sessions started before Hosting was added.
+    const m = /(?:^|;\s*)(?:__session|nfp_sid)=([0-9a-f-]{36})/.exec(req.headers.cookie || '');
     req.sid = m ? m[1] : randomUUID();
-    if (!m) res.append('Set-Cookie', `nfp_sid=${req.sid}; Path=/; HttpOnly; SameSite=Lax; Max-Age=31536000${req.secure ? '; Secure' : ''}`);
+    if (!/(?:^|;\s*)__session=/.test(req.headers.cookie || '')) {
+      res.append('Set-Cookie', `__session=${req.sid}; Path=/; HttpOnly; SameSite=Lax; Max-Age=31536000${req.secure ? '; Secure' : ''}`);
+    }
     next();
   });
   app.use(express.static(path.join(ROOT, 'web'), { extensions: ['html'], maxAge: '5m' }));
