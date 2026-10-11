@@ -1,6 +1,6 @@
 // Verbatim-quote verification. When a model says "the rules state X", X has to be
 // findable in the text we actually fetched. Matching tolerates typography (curly
-// quotes, dashes, whitespace, case) and "..." elisions, nothing else.
+// quotes, dashes, whitespace, case, list bullets) and "..." elisions, nothing else.
 
 export function normText(s) {
   return String(s ?? '')
@@ -9,6 +9,9 @@ export function normText(s) {
     .replace(/[‘’‚‛′]/g, "'")
     .replace(/[“”„‟″]/g, '"')
     .replace(/[‐-―−]/g, '-')
+    // A bullet that starts a line is layout (htmlToText writes each <li> as "- "), so
+    // a quote may run across list items. A hyphen inside a line still has to match.
+    .replace(/^[ \t]*[-*•](?:[ \t]+|$)/gm, '')
     .replace(/\s+/g, ' ')
     .toLowerCase()
     .trim();

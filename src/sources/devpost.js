@@ -57,7 +57,7 @@ export function readRules(text, url) {
     if (only && !out.elig.region) { out.elig.region = 'unknown'; q('region', s); }
     if (RULES.sanctions.test(s) && !out.elig.region) { out.elig.region = 'global'; q('region', s); }
     if (RULES.promotionStaff.test(s) && out.sponsors.length) { out.elig.excludes_employees_of = [...out.sponsors, 'Devpost']; q('employees', s); }
-    if (RULES.judgeEmployers.test(s)) { out.elig.excludes_judge_employers = true; q('employees', s); }
+    if (RULES.judgeEmployers.test(s)) { out.elig.excludes_judge_employers = true; q('judge_employers', s); }
   }
   return out;
 }

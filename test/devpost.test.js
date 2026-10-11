@@ -27,4 +27,6 @@ test('standard Devpost rules: existing work, staff exclusions and sanctions clau
   assert.equal(r.elig.excludes_judge_employers, true);
   assert.equal(r.elig.age_min, 18);
   assert.match(r.quotes.existing.text, /significantly updated/);
+  assert.match(r.quotes.judge_employers.text, /employs a Judge/);
+  assert.match(r.quotes.employees.text, /Promotion Entities/);
 });

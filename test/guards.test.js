@@ -50,3 +50,12 @@ test('quotes: exact, typographic and elided matches; inventions fail', () => {
   assert.equal(verifyQuote('Teams may range from one to five members', src).ok, false);
   assert.equal(verifyQuote('Two', src).ok, false);
 });
+
+test('quotes may run across list items; bullets are layout, hyphens inside a line are not', () => {
+  // htmlToText writes each <li> as "- ", which can end up alone on its own line.
+  const src = 'The Hackathon IS NOT open to:\n-\nOrganizations involved with the Hackathon ("Promotion Entities").\n-\nEmployees, representatives and agents of such Promotion Entities.\n- Any Judge, or company that employs a Judge.\nA well-known rule.';
+  assert.equal(verifyQuote('Organizations involved with the Hackathon ("Promotion Entities"). Employees, representatives and agents of such Promotion Entities.', src).ok, true);
+  assert.equal(verifyQuote('Employees, representatives and agents of such Promotion Entities. Any Judge, or company that employs a Judge.', src).ok, true);
+  assert.equal(verifyQuote('A wellknown rule', src).ok, false);
+  assert.equal(verifyQuote('Employees, representatives and agents of the Sponsor.', src).ok, false);
+});

@@ -24,7 +24,7 @@ export function checkEligibility(opp, project, today) {
   const team = project?.team || [];
   const add = (level, code, text, quoteKey) => {
     const r = { level, code, text };
-    const quote = quoteKey && q[quoteKey];
+    const quote = [].concat(quoteKey || []).map((k) => q[k]).find((x) => x?.text);
     if (quote?.text) Object.assign(r, { quote: quote.text, url: quote.url || opp.url || null });
     reasons.push(r);
   };
@@ -143,7 +143,7 @@ export function checkEligibility(opp, project, today) {
     }
     const judgeCo = (opp.judge_companies || []).find((x) => sameCompany(m.employer, x));
     if (judgeCo && e.excludes_judge_employers) {
-      add('out', 'employer', `${who(m, i)} works for ${m.employer}; the rules exclude any company that employs a judge (${judgeCo}).`, 'employees');
+      add('out', 'employer', `${who(m, i)} works for ${m.employer}; the rules exclude any company that employs a judge (${judgeCo}).`, ['judge_employers', 'employees']);
       return;
     }
     const backer = [opp.organizer, ...(opp.sponsors || []), opp.title].find((x) => sameCompany(m.employer, x));

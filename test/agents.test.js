@@ -40,6 +40,18 @@ test('clerk keeps quoted claims and resets the ones it cannot quote', () => {
   assert.equal(el.reasons.find((r) => r.code === 'students').quote, 'Full-time or part-time students are strictly ineligible.');
 });
 
+test('the judge-employer clause needs its own quote, not the sponsor-staff one', () => {
+  const rules = 'Employees, representatives and agents of the Sponsor may not enter. Any Judge may not enter.';
+  const raw = { title: 'Cup', type: 'hackathon', students: 'unknown', region: 'unknown', accepts_existing: 'unknown', excludes_employees_of: ['Sponsor'], excludes_judge_employers: true,
+    quotes: { employees: 'Employees, representatives and agents of the Sponsor may not enter.' } };
+  const { out, unverified } = verifyExtraction(raw, rules);
+  assert.deepEqual(out.excludes_employees_of, ['Sponsor']);
+  assert.equal(out.excludes_judge_employers, false, 'a clause the rules do not have was claimed');
+  assert.deepEqual(unverified.map((u) => u.field), ['excludes_judge_employers']);
+  const backed = verifyExtraction({ ...raw, quotes: { ...raw.quotes, judge_employers: 'Any Judge may not enter.' } }, rules);
+  assert.equal(backed.out.excludes_judge_employers, true);
+});
+
 test('model picker prefers the newest stable Flash', () => {
   assert.equal(pickModel(['gemini-2.5-pro', 'gemini-2.5-flash', 'gemini-3.1-flash-preview', 'gemini-2.5-flash-lite', 'gemini-2.0-flash-001']), 'gemini-2.5-flash');
   assert.equal(pickModel(['gemini-3.1-flash', 'gemini-2.5-flash']), 'gemini-3.1-flash');

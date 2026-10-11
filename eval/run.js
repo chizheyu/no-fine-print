@@ -69,4 +69,5 @@ const summary = {
   quotesVerified: `${verified}/${claimed}`, tokens: llm.usage,
 };
 console.log(summary);
-await writeFile(here(`./results/${summary.ranAt.slice(0, 10)}-${llm.model}.json`), JSON.stringify({ summary, rows }, null, 1));
+// Date and time (UTC) in the name, so a second run on the same day keeps the first.
+await writeFile(here(`./results/${summary.ranAt.slice(0, 16).replace(':', '')}-${llm.model}.json`), JSON.stringify({ summary, rows }, null, 1));

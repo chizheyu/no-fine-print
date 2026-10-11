@@ -63,10 +63,16 @@ test('explicit employee exclusion is out', () => {
   assert.equal(el.status, 'out');
 });
 
-test('"company that employs a judge" clause is out when the rules have it', () => {
-  const o = opp({ judge_companies: ['PayPal', 'Elastic'], elig: { students: 'open', region: 'global', excludes_judge_employers: true } });
+test('"company that employs a judge" clause is out when the rules have it, and quotes that clause', () => {
+  const judgeClause = { text: 'Any Judge (defined below), or company or individual that employs a Judge' };
+  const o = opp({ judge_companies: ['PayPal', 'Elastic'], elig: { students: 'open', region: 'global', excludes_judge_employers: true },
+    quotes: { employees: { text: 'Employees of the Sponsor may not enter.' }, judge_employers: judgeClause } });
   const el = checkEligibility(o, project({ codeStartedAt: '2026-10-06', team: [member({ employer: 'Elastic N.V.' })] }), TODAY);
-  assert.ok(by(el, 'employer').some((r) => r.level === 'out' && /judge/.test(r.text)));
+  const out = by(el, 'employer').find((r) => r.level === 'out' && /judge/.test(r.text));
+  assert.equal(out.quote, judgeClause.text);
+  // Records made before the clause had its own key keep it under "employees".
+  const old = checkEligibility({ ...o, quotes: { employees: judgeClause } }, project({ codeStartedAt: '2026-10-06', team: [member({ employer: 'Elastic N.V.' })] }), TODAY);
+  assert.equal(by(old, 'employer').find((r) => r.level === 'out').quote, judgeClause.text);
 });
 
 test('employer that sets a problem statement gets a warning', () => {

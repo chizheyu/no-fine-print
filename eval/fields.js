@@ -13,7 +13,7 @@ export const FIELD = {
 export const QUOTE_KEY = {
   students: 'students', region: 'region', excludes_cn: 'region', team_min: 'team', team_max: 'team', age_min: 'age',
   accepts_existing: 'existing', deadline: 'deadline', build_start: 'build_start', ip_first_refusal: 'ip',
-  excludes_employees_of: 'employees', excludes_judge_employers: 'employees',
+  excludes_employees_of: 'employees', excludes_judge_employers: 'judge_employers',
 };
 
 export const blank = (v) => v == null || v === 0 || v === 'unknown' || v === '';
