@@ -23,7 +23,7 @@ const CONFLICTS = /contradict|conflict|disagree|inconsisten/i;
 
 const MIN_SHARE = 0.95;
 // Gemini 3 bills grounding per search query. Without a cap one card ran 52 searches;
-// the model overshoots the number it is given by about half.
+// with this cap our runs used 4 to 8 (the model does not always comply).
 const MAX_SEARCHES = 6;
 // Pages read whole cost tokens: a published Google Doc came to 111,000, a Devpost
 // rules page to 8,000. Documents and PDFs are left to search.
