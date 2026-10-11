@@ -117,9 +117,9 @@
 <!-- Identity -->
 <rect class="a-code" x="1160" y="585" width="519" height="120" rx="14"/>
 <text class="a-m" x="1184" y="619">Least privilege</text>
-<text class="a-b" x="1184" y="648">Service account nfp-run: aiplatform.user</text>
-<text class="a-b" x="1184" y="671">and datastore.user only. No API keys</text>
-<text class="a-b" x="1184" y="694">in the container.</text>
+<text class="a-b" x="1184" y="648">Service account nfp-run: aiplatform.user and</text>
+<text class="a-b" x="1184" y="671">datastore.user on the project, run.invoker on</text>
+<text class="a-b" x="1184" y="694">the scan job only. No API keys in the container.</text>
 
 <!-- Legend -->
 <rect class="a-svc" x="1" y="740" width="30" height="22" rx="5"/>
