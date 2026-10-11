@@ -1,5 +1,5 @@
 import express from 'express';
-import { randomUUID } from 'node:crypto';
+import { randomUUID, createHash } from 'node:crypto';
 import { readFile } from 'node:fs/promises';
 import { fileURLToPath } from 'node:url';
 import path from 'node:path';
@@ -12,12 +12,14 @@ import { fetchPage } from './sources/fetchPage.js';
 import { extractTerms } from './agents/clerk.js';
 import { buildDossier } from './agents/profiler.js';
 import { draftKit, simulateJudges } from './agents/coach.js';
+import { investigate } from './agents/investigator.js';
 
 const ROOT = path.dirname(path.dirname(fileURLToPath(import.meta.url)));
 const STATUS = { bad_input: 400, not_found: 404, rate_limited: 429, budget: 429, ai_off: 503, bad_json: 502, upstream: 502 };
 
 const coded = (message, code) => Object.assign(new Error(message), { code });
 const GLOBAL = '_all_sessions';
+const INVESTIGATIONS = '_investigations';
 
 const urlKey = (u) => String(u || '').toLowerCase().replace(/\/rules\/?$/, '').replace(/\/+$/, '');
 
@@ -34,6 +36,30 @@ export function mergeSources(seeds, scanned) {
       : { ...f, id: s.id };
   });
   return [...merged, ...fresh.values()];
+}
+
+// Long model calls report progress to clients that ask for it (Accept:
+// application/x-ndjson): one JSON line per step ({"step": ...}, or {"note": ...} to
+// update the current one), then {"result": ...} or {"error": ...}. Other clients get
+// a single JSON body, as before.
+function replier(req, res) {
+  const wants = String(req.headers.accept || '').includes('application/x-ndjson');
+  let open = false;
+  const line = (o) => { if (!res.destroyed && !res.writableEnded) res.write(`${JSON.stringify(o)}\n`); };
+  const send = (o) => {
+    if (!wants) return;
+    if (!open) {
+      open = true;
+      res.status(200).set({ 'Content-Type': 'application/x-ndjson; charset=utf-8', 'Cache-Control': 'no-store' });
+    }
+    line(o);
+  };
+  return {
+    step: (text) => send({ step: String(text) }),
+    note: (text) => send({ note: String(text) }),
+    json(body) { if (open) { line({ result: body }); res.end(); } else res.json(body); },
+    fail(status, error) { if (open) { line({ error }); res.end(); } else res.status(status).json({ error }); },
+  };
 }
 
 function rateLimiter({ windowMs, max }) {
@@ -60,6 +86,10 @@ export async function createApp({ store, llm = null, env = process.env, fetchImp
   // bound the bill: there is also one daily cap for the whole deployment.
   const globalTokens = Number(env.AI_GLOBAL_DAILY_TOKENS || 3000000);
   const perSession = rateLimiter({ windowMs: 10 * 60 * 1000, max: Number(env.AI_REQUESTS_PER_10_MIN || 30) });
+  // Grounded calls are also billed per search query, so investigations have their own
+  // daily counts on top of the token budgets.
+  const investigationsPerDay = Number(env.AI_DAILY_INVESTIGATIONS || 40);
+  const investigationsPerSession = Number(env.AI_SESSION_INVESTIGATIONS || 8);
 
   async function allOpps(sid) {
     const [shared, mine] = await Promise.all([store.listShared(), store.listOpps(sid)]);
@@ -73,6 +103,7 @@ export async function createApp({ store, llm = null, env = process.env, fetchImp
   const guarded = (handler, { needsAI = false, usesAI = needsAI } = {}) => async (req, res) => {
     let spent = 0;
     const day = today();
+    const reply = replier(req, res);
     try {
       if (needsAI && !llm) throw coded('AI is not configured on this server.', 'ai_off');
       if (usesAI && llm) {
@@ -80,11 +111,16 @@ export async function createApp({ store, llm = null, env = process.env, fetchImp
         if ((await store.usage(req.sid, day)) > dailyTokens) throw coded("Today's AI budget for this session is used up.", 'budget');
         if ((await store.usage(GLOBAL, day)) > globalTokens) throw coded('The demo has used its AI budget for today. The rules engine still works.', 'budget');
       }
-      const scoped = llm && { ...llm, generate: (o) => llm.generate({ ...o, meter: (n) => { spent += n; } }) };
-      await handler(req, res, scoped);
+      const meter = (n) => { spent += n; };
+      const scoped = llm && {
+        ...llm,
+        generate: (o) => llm.generate({ ...o, meter }),
+        ...(llm.ground ? { ground: (o) => llm.ground({ ...o, meter }) } : {}),
+      };
+      await handler(req, reply, scoped);
     } catch (e) {
       if (!STATUS[e.code]) console.error(e);
-      res.status(STATUS[e.code] || 500).json({ error: { code: e.code || 'internal', message: STATUS[e.code] ? e.message : 'Something went wrong on our side.' } });
+      reply.fail(STATUS[e.code] || 500, { code: e.code || 'internal', message: STATUS[e.code] ? e.message : 'Something went wrong on our side.' });
     } finally {
       if (spent > 0) await Promise.all([store.addUsage(req.sid, day, spent), store.addUsage(GLOBAL, day, spent)]).catch(() => {});
     }
@@ -117,51 +153,74 @@ export async function createApp({ store, llm = null, env = process.env, fetchImp
 
   app.get('/api/sample', (req, res) => res.json({ dossier: sample }));
 
-  app.get('/api/dossiers', guarded(async (req, res) => res.json({ dossiers: await store.listDossiers(req.sid) })));
-  app.put('/api/dossiers', guarded(async (req, res) => res.json({ dossier: await store.saveDossier(req.sid, cleanDossier(req.body?.dossier)) })));
+  app.get('/api/dossiers', guarded(async (req, reply) => reply.json({ dossiers: await store.listDossiers(req.sid) })));
+  app.put('/api/dossiers', guarded(async (req, reply) => reply.json({ dossier: await store.saveDossier(req.sid, cleanDossier(req.body?.dossier)) })));
 
-  app.post('/api/dossiers/from-github', guarded(async (req, res, scoped) => {
-    res.json(await buildDossier({ repoUrl: req.body?.url, llm: scoped, fetchImpl, token: env.GITHUB_TOKEN }));
+  app.post('/api/dossiers/from-github', guarded(async (req, reply, scoped) => {
+    reply.json(await buildDossier({ repoUrl: req.body?.url, llm: scoped, fetchImpl, token: env.GITHUB_TOKEN, step: reply.step }));
   }, { usesAI: true }));
 
-  app.post('/api/rank', guarded(async (req, res) => {
+  app.post('/api/rank', guarded(async (req, reply) => {
     const dossier = cleanDossier(req.body?.dossier);
     const ranked = rankOpportunities(await allOpps(req.sid), dossier, today(), { allTypes: Boolean(req.body?.allTypes) });
-    res.json({ today: today(), results: ranked });
+    reply.json({ today: today(), results: ranked });
   }));
 
-  app.post('/api/opportunities/extract', guarded(async (req, res, scoped) => {
+  app.post('/api/opportunities/extract', guarded(async (req, reply, scoped) => {
     let text = String(req.body?.text || '');
     let url = String(req.body?.url || '').trim() || null;
     if (!text && url) {
+      reply.step('Fetching the rules page.');
       const page = await fetchPage(url, { fetchImpl, ...(resolve ? { resolve } : {}) });
       if (!page.ok) throw coded(page.reason, 'bad_input');
       text = page.text;
       url = page.url || url;
     }
     if (!text.trim()) throw coded('Give a link to the rules or paste their text.', 'bad_input');
-    const { opp, stats } = await extractTerms({ text: text.slice(0, 200000), url, llm: scoped, today: today() });
+    const { opp, stats } = await extractTerms({ text: text.slice(0, 200000), url, llm: scoped, today: today(), step: reply.step });
     await store.saveOpp(req.sid, opp);
-    res.json({ opp, stats });
+    reply.json({ opp, stats });
   }, { needsAI: true }));
 
-  app.post('/api/kit', guarded(async (req, res, scoped) => {
+  app.post('/api/kit', guarded(async (req, reply, scoped) => {
     const dossier = cleanDossier(req.body?.dossier);
     const opp = await findOpp(req.sid, req.body?.oppId);
     if (!opp) throw coded('Unknown event.', 'not_found');
-    res.json(await draftKit({ opp, dossier, eligibility: checkEligibility(opp, dossier, today()), llm: scoped }));
+    reply.json(await draftKit({ opp, dossier, eligibility: checkEligibility(opp, dossier, today()), llm: scoped, step: reply.step, note: reply.note }));
   }, { needsAI: true }));
 
-  app.post('/api/judge', guarded(async (req, res, scoped) => {
+  app.post('/api/judge', guarded(async (req, reply, scoped) => {
     const opp = await findOpp(req.sid, req.body?.oppId);
     if (!opp) throw coded('Unknown event.', 'not_found');
     const kitText = String(req.body?.kitText || '');
     if (kitText.length < 200) throw coded('Draft the application kit first.', 'bad_input');
-    res.json(await simulateJudges({ opp, kitText, llm: scoped }));
+    reply.json(await simulateJudges({ opp, kitText, llm: scoped, step: reply.step }));
   }, { needsAI: true }));
 
-  app.get('/api/bets', guarded(async (req, res) => res.json({ bets: await store.listBets(req.sid) })));
-  app.post('/api/bets', guarded(async (req, res) => res.json({ bet: await store.saveBet(req.sid, cleanBet(req.body?.bet)) })));
+  // Due diligence with Gemini, Google Search and URL context. A card is shared by
+  // every session for the day (its input is public event data), so each event is
+  // searched at most once a day; investigations are counted before the call.
+  app.post('/api/investigate', guarded(async (req, reply, scoped) => {
+    const opp = await findOpp(req.sid, req.body?.oppId);
+    if (!opp) throw coded('Unknown event.', 'not_found');
+    const day = today();
+    const key = `${day}-${createHash('sha256').update([opp.id, opp.title, opp.url || ''].join('\n')).digest('hex').slice(0, 24)}`;
+    const cached = await store.getCard(key);
+    if (cached) {
+      reply.step('This event was investigated earlier today; showing that card. Nothing new was searched.');
+      return reply.json({ card: cached, cached: true });
+    }
+    const mine = `${req.sid}${INVESTIGATIONS}`;
+    if ((await store.usage(mine, day)) >= investigationsPerSession) throw coded('This session has used its investigations for today.', 'budget');
+    if ((await store.usage(INVESTIGATIONS, day)) >= investigationsPerDay) throw coded('The demo has used its investigations for today. Cards made earlier today still open.', 'budget');
+    await Promise.all([store.addUsage(mine, day, 1), store.addUsage(INVESTIGATIONS, day, 1)]);
+    const card = { ...(await investigate({ opp, llm: scoped, fetchImpl, step: reply.step })), day };
+    await store.saveCard(key, card);
+    reply.json({ card, cached: false });
+  }, { needsAI: true }));
+
+  app.get('/api/bets', guarded(async (req, reply) => reply.json({ bets: await store.listBets(req.sid) })));
+  app.post('/api/bets', guarded(async (req, reply) => reply.json({ bet: await store.saveBet(req.sid, cleanBet(req.body?.bet)) })));
 
   app.use('/api', (req, res) => res.status(404).json({ error: { code: 'not_found', message: 'No such endpoint.' } }));
   return app;

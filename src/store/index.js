@@ -1,13 +1,16 @@
 // Storage. Each browser session gets its own space (dossiers, added events, bets).
+// Investigation cards are shared: they hold only public facts about an event.
 // Locally everything lives in memory; on Cloud Run set STORE=firestore.
 
 import { randomUUID } from 'node:crypto';
 
 const MAX_SESSIONS = 5000;
+const MAX_CARDS = 500;
 
 export function memoryStore() {
   const sessions = new Map();
   const shared = new Map();
+  const cards = new Map();
   const space = (sid) => {
     if (!sessions.has(sid)) {
       if (sessions.size >= MAX_SESSIONS) sessions.delete(sessions.keys().next().value);
@@ -28,6 +31,8 @@ export function memoryStore() {
     async saveBet(sid, b) { const doc = { ...b, id: b.id || randomUUID() }; space(sid).bets.set(doc.id, doc); return doc; },
     async usage(sid, day) { return space(sid).usage.get(day) || 0; },
     async addUsage(sid, day, tokens) { const u = space(sid).usage; u.set(day, (u.get(day) || 0) + tokens); },
+    async getCard(key) { return cards.get(key) || null; },
+    async saveCard(key, card) { if (cards.size >= MAX_CARDS) cards.delete(cards.keys().next().value); cards.set(key, card); return card; },
   };
 }
 
@@ -56,6 +61,8 @@ export async function firestoreStore(env) {
     async saveBet(sid, b) { const doc = { ...b, id: b.id || randomUUID() }; await col(sid, 'bets').doc(doc.id).set(doc); return doc; },
     async usage(sid, day) { const s = await col(sid, 'usage').doc(day).get(); return s.exists ? s.data().tokens || 0 : 0; },
     async addUsage(sid, day, tokens) { await col(sid, 'usage').doc(day).set({ tokens: FieldValue.increment(tokens) }, { merge: true }); },
+    async getCard(key) { const s = await db.collection('investigations').doc(key).get(); return s.exists ? s.data() : null; },
+    async saveCard(key, card) { await db.collection('investigations').doc(key).set(card); return card; },
   };
 }
 

@@ -154,10 +154,11 @@ export function toOpportunity(raw, { url, today, quotes, unverified }) {
   };
 }
 
-export async function extractTerms({ text, url, llm, today }) {
+export async function extractTerms({ text, url, llm, today, step = () => {} }) {
   if (!llm) throw Object.assign(new Error('AI is not configured on this server.'), { code: 'ai_off' });
   const quality = assessText(text);
   if (!quality.ok) throw Object.assign(new Error(quality.reason), { code: 'bad_input' });
+  step(`Gemini is reading ${Math.min(text.length, 150000).toLocaleString('en-US')} characters of rules and filling in the eligibility form.`);
   const raw = await llm.generate({
     system: SYSTEM,
     prompt: `Source: ${url || 'pasted by the user'}\nToday: ${today}\n\n<rules>\n${String(text).slice(0, 150000)}\n</rules>`,
@@ -165,6 +166,7 @@ export async function extractTerms({ text, url, llm, today }) {
     temperature: 0,
   });
   if (!raw?.title) throw Object.assign(new Error('Could not find an event in that text.'), { code: 'bad_json' });
+  step('Checking the quote behind each field against the page text.');
   const { out, quotes, unverified, stats } = verifyExtraction(raw, text);
   return { opp: toOpportunity(out, { url, today, quotes, unverified }), stats };
 }
