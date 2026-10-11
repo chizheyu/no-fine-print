@@ -1,0 +1,433 @@
+{
+ "summary": {
+  "model": "gemini-3.8-flash",
+  "backend": "vertex-ai",
+  "location": "global",
+  "asOf": "2026-10-11",
+  "ranAt": "2026-10-11T07:44:23.307Z",
+  "events": 5,
+  "failedEvents": 0,
+  "fieldAccuracy": "42/45",
+  "trapsPassed": "9/9",
+  "confidentErrors": 0,
+  "quotesVerified": "31/35",
+  "tokens": {
+   "calls": 5,
+   "inputTokens": 43637,
+   "outputTokens": 13764
+  }
+ },
+ "rows": [
+  {
+   "event": "google-ai-builder-cup-2026",
+   "field": "students",
+   "expected": "[\"excluded\"]",
+   "got": "\"excluded\"",
+   "ok": true,
+   "quoted": true,
+   "trap": false
+  },
+  {
+   "event": "google-ai-builder-cup-2026",
+   "field": "region",
+   "expected": "[\"japac\"]",
+   "got": "\"unknown\"",
+   "ok": false,
+   "quoted": false,
+   "trap": false,
+   "resetFrom": "Japan & Asia-Pacific residents only",
+   "resetQuote": null
+  },
+  {
+   "event": "google-ai-builder-cup-2026",
+   "field": "excludes_cn",
+   "expected": "[false]",
+   "got": "false",
+   "ok": true,
+   "quoted": false,
+   "trap": true
+  },
+  {
+   "event": "google-ai-builder-cup-2026",
+   "field": "team_min",
+   "expected": "[2]",
+   "got": "2",
+   "ok": true,
+   "quoted": true,
+   "trap": false
+  },
+  {
+   "event": "google-ai-builder-cup-2026",
+   "field": "team_max",
+   "expected": "[4]",
+   "got": "4",
+   "ok": true,
+   "quoted": true,
+   "trap": false
+  },
+  {
+   "event": "google-ai-builder-cup-2026",
+   "field": "age_min",
+   "expected": "[21]",
+   "got": "21",
+   "ok": true,
+   "quoted": true,
+   "trap": false
+  },
+  {
+   "event": "google-ai-builder-cup-2026",
+   "field": "accepts_existing",
+   "expected": "[\"no\"]",
+   "got": "\"unknown\"",
+   "ok": false,
+   "quoted": false,
+   "trap": false,
+   "resetFrom": "new work only",
+   "resetQuote": null
+  },
+  {
+   "event": "google-ai-builder-cup-2026",
+   "field": "deadline",
+   "expected": "[null]",
+   "got": "null",
+   "ok": true,
+   "quoted": false,
+   "trap": true
+  },
+  {
+   "event": "google-ai-builder-cup-2026",
+   "field": "build_start",
+   "expected": "[null]",
+   "got": "null",
+   "ok": true,
+   "quoted": false,
+   "trap": true
+  },
+  {
+   "event": "google-ai-builder-cup-2026",
+   "field": "ip_first_refusal",
+   "expected": "[true]",
+   "got": "false",
+   "ok": false,
+   "quoted": false,
+   "trap": false,
+   "resetFrom": "organiser has a right of first refusal",
+   "resetQuote": null
+  },
+  {
+   "event": "google-ai-builder-cup-2026",
+   "field": "excludes_employees_of",
+   "expected": "[[]]",
+   "got": "[]",
+   "ok": true,
+   "quoted": false,
+   "trap": false
+  },
+  {
+   "event": "paypal-ai-hackathon-2026",
+   "field": "students",
+   "expected": "[\"open\",\"unknown\"]",
+   "got": "\"open\"",
+   "ok": true,
+   "quoted": true,
+   "trap": false
+  },
+  {
+   "event": "paypal-ai-hackathon-2026",
+   "field": "region",
+   "expected": "[\"global\"]",
+   "got": "\"global\"",
+   "ok": true,
+   "quoted": true,
+   "trap": false
+  },
+  {
+   "event": "paypal-ai-hackathon-2026",
+   "field": "accepts_existing",
+   "expected": "[\"partial\"]",
+   "got": "\"partial\"",
+   "ok": true,
+   "quoted": true,
+   "trap": false
+  },
+  {
+   "event": "paypal-ai-hackathon-2026",
+   "field": "deadline",
+   "expected": "[\"2026-11-12\"]",
+   "got": "\"2026-11-12\"",
+   "ok": true,
+   "quoted": true,
+   "trap": false
+  },
+  {
+   "event": "paypal-ai-hackathon-2026",
+   "field": "build_start",
+   "expected": "[\"2026-10-01\"]",
+   "got": "\"2026-10-01\"",
+   "ok": true,
+   "quoted": true,
+   "trap": false
+  },
+  {
+   "event": "paypal-ai-hackathon-2026",
+   "field": "excludes_judge_employers",
+   "expected": "[true]",
+   "got": "true",
+   "ok": true,
+   "quoted": true,
+   "trap": false
+  },
+  {
+   "event": "paypal-ai-hackathon-2026",
+   "field": "excludes_employees_of",
+   "expected": "[\"contains:paypal\"]",
+   "got": "[\"PayPal Inc.\",\"Devpost, Inc.\"]",
+   "ok": true,
+   "quoted": true,
+   "trap": false
+  },
+  {
+   "event": "build-with-ai-basics-2026",
+   "field": "students",
+   "expected": "[\"open\",\"unknown\"]",
+   "got": "\"open\"",
+   "ok": true,
+   "quoted": true,
+   "trap": false
+  },
+  {
+   "event": "build-with-ai-basics-2026",
+   "field": "region",
+   "expected": "[\"global\"]",
+   "got": "\"global\"",
+   "ok": true,
+   "quoted": true,
+   "trap": false
+  },
+  {
+   "event": "build-with-ai-basics-2026",
+   "field": "age_min",
+   "expected": "[null]",
+   "got": "null",
+   "ok": true,
+   "quoted": false,
+   "trap": true
+  },
+  {
+   "event": "build-with-ai-basics-2026",
+   "field": "team_max",
+   "expected": "[null]",
+   "got": "null",
+   "ok": true,
+   "quoted": false,
+   "trap": true
+  },
+  {
+   "event": "build-with-ai-basics-2026",
+   "field": "accepts_existing",
+   "expected": "[\"no\"]",
+   "got": "\"no\"",
+   "ok": true,
+   "quoted": true,
+   "trap": false
+  },
+  {
+   "event": "build-with-ai-basics-2026",
+   "field": "deadline",
+   "expected": "[\"2026-10-26\"]",
+   "got": "\"2026-10-26\"",
+   "ok": true,
+   "quoted": true,
+   "trap": false
+  },
+  {
+   "event": "build-with-ai-basics-2026",
+   "field": "build_start",
+   "expected": "[\"2026-09-22\"]",
+   "got": "\"2026-09-22\"",
+   "ok": true,
+   "quoted": true,
+   "trap": false
+  },
+  {
+   "event": "build-with-ai-basics-2026",
+   "field": "excludes_employees_of",
+   "expected": "[\"contains:devpost\"]",
+   "got": "[\"Devpost, Inc.\"]",
+   "ok": true,
+   "quoted": true,
+   "trap": false
+  },
+  {
+   "event": "build-with-ai-basics-2026",
+   "field": "excludes_judge_employers",
+   "expected": "[true]",
+   "got": "true",
+   "ok": true,
+   "quoted": true,
+   "trap": false
+  },
+  {
+   "event": "build-with-ai-basics-2026",
+   "field": "ip_first_refusal",
+   "expected": "[false]",
+   "got": "false",
+   "ok": true,
+   "quoted": false,
+   "trap": false
+  },
+  {
+   "event": "qloo-agentic-hackathon-2026",
+   "field": "region",
+   "expected": "[\"global\"]",
+   "got": "\"global\"",
+   "ok": true,
+   "quoted": true,
+   "trap": false
+  },
+  {
+   "event": "qloo-agentic-hackathon-2026",
+   "field": "accepts_existing",
+   "expected": "[\"partial\"]",
+   "got": "\"partial\"",
+   "ok": true,
+   "quoted": true,
+   "trap": false
+  },
+  {
+   "event": "qloo-agentic-hackathon-2026",
+   "field": "deadline",
+   "expected": "[\"2026-10-30\"]",
+   "got": "\"2026-10-30\"",
+   "ok": true,
+   "quoted": true,
+   "trap": false
+  },
+  {
+   "event": "qloo-agentic-hackathon-2026",
+   "field": "build_start",
+   "expected": "[\"2026-09-30\"]",
+   "got": "\"2026-09-30\"",
+   "ok": true,
+   "quoted": true,
+   "trap": false
+  },
+  {
+   "event": "qloo-agentic-hackathon-2026",
+   "field": "excludes_employees_of",
+   "expected": "[\"contains:qloo\"]",
+   "got": "[\"Qloo\"]",
+   "ok": true,
+   "quoted": true,
+   "trap": false
+  },
+  {
+   "event": "qloo-agentic-hackathon-2026",
+   "field": "excludes_judge_employers",
+   "expected": "[true]",
+   "got": "true",
+   "ok": true,
+   "quoted": true,
+   "trap": false
+  },
+  {
+   "event": "meta-vr-start-2026",
+   "field": "region",
+   "expected": "[\"global\"]",
+   "got": "\"global\"",
+   "ok": true,
+   "quoted": true,
+   "trap": false
+  },
+  {
+   "event": "meta-vr-start-2026",
+   "field": "excludes_cn",
+   "expected": "[false]",
+   "got": "false",
+   "ok": true,
+   "quoted": true,
+   "trap": true
+  },
+  {
+   "event": "meta-vr-start-2026",
+   "field": "age_min",
+   "expected": "[18]",
+   "got": "18",
+   "ok": true,
+   "quoted": true,
+   "trap": false
+  },
+  {
+   "event": "meta-vr-start-2026",
+   "field": "team_min",
+   "expected": "[null,1]",
+   "got": "1",
+   "ok": true,
+   "quoted": true,
+   "trap": true
+  },
+  {
+   "event": "meta-vr-start-2026",
+   "field": "team_max",
+   "expected": "[null]",
+   "got": "null",
+   "ok": true,
+   "quoted": true,
+   "trap": true
+  },
+  {
+   "event": "meta-vr-start-2026",
+   "field": "accepts_existing",
+   "expected": "[\"partial\"]",
+   "got": "\"partial\"",
+   "ok": true,
+   "quoted": true,
+   "trap": false
+  },
+  {
+   "event": "meta-vr-start-2026",
+   "field": "deadline",
+   "expected": "[\"2026-11-18\"]",
+   "got": "\"2026-11-18\"",
+   "ok": true,
+   "quoted": true,
+   "trap": false
+  },
+  {
+   "event": "meta-vr-start-2026",
+   "field": "build_start",
+   "expected": "[\"2026-09-24\"]",
+   "got": "\"2026-09-24\"",
+   "ok": true,
+   "quoted": true,
+   "trap": false
+  },
+  {
+   "event": "meta-vr-start-2026",
+   "field": "excludes_employees_of",
+   "expected": "[\"contains:meta\"]",
+   "got": "[\"Meta Platforms, Inc.\"]",
+   "ok": true,
+   "quoted": true,
+   "trap": false
+  },
+  {
+   "event": "meta-vr-start-2026",
+   "field": "excludes_judge_employers",
+   "expected": "[false]",
+   "got": "false",
+   "ok": true,
+   "quoted": true,
+   "trap": true
+  },
+  {
+   "event": "meta-vr-start-2026",
+   "field": "ip_first_refusal",
+   "expected": "[false]",
+   "got": "false",
+   "ok": true,
+   "quoted": false,
+   "trap": false
+  }
+ ]
+}

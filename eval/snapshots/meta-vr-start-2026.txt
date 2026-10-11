@@ -1,0 +1,397 @@
+Meta VR Start Developer Competition 2026: Accelerate your VR development journey with Meta VR Start and compete for $1M in cash prizes - Devpost
+-
+-
+-
+-
+-
+Log in
+-
+Sign up
+-
+Join a hackathon
+Devpost
+Participate in our public hackathons
+Hackathons
+Projects
+Devpost for Teams
+Access your company's private hackathons
+Login
+Host a hackathon
+Devpost
+Grow your developer ecosystem and promote your platform
+Host a public hackathon
+Devpost for Teams
+Drive innovation, collaboration, and retention within your organization
+Host an internal hackathon
+By use case
+AI hackathons
+Customer hackathons
+Employee hackathons
+Public hackathons
+Resources
+Blog
+Insights into hackathon planning and participation
+Customer stories
+Inspiration from peers and other industry leaders
+Planning guides
+Best practices for planning online and in-person hackathons
+Webinars & events
+Upcoming events and on-demand recordings
+Help desk
+Common questions and support documentation
+-
+-
+-
+Join a hackathon
+-
+Devpost
+Participate in our public hackathons
+Hackathons
+Projects
+Devpost for Teams
+Access your company's private hackathons
+Login
+-
+-
+Host a hackathon
+-
+Devpost
+Grow your developer ecosystem and promote your platform
+Host a public hackathon
+Devpost for Teams
+Drive innovation, collaboration, and retention within your organization
+Host an internal hackathon
+By use case
+AI hackathons
+Customer hackathons
+Employee hackathons
+Public hackathons
+-
+-
+Resources
+-
+Blog
+Insights into hackathon planning and participation
+Customer stories
+Inspiration from peers and other industry leaders
+Planning guides
+Best practices for planning online and in-person hackathons
+Webinars & events
+Upcoming events and on-demand recordings
+Help desk
+Common questions and support documentation
+-
+-
+-
+Log in
+-
+Sign up
+Meta VR Start Developer Competition 2026
+Deadline: Nov 18, 2026 @ 12:00pm PST
+Join hackathon
+Descend
+- Overview
+-
+My projects
+- Participants (2852)
+- Resources
+- Rules
+-
+Project gallery
+-
+Updates
+-
+Discussions
+- Judging
+- FAQs
+- Webinars & Office Hours
+- Special Awards
+Meta VR Start Developer Competition: Contest 2026 Official Rules
+THIS CONTEST IS OPEN ONLY TO MEMBERS OF THE META VR START PROGRAM (“ START ”) THAT MEET THE ELIGIBILITY CRITERIA LISTED BELOW.
+NO PURCHASE NECESSARY. A PURCHASE WILL NOT INCREASE YOUR CHANCES OF WINNING.
+INTERNET ACCESS, META VR DEVELOPER ACCOUNT, AND START MEMBERSHIP ARE REQUIRED TO PARTICIPATE.
+IMPORTANT: PLEASE READ THESE OFFICIAL RULES, WHICH ARE A CONTRACT, CAREFULLY. WITHOUT LIMITATION, THIS CONTRACT INCLUDES INDEMNITIES TO THE SPONSOR FROM YOU AND A LIMITATION OF YOUR RIGHTS AND REMEDIES. BY PARTICIPATING, YOU AGREE TO BE BOUND BY THESE OFFICIAL RULES AND REPRESENT THAT YOU SATISFY ALL OF THE ELIGIBILITY REQUIREMENTS. VOID WHERE PROHIBITED BY LAW.
+IMPORTANT DATES:
+EVENT
+START TIME/DATE
+END TIME/DATE
+Entry period:
+September 24, 2026 at 10:00:00 AM PT
+November 18, 2026 at 12:00:00 PM PT
+Judging period:
+On or around November 18, 2026
+On or around December 9, 2026
+Winner Announcement:
+On or around December 11, 2026
+This chart is only a high-level summary of the Contest; read through these entire Official Rules to make sure you understand the details.
+1. OVERVIEW. The Meta VR Start Developer Competition: (“ Contest ”) is sponsored by Meta Platforms, Inc., 1 Hacker Way, Menlo Park, CA 94025 (“ Sponsor ”), and encourages developers to develop games and applications for Sponsor’s virtual immersive platform for Meta VR devices. Eligible entrants can enter this Contest as an individual, Team, or Organization (defined below) during the Entry Period. These Official Rules (“Official Rules”) govern participation in the Contest. Read through these entire Official Rules carefully to make sure you understand the details.
+2. ELIGIBILITY. Entry and participation in this Contest is open only to individuals, Teams, and Organizations as defined below (each an “ Entrant ”). As of the start of the Entry Period (as defined above), all Entrants whether as an individual or member of a Team or Organization must:
+(a) be at least eighteen years of age and the age of majority in their jurisdiction of residence;
+(b) not be residents of, or Organizations domiciled in, Brazil, Quebec, or in any area subject to comprehensive international sanctions such as Crimea, Russia, Cuba, Iran, North Korea, Syria, or any other country or individual designated by the United States Treasury's Office of Foreign Assets Control;
+(c) have an active and valid Meta account with Developer Access enabled or in the case of a Team or Organization member has administrative control over by the time of submission; and
+(d) Representative or person submitting an Entry must be a member of the Meta VR Start Program by the time of submission.
+Organizations (including corporations, not-for-profit corporations and other nonprofit organizations, limited liability companies, partnerships, and other legal entities) that exist and have been organized or incorporated at the time of entry are eligible to participate in the Contest referred to herein as an “ Organization ”. Organizations that are politically affiliated (as determined by Sponsor in its sole discretion) are not eligible to participate in the Contest. An association of at least two (2) individuals that does not constitute a legally recognized entity, provided that each natural person comprising such association and meets the eligibility criteria listed above, can submit Entries and are referred to herein as a “ Team ”.
+Teams and Organizations must appoint and authorize one individual (the “ Representative ”) to represent, act, receive communications, participate, and receive any prize (if awarded), on behalf of the Team or Organization. By entering on behalf of a Team or Organization, each Representative represents and warrants on behalf of their Team or Organization that they are authorized to act on behalf of their Team or Organization. Sponsor shall have no liability for the acts or omissions of any Representative who acts on behalf of a Team or Organization.
+Entrants may not be under any legal or contractual obligation that would prohibit their participation in the Contest. Any individual for whom participation in this Contest would mean a violation by them of any applicable law or of any agreement to which they are a party is ineligible to participate. Government and political officials, and employees, officers, directors, members, managers, agents, and representatives of Sponsor, or any other entities participating in the design, promotion, marketing, administration, or fulfillment of this Contest, or any of their respective corporate partners, parent companies, divisions, subsidiaries, affiliates, successors in interest, and advertising, promotion, and public relations agencies and any family (i.e., spouse, partner, parent, legal guardian, child, sibling, grandparent, grandchild, or in-law) or other member of the same household (whether or not related) (“ Released Parties ”) are also not eligible to enter or win this Contest. Any other individual or Organization whose participation in the Contest would create, in the sole discretion of the Sponsor, a real or apparent conflict of interest are not eligible to enter or win this Contest. Accordingly, each Team or Organization may submit only one (1) Entry, submitted by its Team Representative.
+Participation in this Contest constitutes each Entrant’s full and unconditional agreement to and acceptance of these Official Rules and the decisions of Sponsor, which are final and binding in all matters.
+Entry Limit. Each individual is limited to submitting one (1) Entry in this Contest. For the avoidance of doubt, an Entry is submitted either (i) by an individual on their own behalf, or (ii) by a Team Representative on behalf of a Team or Organization. Participation as a non-Representative Team member does not constitute submitting an Entry.
+Permitted Participation Scenarios. Subject to the one-Entry limit above, an individual may participate in this Contest in any of the following ways:
+(i) as a solo entrant, submitting one Entry on their own behalf;
+(ii) as a solo entrant who submits one Entry on their own behalf and also participates as a non-Representative member of one or more Teams or Organizations (because non-Representative membership does not count as an Entry); or
+(iii) as a Team Representative, submitting one Entry on that Team or Organization’s behalf (and optionally also serving as a non-Representative member of other Teams or Organizations).
+Prohibition. An individual may not both submit an Entry as a solo entrant and serve as a Team Representative, as this would result in two Entries being attributed to that individual. Each individual may serve as the Representative of only one (1) Team or Organization.
+3. HOW TO ENTER. During the Entry Period, eligible Entrants are invited to build and submit an immersive entertainment, gaming, or productivity experience built for Meta VR devices (each a “ Project ”).
+Entrants may enter by visiting https://start-developer-competition-26.devpost.com/ (“ Contest Website ”) and following the below steps:
+-
+Register for the Contest on the Contest Website by clicking the “Join Hackathon” button. To complete registration, sign up to create a free Devpost account, or log in with an existing Devpost account.
+-
+Entrants will obtain access to the required developer tools/platform and complete a Project described below in Section 4 (Entry Requirements). Use of the developer tools will be subject to the license agreement related thereto. Entry in the Contest constitutes consent for the Sponsor and Devpost to collect and maintain an Entrant’s personal information for the purpose of operating and publicizing the Contest.
+-
+Complete and enter all of the required fields on the “Enter a Submission” page of the Contest Website during the Entry Period and follow the requirements below.
+Successful completion of the steps above, together with all requirements stated in Section 4 (Entry Requirements), including the associated Project, application, videos, and all other Contest-related material or information submitted by an Entrant, constitutes an “ Entry ”. All Entries, and elements thereof, must comply with the Entry Requirements listed in Section 4 (Entry Requirements) below to be considered for this Contest.
+Entries must be submitted in full (all steps above must be completed) by Entrant during the Entry Period in strict accordance with the instructions and restrictions in these Official Rules and any other instructions that Sponsor may provide through its authorized representatives or otherwise. Entries that are not actually completed and received by Sponsor during the Entry Period will not be considered for the Contest. Purported proof of entry (such as, without limitation, a screenshot of your purported entry) does not constitute proof of actual entry for purposes of this Contest. Purported entries that are incomplete, received outside the Entry Period, or contain obscene, offensive, or any other language or imagery communicating messages inconsistent with the positive images with which Sponsor wishes to associate itself (all as determined by Sponsor in its sole discretion) or otherwise violate these Official Rules will be void. Those who do not abide by these Official Rules and the instructions of Sponsor and its representatives and provide all required information may, in Sponsor’s sole discretion, be disqualified, any purported entry by such Entrant void, and Entrant may be excluded from future participation in the Meta VR Start. Any Entry that is infringing, fraudulent, forged, altered, incomplete, lost, late, misdirected, mutilated, illegitimate, incomprehensible, garbled, or generated by a macro, bot, or other automated means will not be accepted and will be void. Entry made by someone on behalf of any other Entrant or any entity or group, made by another on your behalf (with the exception of a Team or Organization Representative), or originating at any online service other than as specifically described above (including, without limitation, through a commercial promotion subscription, notification, or entering service) will be declared invalid and disqualified for this Contest. RETAIN A COPY OF YOUR ENTRY AND ALL CONTENT SUBMITTED DURING THE CONTEST, AND ALL RECORDS OF YOUR PARTICIPATION. SPONSOR IS NOT RESPONSIBLE FOR PROVIDING A COPY OR REPORT OF ANY ELEMENT OF PARTICIPATION.
+4. ENTRY REQUIREMENTS. Each Entry must meet all of the following requirements, as determined by Sponsor in its sole discretion, or the Entry may be disqualified:
+-
+Project: Include a Project that meets the following requirements.
+-
+App Type & Platform: The Project must be a VR/MR application built for Meta VR devices
+-
+Track: Must align with at least one of the following tracks (each a “Track”). At any time, and at its sole discretion, the Sponsor will have the ability to re-assign a submitted Entry from one Track to another.
+-
+Entertainment: Lean-back media and content experiences—spatial cinema, interactive video, music visualization, immersive storytelling, spatial audio, media companion apps (e.g., commentary tracks, popup production notes, social comments). Content designed to be consumed in any environment. Content designed to be consumed in any environment. Hands-first implementation required.
+-
+Gaming: Games designed for hands-first (required) or eyes and hands. Puzzle, strategy, casual, social, narrative—genres that thrive seated, without controllers.
+-
+Productivity: Apps that make you more effective anywhere or are designed around specific daily moments—multi-panel workspaces, task management, creative tools, or habits tied to a recurring context (morning routine, commute, wind-down). Hands-first implementation required.
+-
+Division: Projects must align with one of the following divisions (each a “Division”). At any time, and at its sole discretion, the Sponsor will have the ability to re-assign a submitted Entry from one Division to another.
+- New Experience: Project is conceived of and built within the competition window (starting September 24, 2026). No pre-existing codebases, no shipped titles, no early access builds repurposed
+- Adapted / Significantly Updated Experience: Pre-existing project with a meaningful new feature, mode, or platform integration shipped during the competition window. Any build, prototype, or published app that existed prior to September 24, 2026. Sponsor will determine in its own discretion if an update qualifies as significant.
+- Examples of Significant Updates: include but are not limited to
+- Implementing Hand Interactions as a new feature
+- Adding multiplayer support
+- Introducing a mixed reality (MR) interaction mode as a new feature
+- Releasing a new user generated content creation tool
+- Non-Examples: include but are not limited to
+- Bug fixes or minor User Interface (UI) tweaks
+- Cosmetic changes (e.g., new color scheme)
+- Performance optimization without new user-facing features
+-
+Content Experience Requirements & Guidelines: These requirements and guidelines are applicable across all Tracks and Divisions.
+Requirement
+Standard
+The Test
+Hands-first
+Fully usable with hands end-to-end. Controller support optional.
+Can someone complete the entire experience without ever pairing a controller?
+Guidelines
+Seated-optimized
+Designed for seated/stationary use. Limit roomscale or large physical movement.
+The “airplane seat test”—does every interaction work in a 2ft radius?
+Easy to get into/out of
+Fast cold start. Clean pause/resume. Satisfying in ≤10 minutes.
+The “one bus stop test”—can someone have a complete moment in a short ride?
+Original, not a wrapper
+Core experience is Entrant-built. Thin wrappers around existing platforms or services (YouTube, ChatGPT, etc.) are highly discouraged.
+The "take it away test" — remove the third-party service. Is there still a Project?
+-
+Submission: Project must be submitted during the Entry Period and remain available until the Winner Announcement in one of the following ways:
+-
+For apps built with Unity, Unreal, Godot, Native/Android or another engine: An APK uploaded to the Meta VR Developer Dashboard under a new release channel named “Competition”.
+-
+For apps built with IWSDK (WebXR) : A link will be required for judges to access and test your application. See " Deploying to GitHub Pages " for additional details. You may also use your preferred hosting solution (e.g., Vercel, Digital Ocean, AWS, Azure, etc).
+- All required items must be added to the Submission of the Project on Devpost which includes, but is not limited to:
+- Link to your Project in the Competition release channel (from the Meta VR Developer Dashboard) or to your GitHub page (if built with IWSDK / WebXR).
+- Demonstration video of your Project that should be less than three (3) minutes and showcase footage of your Project as viewed on a Meta Quest device or via XR Simulator or another equivalent emulator. The video must be uploaded to and made publicly visible on YouTube or Vimeo and a link to the video must be provided on the submission form on the Competition website. Judges are not required to watch beyond three minutes.
+- A text description that explains your inspiration, how you built it, future plans for improvement and a target launch date, if not already published to the Meta VR Store. If your Project is an Adapted / Significantly Updated Experience (as described above), Entry should include a summary description of the new features/capabilities added to the application. Screenshots, changelogs and/or demo videos are highly recommended.
+- Select the Track you are submitting your Project into: Entertainment, Gaming, or Productivity.
+- Select the Division you are submitting your Project into: New Experience or Adapted / Significantly Updated Experience.
+-
+Originality: The Project must be ORIGINAL to each Entrant (or include content that is in the public domain or that is provided to Entrant by Meta specifically for use in the Contest).
+-
+Meta Funding: The Project must not have previously received or currently be receiving direct funding from Sponsor under a separate agreement (e.g., Meta Horizon Start Lifestyle RFP or other development funding from Sponsor).
+-
+Permitted Development Tools:
+- The Project must be built using development tools, SDKs, and resources that are available to the general public and/or to Start Program members. Use of Meta tools, SDKs, or features that have not been released to the Start Program or the general public is not permitted.
+- If a Project uses or relies upon any third-party tools, code, or assets, the participant must be authorized to use them in accordance with any terms and conditions or licensing requirements of the tools, code, or assets.
+-
+Policies. The Project must comply with all relevant Meta / VR Start policies and terms (e.g., Meta VR Start Program Terms , Community Standards , Code of Conduct in VR Policy , Developer App Policies , Developer Content Guidelines , and all other Developer Policies .
+- Projects must not include:
+- Any malware, spyware, viruses, or similar harmful code or content or
+- Any content that is false, fraudulent, deceptive, misleading, defamatory, libelous (including trade libel), disparaging, harassing, threatening, profane, obscene, pornographic or otherwise adult-oriented, hateful, indecent, inappropriate, or injurious to any party.
+- Projects must be suitable for presentation in a public forum and must follow Meta VR Developer Content Guidelines for 10+, 13+, or 18+ to help keep Meta VR a fun and welcoming place for everyone.
+-
+Language. Projects must be entirely in the English language or include English subtitles. All Entry materials must be in English or, if not in English, the Entrant must provide an English translation of the demonstration video, text description, and testing instructions as well as all other materials submitted.
+-
+No Violation of 3rd Party Rights or Harms.
+- Projects may not mention or depict any identifiable person other than Entrants.
+- Projects must not infringe, misappropriate, plagiarize, or violate any rights of any third-party including, without limitation, copyright (including moral rights), trademark, trade secret, or rights of privacy or publicity.
+- Projects must not contain or describe any harmful or illegal activity or content or in any way violate any federal, state, or local laws, rules, or regulations.
+- Projects must not create or imply any association between Sponsor and any individual, entity, or anyone else or his, her, or its products and services.
+- Projects must not contain any commercial or corporate advertising (including, without limitation, corporate logos, brand names, and slogans), recognizable branded products, or commercial artwork.
+- You agree that your participation in this Contest and agreement to these Official Rules will not violate any agreement to which you are a signatory or party and that no such agreement otherwise limits your ability to participate in this Contest or grant the rights granted by you in these Official Rules.
+- You agree to indemnify the Released Parties against any loss or expense that the Released Parties may sustain or incur on account of any and all claims from any third-party for any use by any Released Party of the Entry authorized pursuant to these Official Rules.
+Sponsor may at any time disqualify, remove, delete, edit, or restrict access to any Entry, in whole or in part, that violates these Official Rules, the Meta Community Standards, and/or the Conduct in VR Policy.
+Projects must be made available free of charge and with sufficient access until the Winner Announcement to enable viewing, evaluation, use, and testing by Sponsor and Judges (as defined below).
+Once the Entry Period has ended, you may not make changes or alterations to your submission. The judging process will be based on the state of the Entry at the time of submission deadline. Entries must be capable of successful and consistent operation and function.
+Entrants must at all times comply with the letter and spirit of
+- the Meta VR Start Program Terms ,
+- Supplemental Meta Platforms Technologies Terms of Service https://www.meta.com/legal/supplemental-terms-of-service/ ) and
+- Meta Terms of Services ( https://www.facebook.com/legal/terms ),
+and any other use terms, policies, documentation, and other guidelines applicable to any platforms used to develop, host, operate, testing, distribute, and display any Entry or to administer the Contest. This includes the Devpost Terms of Service ( https://info.devpost.com/terms ), which provide additional terms for your participation in the Contest and your use of the Contest website. The Devpost Terms of Service are incorporated by reference into these Official Rules, and the term “Poster” in the Devpost Terms of Service will have the same meaning as “Sponsor” in these Official Rules. If there is a conflict between the Devpost Terms of Service and these Official Rules, these Official Rules shall control with respect to this Contest only.
+Any attempt to subvert or work-around of such terms and conditions or policies may, in Sponsor’s sole discretion, lead to such Entrant’s disqualification.
+Sponsor may at any time request written proof of ownership or proper license or use of any material comprising an Entry. Failure to evidence such proof timely or to Sponsor’s satisfaction may result in ineligibility and disqualification of the Entrant and/or Entry.
+No technology may be developed, or derived from software that was or is developed, with the direct or indirect aid of financial or preferential support (including but is not limited to development under or with any contract, commercial license or other funding, investment, or support) from Sponsor.
+Any time prior to the end of the Entry Period, Sponsor may disqualify any Entry or Entrant from receiving a prize in this Contest if Sponsor determines doing so would cause a real or perceived conflict of interest or unfair advantage.
+Sponsor reserves the right in its sole discretion to disqualify any Entrant from the Contest if in Sponsor’s sole discretion the Entrant or Entry does not comply with the Entry Requirements or if Entrant does not comply with any other requirement of these Official Rules.
+5. WINNER SELECTION/NOTIFICATION. Entries will be evaluated based on the Judging criteria listed below by a panel of experts designated by Sponsor (“Judge(s)”) during the Judging Period. Judges may be employees of the Sponsor or third parties, may or may not be listed individually on the Competition website, and may change before or during the Judging Period. Judging may take place in one or more rounds with one or more panels of Judges, at the discretion of the Sponsor. AI tools may also be used to assist in the judging, but final decisions will be made by human judges.
+Stage One: The first stage will determine via pass/fail whether the Projects meet a baseline level of viability, in that the Project and Entry reasonably fits the theme and reasonably applies the required tools and features featured in the Contest.
+Stage Two: All Entries that pass Stage One will be evaluated in Stage Two based on the below equally weighted criteria (the “Judging Criteria”).
+The scores from the Judges will determine the potential winners of the applicable prizes. The Entrant(s) that are eligible for a Prize, and whose Entries earn the highest overall scores based on the applicable Judging Criteria, will become potential winners of that Prize.
+6. JUDGING CRITERIA
+Criteria
+Description
+Weight
+Innovation & Creativity
+Measures originality, creative ambition, and relevance to the chosen track (Gaming, Entertainment, or Productivity).
+High-scoring projects differentiate themselves, show developer ingenuity, and uniquely leverage Meta device capabilities (e.g., spatial depth, hands-first design, gaze, passthrough mode, scene understanding, persistent anchors) to drive repeat usage.
+25%
+Experience Design
+Evaluates design, mechanics, and user journey for the intended audience, with emphasis on seated, hands-first, or context-specific use. Strong entries have intuitive navigation, clear onboarding, and a habit-forming purpose.
+Passthrough should be purposeful: the player's real room meaningfully changes the experience, not a scene that plays the same with passthrough off.
+We'll also evaluate FoV-aware design. Since the field of view differs between Meta VR devices, keep essential UI and interactions within a comfortable, narrower FoV and adapt across devices.
+25%
+Technical Implementation
+Assesses technical expertise, reliability, and strategic use of platform tools, particularly the features that define hands-first experiences: gaze interactions (Unity/Unreal ISDK v207+), hand tracking, passthrough, spatial anchoring, and FoV-aware design.
+High-scoring entries must be performant on Meta Quest hardware (min 60 fps ), solid and bug-free, and show seamless integration of features relevant to their specific track.
+For entries that use passthrough, this includes correct use of scene understanding (MRUK), anchoring content to detected planes, surfaces, and room geometry, and holding up in rooms the developer never tested.
+25%
+Polish & Presentation
+Assesses the overall quality of the project submission, including UI/UX, art direction, and sound design.
+High-scoring entries are performant, visually cohesive, and clearly demonstrate relevance to the chosen track. This includes high-quality submission materials (text, images, video) that effectively communicate the project's value.
+On your video/trailer: show real gameplay that honestly represents the experience. Lead with the story and what makes your project distinct. Don't lean on AI-generated video to carry the pitch.
+25%
+In the event of a tie, it will be resolved by Judges’ vote. Each potential Winner and/or Representative of Winner, all natural people who are members of a winning Team or Organization (as determined and requested in Sponsor’s sole discretion) may be required to complete, execute and return a form presented by Sponsor and other documents (if necessary, which largely affirm the rights granted and obligations contained in these Official Rules) (collectively, the “ Winner Documents ”) according to Sponsor’s instructions.
+Failure to comply with these requirements, Sponsor’s or its representative’s instructions, or these Official Rules may, in Sponsor’s sole discretion – having due regard of the interests of the potential Winner, result in disqualification from the Contest and forfeiture of any prize potentially won.
+The Winner Documents, if required, are each subject to verification by Sponsor and may require the Entrant or Representative of Entrant to provide a copy of government-issued identification card or number therefrom. If any prize, prize notification, or other Contest-related communication is returned as undeliverable or if a selected potential Winner or Representative of Winner cannot be reached or does not respond as instructed after Sponsor has attempted to notify that potential Winner, that selected Winner or Representative of Winner may – after Sponsor has taken reasonable efforts to reach the selected Winner or Representative of Winner – be disqualified and an alternate winner may be selected (time permitting and in Sponsor’s sole discretion). The prize claim and Prize Winner Documents are subject to verification by Sponsor. The prizes, if legitimately claimed, will be awarded. Sponsor will not be obligated to pursue more than two (2) alternate winners (time permitting) for any reason.
+7. PRIZES, QUANTITY, AND APPROXIMATE RETAIL VALUE (“ARV”).
+Limit one (1) prize per Entry determined by Judging Process.
+Prizes will be awarded as follows:
+Prize
+Description
+Quantity
+Amounts (USD)
+Best New Entertainment Experience
+Best Adapted / Significantly Updated Entertainment Experience
+Lean-back media and content experiences—spatial cinema, interactive video, music visualization, immersive storytelling, spatial audio, media companion apps (e.g., commentary tracks, popup production notes, social comments). Content designed to be consumed in any environment. Hands-first implementation required.
+1x Winner
+1x Runner-up
+1x Winner
+1x Runner-up
+$100,000
+$50,000
+$100,000
+$50,000
+Best New Gaming Experience
+Best Adapted / Significantly Updated Gaming Experience
+Games designed for hands-first (required) or eyes and hands. Puzzle, strategy, casual, social, narrative—genres that thrive seated, without controllers.
+1x Winner
+1x Runner-up
+1x Winner
+1x Runner-up
+$100,000
+$50,000
+$100,000
+$50,000
+Best New Productivity Experience
+Best Adapted / Significantly Updated Productivity Experience
+Apps that make you more effective anywhere or are designed around specific daily moments—multi-panel workspaces, task management, creative tools, or habits tied to a recurring context (morning routine, commute, wind-down) Hands-first implementation required.
+1x Winner
+1x Runner-up
+1x Winner
+1x Runner-up
+$70,000
+$35,000
+$70,000
+$35,000
+Special Awards
+Best Social & Multiplayer Experience
+Experiences designed for shared presence—co-watching, cooperative play, social spaces, or asymmetric multiplayer.
+1x Winner
+$25,000
+Best Agentic Interaction
+Apps where AI is a core part of the experience—spatial agents, voice-first AI interaction, procedural content, context-aware assistance.
+1x Winner
+$25,000
+Best Reason to Come Back
+Spotlights thoughtful progression and reward design: something to work toward, visible growth between sessions, and a loop that pulls the user back tomorrow. Rewards experiences built for longevity, not a one-time demo.
+1x Winner
+$25,000
+Best First Five Minutes
+Spotlights the craft of the opening: how fast the experience explains itself, teaches controller-free interaction without a wall of text, and delivers a payoff before the user takes the headset off.
+1x Winner
+$25,000
+Best Accessibility Forward Experience
+Pushes the envelope on accessible XR design—voice alternatives for hand interactions, eyes-only navigation for limited mobility, high-contrast modes, or experiences inclusive by default.
+1x Winner
+$25,000
+Boldest Original Concept
+Rewards the idea that couldn't exist anywhere else. A concept whose core loop depends on presence, spatial depth, real-world scale, or eyes and hands. Judged on originality and on whether the experience would fall apart on any other platform.
+1x Winner
+$25,000
+Judge's Choice
+Awarded at judges' discretion for standout entries that don't fit neatly into a single track or category.
+2x Winners
+$20,000
+Total ARV of all prizes: Up to $1,000,000 U.S. Dollars (USD)
+If a Team or Organization Entrant wins, the prize will be awarded to the Representative. Sponsor is not responsible for a potential Winner’s inability to accept or use the prize for any reason. Prize details will be decided at Sponsor's sole discretion. No more than the stated prizes will be awarded. Sponsor will not replace any lost, mutilated, or stolen prizes or prize elements or any prizes that are undeliverable or do not reach a Winner or Representative because of an incorrect or changed contact information. If a Winner or Representative does not accept or use the entire prize, the unaccepted or unused part of the prize will be forfeited, and Sponsor will have no further obligation with respect to that prize or portion thereof. No transfers, prize substitutions, or cash redemptions will be made, except at Sponsor’s sole discretion and as noted above. Winners or Representatives are strictly prohibited from selling, auctioning, trading, or otherwise transferring any part of the prize, except with Sponsor’s permission, which may be granted or withheld for any reason in Sponsor’s sole discretion. Sponsor reserves the right to substitute any prize or portion thereof with another prize or portion thereof of equal or greater value for any reason, including unavailability of the stated prize. Each Entrant waives the right to assert as a cost of winning any prize any and all costs of verification and redemption or and any liability and publicity which may arise from claiming or seeking to claim a prize.
+Prizes will be payable to the Entrant, if an individual, or to the Entrant’s Representative, if a Team or Organization. It will be the responsibility of the winning Entrant’s Representative to allocate the prize among their Team or Organization’s participating members, as the Representative deems appropriate without involvement of Sponsor. A valid bank account may be required for the winner(s) of Prizes valued at one thousand ($1,000) USD or more to receive payment of their Prize(s) and are payable only after receipt of the Winner Documents and any other required forms. A winning Entrant or Representative may be required to provide a mailing address, bank information, and/or create an account with an electronic payment provider of the Sponsor’s choosing in order to receive payment.
+Where applicable, Sponsor shall be entitled to deduct and withhold from any payments as are required to be deducted or withheld therefrom under any provision of U.S. Federal, state, local, or foreign tax law, or under any other applicable law. To the fullest extent allowable under applicable law, all taxes (including, without limitation, national, federal, state, provincial, territorial, prefectural, and/or local taxes), as well as any expenses arising from acceptance or use of the prize and not specified in these Terms as being provided as part of the prize, are the sole responsibility of the Winner. In the event of a Team or Organization winner, the Representative will be solely responsible for the foregoing. If applicable, U.S. residents who win a prize with a total approximate retail value (ARV) of $2000 or more will be issued an IRS Form 1099-MISC by or on behalf of the Sponsor. The form will reflect the total ARV of the prize won. Winners outside the U.S. will be issued an IRS Form 1042-S from or on behalf of the Sponsor for the total ARV of the prize won (as stated herein) in the calendar year won. Prizes paid to winners outside the U.S. may be subject to U.S. federal income tax withholding, and actual prize payment may be less than the total ARV.
+8. PRIVACY AND DATA. In order for Sponsor to administer the Contest, evaluate, display, and communicate with you about an Entry, conduct marketing and promotion of the Contest, the operating system, Meta VR Start Program, and Entries, verify and announce Winners, fulfill prizes, and comply with applicable law, Entries (including any personal data provided in the Entry and/or relating to your Meta accounts), will be collected and/or used and shared by, to, and among Sponsor and with third parties. By entering and participating in this Contest, each Entrant hereby consents to have your Entry used as described above. Entry information received by Sponsor will be treated in accordance with the Supplemental Meta Platforms Technologies Privacy Policy at: https://www.meta.com/legal/privacy-policy/ .
+Entrants can access, delete, or correct personal data received by Sponsor by viewing their respective policies and following the instructions provided.
+9. PUBLICITY; ENTRANTS OWNERSHIP OF ENTRIES AND LICENSE GRANTED.
+-
+License: All Entries and Projects remain the intellectual property of the individuals or Organizations that developed them. By entering, except where prohibited by law, each Entrant grants to the Released Parties (and their agents, successors, and assigns) the irrevocable, transferable, sublicensable, absolute right and permission to use, edit, modify, copy, reproduce, and distribute the Entry, in whole or in part, in perpetuity and in any medium (including online and in digital media) in any language, throughout the world, for the purposes of evaluating Entries, administering this Contest, and for any marketing or promotional purposes, without further review, notice, approval, consideration, or compensation beyond the opportunity to win a prize in this Contest. Each Entrant further grants to the Released Parties (and their agents, successors, and assigns) a non-exclusive, irrevocable, worldwide, transferable and sublicensable right and license to use his, her, or their (and their app’s) trade names, trademarks (including logos), and the Entrant’s Meta usernames and profiles in connection with this Contest.
+-
+Publicity Releases: By entering, except where prohibited by law, each Entrant also grants to the Released Parties a non-exclusive, transferable, and sublicensable, right and license to use, publish, post, edit, modify, copy, reproduce, and distribute their name, voice, face, likeness in and in any medium (including online and in digital media) in any language, throughout the world, for the purposes of evaluating Entries, administering the Contest, announcing Winners, and for any marketing or promotional purposes, without further review, notice, approval, consideration, or compensation beyond the opportunity to win a prize in this Contest. Nothing contained in these Official Rules obligates Sponsor to make use of any of the rights granted herein and each natural person granting publicity rights under this provision waives any right to inspect or approve any such use.
+-
+Moral Rights: Each Entrant waives and releases the Released Parties from any and all claims that Entrant may now or hereafter have in any jurisdiction based on “moral rights” or “droit moral” or unfair competition with respect to Sponsor’s exploitation of any Entry without further notification or compensation to Entrant of any kind, and agrees not to instigate, support, maintain, or authorize any action, claim, or lawsuit against the Released Parties, each of their licensees, or any other person in connection with this Contest, on the grounds that any use of any Entry or element thereof or derivative works therefrom in accordance with this license infringes or violates any of Entrant’s rights (including moral rights) therein.
+-
+Waiver of Injunctive Relief: In no way limiting the foregoing, each Entrant acknowledges that, with respect to any claim by Entrant relating to or arising out of a Released Party’s actual or alleged exploitation or use of any Entry or other material submitted in connection with this Contest, the damage, if any, thereby caused to the applicable Entrant will not be irreparable or otherwise sufficient to entitle such Entrant to seek injunctive or other equitable relief or in any way enjoin the production, distribution, exhibition, or other exploitation of any Released Party, application, service or other property, and Entrant’s rights and remedies in any such event are strictly limited to the right to recover damages, if any, in an action at law.
+10. LIMITATION OF LIABILITY. Each Entrant hereby acknowledges and agrees that the relationship between the Entrant and each of the Released Parties is not a confidential, fiduciary, or other special relationship, and that the Entrant’s decision to participate in the Contest does not place any of the Released Parties in a position that is any different from the position held by members of the general public with regard to elements of the Entry, other than as set forth in these Official Rules. Each Entrant understands and acknowledges that the Released Parties have wide access to ideas, text, images, code, applications, software, and other creative materials. Each Entrant also acknowledges that many ideas for products, services, and advertising may be competitive with, similar to, or identical to their Entry and/or each other in idea, function, components, format, or other respects. Each Entrant acknowledges and agrees that they will not be entitled to any compensation as a result of any Released Party’s use of any such similar or identical material that has or may come to such Released Party from other sources. Each Entrant acknowledges and agrees that the Released Parties do not now and will not have in the future any duty or liability (direct or indirect; vicarious, contributory, or otherwise) with respect to the infringement or protection of the Entrant’s or any third party’s patent, copyright or other proprietary rights in and to their Entry.
+11. INDEMNITY. TO THE MAXIMUM EXTENT PERMITTED BY APPLICABLE LAW, EACH ENTRANT AGREES TO RELEASE, HOLD HARMLESS, AND INDEMNIFY EACH OF THE RELEASED PARTIES FROM AND AGAINST ANY LIABILITY WHATSOEVER FOR INJURIES OR DAMAGES OF ANY KIND SUSTAINED IN CONNECTION WITH THE ACCEPTANCE, USE, MISUSE, OR AWARDING OF A PRIZE OR WHILE PREPARING FOR, PARTICIPATING IN, AND/OR TRAVELING TO OR FROM ANY PRIZE OR CONTEST-RELATED ACTIVITY INCLUDING, WITHOUT LIMITATION, ANY INJURY, DAMAGE, LOSS, DEATH OR ACCIDENT TO OR OF PERSON OR PROPERTY. THE PRIOR LIMITATION ON DAMAGES IS NOT INTENDED TO LIMIT THE RELEASED PARTIES’ OBLIGATION (IF ANY) TO PAY PREVAILING PARTY COSTS OR FEES IF RECOVERABLE PURSUANT TO APPLICABLE LAW. THE LIMITATIONS SET FORTH IN THIS SECTION WILL NOT LIMIT OR EXCLUDE THE RELEASED PARTIES’ LIABILITY FOR PERSONAL INJURY OR TANGIBLE PROPERTY DAMAGE CAUSED BY THE RELEASED PARTIES, OR FOR THE RELEASED PARTIES’ GROSS NEGLIGENCE, FRAUD, OR INTENTIONAL, WILLFUL, MALICIOUS, OR RECKLESS MISCONDUCT. TO THE MAXIMUM EXTENT PERMITTED BY APPLICABLE LAW, EACH WINNER AGREES THAT THE PRIZES ARE PROVIDED AS-IS WITHOUT ANY WARRANTY, REPRESENTATION, OR GUARANTEE, EXPRESS OR IMPLIED, IN FACT OR IN LAW, WHETHER NOW KNOWN OR HEREINAFTER ENACTED, RELATIVE TO THE USE OR ENJOYMENT OF THE PRIZE, INCLUDING, WITHOUT LIMITATION, THEIR QUALITY, MERCHANTABILITY, OR FITNESS FOR A PARTICULAR PURPOSE.
+12. DISPUTES/GOVERNING LAW: Except where prohibited, as a condition of participating in this Contest, each Entrant agrees that any and all disputes that cannot be resolved between the Entrant and any Released Party, claims and causes of action arising out of or connected with this Contest, or the prize awarded, or the determination of a Winner must be resolved individually, without resort to any form of class action. Further, in any such dispute, under no circumstances will any Entrant be permitted or entitled to obtain awards for, and hereby waives all rights to claim punitive, incidental or consequential damages, or any other damages, including attorneys’ fees, other than Entrant’s actual out-pocket expenses (if any), not to exceed ten dollars ($10 USD), and Entrant further waives all rights to have damages multiplied or increased.
+THIS CONTEST, THESE OFFICIAL RULES, AND ANY DISPUTE ARISING UNDER OR RELATED THERETO (WHETHER FOR BREACH OF CONTRACT, TORTIOUS CONDUCT OR OTHERWISE) WILL BE GOVERNED, CONSTRUED, AND INTERPRETED UNDER THE INTERNAL LAWS OF THE STATE OF CALIFORNIA, USA, WITHOUT REFERENCE OR GIVING EFFECT TO ITS CONFLICTS OF LAW PRINCIPLES OR RULES THAT WOULD CAUSE THE APPLICATION OF THE LAWS OF ANY OTHER JURISDICTION. ANY LEGAL ACTIONS, SUITS, OR PROCEEDINGS RELATED TO THIS CONTEST (WHETHER FOR BREACH OF CONTRACT, TORTIOUS CONDUCT, OR OTHERWISE) WILL BE BROUGHT EXCLUSIVELY IN THE U.S. DISTRICT COURT FOR THE NORTHERN DISTRICT OF CALIFORNIA OR A STATE COURT LOCATED IN OR HAVING JURISDICTION OVER SAN MATEO COUNTY, CALIFORNIA AND EACH ENTRANT IRREVOCABLY ACCEPTS, SUBMITS, AND CONSENTS TO THE EXCLUSIVE JURISDICTION AND VENUE OF THESE COURTS WITH RESPECT TO ANY LEGAL ACTIONS, SUITS, OR PROCEEDINGS ARISING OUT OF OR RELATED TO THIS CONTEST. YOU WAIVE ANY AND ALL OBJECTIONS TO JURISDICTION AND VENUE IN THESE COURTS AND HEREBY SUBMIT TO THE JURISDICTION OF THOSE COURTS.
+13. ADDITIONAL DISCLAIMERS: The Released Parties are not responsible and/or liable for any of the following, whether caused by a Released Party, an Entrant, or by human error: participation submitted by illegitimate means (such as, without limitation, by an automated computer program) or participation in excess of any stated limit; any lost, late, incomplete, illegible, unintelligible, garbled, mutilated, or misdirected participation, email, or Contest-related correspondence or materials; any error, omission, interruption, defect or delay in transmission or communication; viruses or technical or mechanical malfunctions; interrupted or unavailable internet, cable or satellite systems; errors, typos, or misprints in these Official Rules, any Contest-related advertisements, or other materials; failures of electronic equipment, computer hardware, or software; lost or unavailable network connections or failed, incorrect, incomplete, inaccurate, garbled or delayed electronic communications or participation information. Released Parties are not responsible for electronic communications that are undeliverable or do not reach Entrants as a result of any form of active or passive filtering of any kind or insufficient space in a potential Winner’s email inbox to receive email messages. Released Parties are not responsible, and may disqualify you, if your email address or other contact information does not work or is changed without prior written notice to Sponsor. Without limiting any other provision in these Official Rules, the Released Parties are not responsible or liable to any Entrant or Winner (or any person claiming through such Entrant or Winner) for failure to supply the prize or any part thereof in the event that any of the Contest activities or Released Parties’ operations or activities are affected by any cause or event beyond the sole and reasonable control of the applicable Released Party (as determined by Sponsor in its sole discretion), including, without limitation, by reason of any force majeure event, equipment failure, threatened or actual terrorist acts, air raid, act of public enemy, war (declared or undeclared), civil disturbance, insurrection, riot, epidemic, pandemic, fire, explosion, earthquake, flood, hurricane, unusually severe weather, blackout, embargo, labor dispute or strike (whether legal or illegal), labor or material shortage, transportation interruption of any kind, work slow-down, any law, rule, regulation, action, order, or request adopted, taken, or made by any governmental or quasi-governmental entity (whether or not such governmental act proves to be invalid), or any other cause, whether or not specifically mentioned above.
+14. GENERAL RULES: Sponsor’s decisions will be final in all matters relating to this Contest, including interpretation of these Official Rules, selection of the Winners, and awarding of the prizes. Entrants further agree not to damage or cause interruption of the Contest and/or prevent others from participating in or engaging with the Contest. Sponsor reserves the right to restrict or void participation from any IP address or other identifiable source if any suspicious participation is detected. Sponsor reserves the right, in its sole discretion, to void the participation of any Entrant who Sponsor believes has attempted to tamper with or impair the administration, security, fairness, or proper play of this Contest. Sponsor’s failure or decision not to enforce any provision in these Official Rules will not constitute a waiver of that or any other provision. In the event there is an alleged or actual ambiguity, discrepancy, or inconsistency between disclosures or other statements contained in any Contest-related materials and/or these Official Rules (including any alleged ambiguity, discrepancy, or inconsistency within these Official Rules), it will be resolved by Sponsor in its sole discretion. Entrants waive any right to claim ambiguity in these Official Rules. If Sponsor determines at any time in its sole discretion that a Winner or potential Winner is disqualified, ineligible, in violation of these Official Rules, or engaging in behavior that Sponsor deems obnoxious, inappropriate, threatening, illegal or that is intended to annoy, abuse, or harass any other person, Sponsor reserves the right to disqualify that Entrant, Winner or potential Winner, even if the disqualified Winner or potential Winner may have been notified or displayed or announced anywhere, and disqualify such individual from future participation in the Meta VR Start. The invalidity or unenforceability of any provision of these Official Rules will not affect the validity or enforceability of any other provision. If any provision is determined to be invalid or otherwise unenforceable or illegal, these Official Rules will otherwise remain in effect and will be construed in accordance with their terms as if the invalid or illegal provision were not contained herein. If the Contest is not capable of running as planned for any reason, Sponsor reserves the right, in its sole discretion, to cancel, modify, or suspend the Contest and award the prizes from eligible, non-suspect participation prior to cancellation, modification, or suspension or as otherwise deemed fair and appropriate by Sponsor. If any person supplies false information, participates by fraudulent means, or is otherwise determined to be in violation of these Official Rules in an attempt to obtain a prize, Sponsor may disqualify that person and seek damages from them, and that person may be prosecuted to the full extent of the law. In the event of a dispute concerning the identity of an Entrant, the dispute must be resolved to Sponsor’s satisfaction or the related participation will be disqualified. Any Entrant may be required to provide Sponsor with proof of eligibility in the form requested. CAUTION: ANY ATTEMPT TO DAMAGE ANY ONLINE SERVICE OR WEBSITE OR UNDERMINE THE LEGITIMATE OPERATION OF THE CONTEST MAY VIOLATE CRIMINAL AND CIVIL LAWS. IF SUCH AN ATTEMPT IS MADE, SPONSOR MAY DISQUALIFY ANY ENTRANT MAKING SUCH ATTEMPT AND MAY SEEK DAMAGES TO THE FULLEST EXTENT PERMITTED BY LAW.
+15. WINNERS' LIST/OFFICIAL RULES: To find out who won, send an email to Sponsor at [email protected] and in the Subject Line write: Meta VR Start Developer Competition 2026 Contest Winners. Requests for winner information must be received no later than three (3) months following the end of the Contest. For a copy of these Official Rules, print out these pages or send an email during the Contest to Sponsor at [email protected] and in the Subject Line write: Meta VR Start Developer Competition: Contest Rules Request.
+16. SPONSOR: Meta Platforms, Inc., 1 Hacker Way, Menlo Park, CA 94025 USA
+Devpost
+- About
+- Careers
+- Contact
+- Help
+Hackathons
+- Browse hackathons
+- Explore projects
+- Host a hackathon
+- Hackathon guides
+Portfolio
+- Your projects
+- Your hackathons
+- Settings
+Connect
+-
+Twitter
+-
+Discord
+-
+Facebook
+-
+LinkedIn
+© 2026 Devpost, Inc. All rights reserved.
+- Community guidelines
+- Security
+- CA notice
+- Privacy policy
+- Terms of service

@@ -1,37 +1,258 @@
 {
-  "about": "Hand-labelled eligibility terms for the Clerk extraction eval. Each label was checked against the live official page on the asOf date. Arrays list every acceptable answer; null means the rules do not state it, so the right answer is 'unknown' (inventing a value is an error). 'contains:x' passes if the extracted list has an entry containing x.",
-  "asOf": "2026-10-06",
+  "about": "Hand-labelled eligibility terms for the Clerk extraction eval. Every label was checked against the saved snapshot named in 'snapshot' (official page text, fetched on the 'fetched' date and turned into text with src/sources/fetchPage.js htmlToText). 'accept' lists every acceptable answer; null means the page does not state it, so the right answer is 'unknown' (inventing a value is an error). 'contains:x' passes if the extracted list has an entry containing x. Each label carries the sentences that justify it ('quotes', each found verbatim in the snapshot; test/gold.test.js checks this) or, when the page is silent, a 'why' note. 'trap' marks labels where a reader would assume an answer the page does not give.",
+  "asOf": "2026-10-11",
   "events": [
     {
       "id": "google-ai-builder-cup-2026",
       "name": "Google Cloud AI Builder Cup 2026: terms and conditions",
       "url": "https://docs.google.com/document/d/e/2PACX-1vRm7ChZ6Ij9fG7uFDkxzUMpwgVeBmnQ6cMDnAIEEX84AiLBOOQ9cYbl3S5OzFBbcVb8TF55s-eVpiXb/pub",
+      "snapshot": "snapshots/google-ai-builder-cup-2026.txt",
+      "fetched": "2026-10-11",
+      "how": "Direct download of the published Google Doc with Accept-Language: en-US. The text is unchanged since the 2026-10-08 eval except for the language of the Google Docs banner.",
       "expect": {
-        "students": ["excluded"],
-        "region": ["japac"],
-        "team_min": [2],
-        "team_max": [4],
-        "age_min": [21],
-        "accepts_existing": ["no"],
-        "deadline": [null],
-        "build_start": [null],
-        "ip_first_refusal": [true],
-        "excludes_employees_of": [[]]
-      },
-      "notes": "The terms give the roster lock (October 11) but no prototype deadline; the deadline lives on the event microsite. A model that answers 2026-10-18 is guessing."
+        "students": {
+          "accept": ["excluded"],
+          "quotes": ["Participation is strictly restricted to working professionals, entrepreneurs, and startups.", "Full-time or part-time students are strictly ineligible."]
+        },
+        "region": {
+          "accept": ["japac"],
+          "quotes": ["All participants must be physically based in and legal residents of countries within the JAPAC (Japan & Asia-Pacific) region."]
+        },
+        "excludes_cn": {
+          "accept": [false],
+          "trap": true,
+          "why": "The terms define the region only as JAPAC (Japan & Asia-Pacific) and never mention mainland China, so no exclusion of mainland China residents is stated.",
+          "quotes": ["All participants must be physically based in and legal residents of countries within the JAPAC (Japan & Asia-Pacific) region."]
+        },
+        "team_min": {
+          "accept": [2],
+          "quotes": ["Teams may range from Two (2) participants up to four (4) members during the virtual building phase."]
+        },
+        "team_max": {
+          "accept": [4],
+          "quotes": ["Teams may range from Two (2) participants up to four (4) members during the virtual building phase."]
+        },
+        "age_min": {
+          "accept": [21],
+          "quotes": ["Every participant must be at least 21 years of age at the time of registration."]
+        },
+        "accepts_existing": {
+          "accept": ["no"],
+          "quotes": ["Submissions must consist exclusively of fresh code and original assets created during the official hackathon timeline.", "Pre-existing products, ongoing projects, or code developed prior to the official launch will be disqualified."]
+        },
+        "deadline": {
+          "accept": [null],
+          "trap": true,
+          "why": "The terms give the roster deadline (October 11) but no prototype submission date; the October 18 deadline is only on the event microsite. A model that answers 2026-10-18 is guessing.",
+          "quotes": ["Team additions or replacements are permitted only while the official registration window remains open (closing October 11)."]
+        },
+        "build_start": {
+          "accept": [null],
+          "trap": true,
+          "why": "The terms refer to 'the official launch' and 'the official hackathon timeline' but never give the date.",
+          "quotes": ["Pre-existing products, ongoing projects, or code developed prior to the official launch will be disqualified."]
+        },
+        "ip_first_refusal": {
+          "accept": [true],
+          "quotes": ["a Participant will grant the Organiser a right of first refusal for the acquisition of any exclusive license for all materials"]
+        },
+        "excludes_employees_of": {
+          "accept": [[]],
+          "why": "No clause in these terms bars the employees of any company."
+        }
+      }
     },
     {
       "id": "paypal-ai-hackathon-2026",
       "name": "PayPal AI Hackathon: official rules",
       "url": "https://paypalaihackathon.devpost.com/rules",
+      "snapshot": "snapshots/paypal-ai-hackathon-2026.txt",
+      "fetched": "2026-10-11",
+      "how": "Devpost answers non-browser clients with a Cloudflare challenge, so the page HTML was saved from a desktop Chrome session ('HTML only') and converted with htmlToText.",
       "expect": {
-        "students": ["open", "unknown"],
-        "region": ["global"],
-        "accepts_existing": ["partial"],
-        "deadline": ["2026-11-12"],
-        "build_start": ["2026-10-01"],
-        "excludes_judge_employers": [true],
-        "excludes_employees_of": ["contains:paypal"]
+        "students": {
+          "accept": ["open", "unknown"],
+          "why": "The rules never mention students; individuals who have reached the age of majority may enter.",
+          "quotes": ["Individuals who are at least the age of majority where they reside as of the time of entry"]
+        },
+        "region": {
+          "accept": ["global"],
+          "quotes": ["any other country which is comprehensively sanctioned by the U.S. Treasury’s Office of Foreign Assets Control"]
+        },
+        "accepts_existing": {
+          "accept": ["partial"],
+          "quotes": ["Projects must be either newly created by the Entrant or, if the Entrant’s Project existed prior to the Hackathon Submission Period, must have been significantly updated after the start of the Hackathon Submission Period."]
+        },
+        "deadline": {
+          "accept": ["2026-11-12"],
+          "quotes": ["Submission Period: Thursday Oct 1, 2026 (9:15 am Pacific Time) – Thursday Nov 12, 2026 (12:00 pm Pacific Time)"]
+        },
+        "build_start": {
+          "accept": ["2026-10-01"],
+          "quotes": ["Submission Period: Thursday Oct 1, 2026 (9:15 am Pacific Time) – Thursday Nov 12, 2026 (12:00 pm Pacific Time)"]
+        },
+        "excludes_judge_employers": {
+          "accept": [true],
+          "quotes": ["Any Judge (defined below), or company or individual that employs a Judge"]
+        },
+        "excludes_employees_of": {
+          "accept": ["contains:paypal"],
+          "quotes": ["Sponsor: PayPal Inc., 2211 North First Street, San Jose, California 95131, United States", "Employees, representatives and agents** of such Promotion Entities, and all members of their immediate family or household*"]
+        }
+      }
+    },
+    {
+      "id": "build-with-ai-basics-2026",
+      "name": "Build With AI: Basics (Devpost): official rules",
+      "url": "https://learn-ai-basics.devpost.com/rules",
+      "snapshot": "snapshots/build-with-ai-basics-2026.txt",
+      "fetched": "2026-10-11",
+      "how": "Saved from a desktop Chrome session ('HTML only'; Devpost challenges server clients) and converted with htmlToText.",
+      "expect": {
+        "students": {
+          "accept": ["open", "unknown"],
+          "why": "The rules never mention students; individuals who have reached the age of majority may enter.",
+          "quotes": ["Individuals who are at least the age of majority where they reside as of the time of entry"]
+        },
+        "region": {
+          "accept": ["global"],
+          "quotes": ["any other country which is comprehensively sanctioned by the U.S. Treasury’s Office of Foreign Assets Control"]
+        },
+        "age_min": {
+          "accept": [null],
+          "trap": true,
+          "why": "The rules require 'the age of majority where they reside', which is not a number: it differs by country. Answering 18 imports an assumption the rules do not make.",
+          "quotes": ["Individuals who are at least the age of majority where they reside as of the time of entry"]
+        },
+        "team_max": {
+          "accept": [null],
+          "trap": true,
+          "why": "Teams may enter, but the rules state no maximum team size.",
+          "quotes": ["Teams of Eligible Individuals"]
+        },
+        "accepts_existing": {
+          "accept": ["no"],
+          "quotes": ["New Projects Only: Projects must be newly created during the Submission Period."]
+        },
+        "deadline": {
+          "accept": ["2026-10-26"],
+          "quotes": ["Submission Period: September 22, 2026 (10:00 am Eastern Time) – October 26, 2026 (5:00 pm Eastern Time)"]
+        },
+        "build_start": {
+          "accept": ["2026-09-22"],
+          "quotes": ["Submission Period: September 22, 2026 (10:00 am Eastern Time) – October 26, 2026 (5:00 pm Eastern Time)"]
+        },
+        "excludes_employees_of": {
+          "accept": ["contains:devpost"],
+          "quotes": ["Sponsor & Administrator: Devpost, Inc.", "Employees, representatives and agents** of such Promotion Entities, and all members of their immediate family or household*"]
+        },
+        "excludes_judge_employers": {
+          "accept": [true],
+          "quotes": ["Any Judge (defined below), or company or individual that employs a Judge"]
+        },
+        "ip_first_refusal": {
+          "accept": [false],
+          "quotes": ["All Submissions remain the intellectual property of the individuals or organizations that developed them.", "By submitting an entry, entrants agree that the Sponsor will have a non-exclusive license to use such entry for judging the entry."]
+        }
+      }
+    },
+    {
+      "id": "qloo-agentic-hackathon-2026",
+      "name": "Qloo Agentic Hackathon: official rules",
+      "url": "https://qloo.devpost.com/rules",
+      "snapshot": "snapshots/qloo-agentic-hackathon-2026.txt",
+      "fetched": "2026-10-11",
+      "how": "Saved from a desktop Chrome session ('HTML only'; Devpost challenges server clients) and converted with htmlToText.",
+      "notes": "The existing-work sentence is garbled on the live page ('must have Qloo 4after the start'); the sentence after it still makes the meaning clear.",
+      "expect": {
+        "region": {
+          "accept": ["global"],
+          "quotes": ["any other country which is comprehensively sanctioned by the U.S. Treasury’s Office of Foreign Assets Control"]
+        },
+        "accepts_existing": {
+          "accept": ["partial"],
+          "quotes": ["Projects must be either newly created by the Entrant or, if the Entrant’s Project existed prior to the Hackathon Submission Period, must have Qloo 4after the start of the Hackathon Submission Period.", "Entrants should explain how their Project was significantly updated during the Submission Period."]
+        },
+        "deadline": {
+          "accept": ["2026-10-30"],
+          "quotes": ["Registration and Submission Period: September 30, 2026 (9:00 am Eastern Time) – October 30, 2026 (11:45 pm Eastern Time)"]
+        },
+        "build_start": {
+          "accept": ["2026-09-30"],
+          "quotes": ["Registration and Submission Period: September 30, 2026 (9:00 am Eastern Time) – October 30, 2026 (11:45 pm Eastern Time)"]
+        },
+        "excludes_employees_of": {
+          "accept": ["contains:qloo"],
+          "quotes": ["Sponsor and Administrator: Qloo, 100 Crosby Street, New York, New York, 10012, United States", "Employees, representatives and agents** of such Promotion Entities, and all members of their immediate family or household*"]
+        },
+        "excludes_judge_employers": {
+          "accept": [true],
+          "quotes": ["Any Judge (defined below), or company or individual that employs a Judge"]
+        }
+      }
+    },
+    {
+      "id": "meta-vr-start-2026",
+      "name": "Meta VR Start Developer Competition 2026: official rules",
+      "url": "https://start-developer-competition-26.devpost.com/rules",
+      "snapshot": "snapshots/meta-vr-start-2026.txt",
+      "fetched": "2026-10-11",
+      "how": "Saved from a desktop Chrome session ('HTML only'; Devpost challenges server clients) and converted with htmlToText.",
+      "notes": "Meta's own rules template, not Devpost's. Two labels guard against mistakes our seed dataset made from an earlier reading of this event: it recorded a team size of exactly one and a mainland China exclusion, and this page states neither.",
+      "expect": {
+        "region": {
+          "accept": ["global"],
+          "quotes": ["not be residents of, or Organizations domiciled in, Brazil, Quebec, or in any area subject to comprehensive international sanctions such as Crimea, Russia, Cuba, Iran, North Korea, Syria, or any other country or individual designated by the United States Treasury's Office of Foreign Assets Control"]
+        },
+        "excludes_cn": {
+          "accept": [false],
+          "trap": true,
+          "why": "The excluded places are listed (Brazil, Quebec, and sanctioned areas such as Crimea, Russia, Cuba, Iran, North Korea, Syria); mainland China is not among them.",
+          "quotes": ["not be residents of, or Organizations domiciled in, Brazil, Quebec, or in any area subject to comprehensive international sanctions such as Crimea, Russia, Cuba, Iran, North Korea, Syria"]
+        },
+        "age_min": {
+          "accept": [18],
+          "quotes": ["be at least eighteen years of age and the age of majority in their jurisdiction of residence"]
+        },
+        "team_min": {
+          "accept": [null, 1],
+          "trap": true,
+          "why": "Individuals may enter alone. A 'Team' is defined as at least two people, but that does not make two the minimum for an entry.",
+          "quotes": ["Eligible entrants can enter this Contest as an individual, Team, or Organization (defined below) during the Entry Period.", "An association of at least two (2) individuals that does not constitute a legally recognized entity"]
+        },
+        "team_max": {
+          "accept": [null],
+          "trap": true,
+          "why": "No maximum team size is stated. 'One (1) Entry' limits entries per person, not the size of a team.",
+          "quotes": ["Each individual is limited to submitting one (1) Entry in this Contest."]
+        },
+        "accepts_existing": {
+          "accept": ["partial"],
+          "quotes": ["Adapted / Significantly Updated Experience: Pre-existing project with a meaningful new feature, mode, or platform integration shipped during the competition window."]
+        },
+        "deadline": {
+          "accept": ["2026-11-18"],
+          "quotes": ["Entry period: September 24, 2026 at 10:00:00 AM PT November 18, 2026 at 12:00:00 PM PT"]
+        },
+        "build_start": {
+          "accept": ["2026-09-24"],
+          "quotes": ["Project is conceived of and built within the competition window (starting September 24, 2026)."]
+        },
+        "excludes_employees_of": {
+          "accept": ["contains:meta"],
+          "quotes": ["is sponsored by Meta Platforms, Inc., 1 Hacker Way, Menlo Park, CA 94025", "employees, officers, directors, members, managers, agents, and representatives of Sponsor"]
+        },
+        "excludes_judge_employers": {
+          "accept": [false],
+          "trap": true,
+          "why": "Unlike Devpost's standard template, these rules have no clause excluding companies that employ a judge.",
+          "quotes": ["Judges may be employees of the Sponsor or third parties"]
+        },
+        "ip_first_refusal": {
+          "accept": [false],
+          "why": "Entrants keep their IP. The licence granted to Meta is broad (use, edit and distribute the entry) but it is not exclusive and there is no right of first refusal.",
+          "quotes": ["All Entries and Projects remain the intellectual property of the individuals or Organizations that developed them."]
+        }
       }
     }
   ]
