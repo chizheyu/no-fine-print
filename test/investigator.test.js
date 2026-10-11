@@ -94,6 +94,17 @@ test('"None found", bold headings, unknown headings and prose contradictions', (
   assert.equal(conflicts[0].sides.length, 0, 'prose without sides cannot be checked side by side');
 });
 
+test('a contradiction whose topic line has no support gets a neutral heading', () => {
+  const text = '## Contradictions\n- CONFLICT: the deadline moved twice\n  - A: The rules page says October 4.\n  - B: The FAQ page says October 11.';
+  const metadata = {
+    groundingChunks: [{ web: { uri: redirect(0) } }, { web: { uri: redirect(2) } }],
+    groundingSupports: [support(text, 'A: The rules page says October 4', [0]), support(text, 'B: The FAQ page says October 11', [1])],
+  };
+  const [k] = buildCard({ text, metadata }).contradictions;
+  assert.equal(k.topic, 'These statements disagree');
+  assert.deepEqual(k.sides.map((s) => s.sources), [[1], [2]]);
+});
+
 test('sentences split at full stops, not at abbreviations', () => {
   const s = 'Example Cloud Inc. sponsors it. The U.S. office judges. Teams of 4 may enter.';
   assert.deepEqual(splitSentences(s).map(([a, b]) => s.slice(a, b)), ['Example Cloud Inc. sponsors it.', 'The U.S. office judges.', 'Teams of 4 may enter.']);

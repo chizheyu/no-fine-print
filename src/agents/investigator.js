@@ -267,7 +267,8 @@ export function buildCard({ text, metadata = {} }) {
       continue;
     }
     // The topic is a label, but it is still text on the card: show it only if backed.
-    const topic = k.topic?.text && backing(text, k.topic, spans).ok ? clean(k.topic.text) : 'Two pages disagree';
+    // The fallback must hold whether the two sides are on one page or two.
+    const topic = k.topic?.text && backing(text, k.topic, spans).ok ? clean(k.topic.text) : 'These statements disagree';
     contradictions.push({ topic, sides: sides.map((s) => ({ label: s.label, text: s.text, sources: cite(s.chunks) })) });
   }
 
