@@ -6,6 +6,8 @@ Built for the Google Cloud AI Builder Cup 2026 (theme: Future of Work & Enterpri
 
 **Live:** https://no-fine-print-233540464251.asia-southeast1.run.app (Cloud Run, asia-southeast1; Gemini through Vertex AI; Firestore)
 
+**Deck:** [docs/No_Fine_Print_deck.pdf](docs/No_Fine_Print_deck.pdf) (13 slides: problem, how it decides, architecture on Google Cloud, evaluation, business case). The slide source and the architecture diagram are in [docs/deck/](docs/deck/).
+
 ## The problem
 
 Small teams pick competitions with almost no decision support. Eligibility rules are scattered across microsites, FAQs and terms documents that change without notice, and the clauses that disqualify you are the ones nobody reads:

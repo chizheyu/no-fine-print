@@ -1,0 +1,700 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>No Fine Print: Google Cloud AI Builder Cup 2026</title>
+<!--
+  Presentation deck for the Google Cloud AI Builder Cup 2026.
+  Each <section class="slide"> is one 1920 x 1080 page. To rebuild the PDF, print this file with
+  Chrome (Playwright: page.pdf with preferCSSPageSize and printBackground), e.g.
+    "/Applications/Google Chrome.app/Contents/MacOS/Google Chrome" --headless=new --no-pdf-header-footer \
+      --print-to-pdf=../No_Fine_Print_deck.pdf deck.html
+  The screenshots in img/ were captured from the live app on 11 Oct 2026 with Playwright (1440 x 900 CSS
+  pixels and taller, device scale 2) using the app's fictional sample team. architecture.svg is the same
+  diagram as slide 8, exported as a standalone file.
+-->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Instrument+Sans:wdth,wght@100,400..700&family=JetBrains+Mono:wght@500;700&family=Source+Serif+4:ital,opsz,wght@0,8..60,400..600;1,8..60,400&display=block" rel="stylesheet">
+<style>
+@page { size: 1920px 1080px; margin: 0; }
+:root {
+  --paper: #ffffff;
+  --ink: #1a1f2b;
+  --ink-2: #4f5666;
+  --rule: #d9dde4;
+  --wash: #f4f6f9;
+  --marker: #ffe07a;
+  --gem: #2d5bd7;
+  --gem-bg: #eaf0fe;
+  --ok: #0f6b5c;
+  --check: #9a5b00;
+  --out: #a3261f;
+  --sans: "Instrument Sans", "Helvetica Neue", Arial, sans-serif;
+  --serif: "Source Serif 4", Georgia, serif;
+  --mono: "JetBrains Mono", Menlo, monospace;
+}
+* { box-sizing: border-box; }
+html, body { margin: 0; padding: 0; background: var(--paper); }
+body { color: var(--ink); font-family: var(--sans); font-kerning: normal; -webkit-font-smoothing: antialiased; }
+p { margin: 0; }
+code { font-family: var(--mono); font-size: .82em; font-weight: 500; }
+
+/* One slide = one page */
+.slide { width: 1920px; height: 1080px; position: relative; overflow: hidden; padding: 84px 120px 0; break-after: page; page-break-after: always; }
+.slide:last-child { break-after: auto; page-break-after: auto; }
+h1 { font-weight: 600; font-size: 56px; line-height: 1.08; letter-spacing: -0.02em; margin: 0; max-width: 1680px; text-wrap: balance; }
+.lede { font-size: 28px; line-height: 1.4; color: var(--ink-2); margin-top: 18px; max-width: 1680px; }
+p, li, dd, td, figcaption { text-wrap: pretty; }
+
+/* The fine print at the foot of each slide: where its numbers come from */
+.fine { position: absolute; left: 120px; right: 120px; bottom: 34px; display: flex; justify-content: space-between; align-items: flex-end; gap: 64px; font-size: 19px; line-height: 1.38; color: var(--ink-2); padding-top: 14px; border-top: 1px solid var(--rule); }
+.fine .src { max-width: 1520px; }
+.fine .src b { color: var(--ink); font-weight: 600; }
+.fine .pg { white-space: nowrap; font-variant-numeric: tabular-nums; }
+
+/* Their words: verbatim rule text is set in the serif */
+.clause { font-family: var(--serif); font-size: 25px; line-height: 1.5; color: var(--ink); margin: 0; }
+mark { background: var(--marker); color: inherit; padding: 0 .12em; border-radius: 3px; -webkit-box-decoration-break: clone; box-decoration-break: clone; }
+
+/* Exhibits: real screenshots of the live app */
+figure.exhibit { margin: 0; }
+figure.exhibit img { display: block; width: 100%; border: 1px solid #c9ced8; border-radius: 12px; }
+figure.exhibit figcaption { font-size: 19px; line-height: 1.38; color: var(--ink-2); margin-top: 14px; }
+figure.exhibit figcaption b { color: var(--ink); font-weight: 600; }
+
+/* Verdict stamps, as the app draws them */
+.stamp { display: inline-block; font: 700 17px/1 var(--mono); letter-spacing: .12em; text-transform: uppercase; padding: 7px 9px 6px; border: 2.5px solid currentColor; border-radius: 7px; transform: rotate(-6deg); }
+.stamp.ok { color: var(--ok); }
+.stamp.check { color: var(--check); }
+.stamp.out { color: var(--out); }
+
+.body { font-size: 26px; line-height: 1.42; }
+.muted { color: var(--ink-2); }
+.k { font-weight: 600; }
+
+/* 1. Title */
+.s-title { padding-top: 96px; }
+.s-title .grid { display: grid; grid-template-columns: 1000px 560px; gap: 120px; align-items: start; }
+.s-title .event { font-size: 28px; color: var(--ink-2); }
+.s-title .product { font-size: 132px; line-height: 1; letter-spacing: -0.035em; font-weight: 600; margin-top: 34px; max-width: none; }
+.s-title .tagline { font-size: 44px; line-height: 1.2; letter-spacing: -0.012em; margin-top: 26px; font-weight: 500; }
+.s-title .what { font-size: 27px; line-height: 1.45; color: var(--ink-2); margin-top: 28px; max-width: 900px; }
+.s-title .statement { margin-top: 54px; border-left: 5px solid var(--ink); padding: 4px 0 6px 26px; }
+.s-title .statement .label { display: block; font-size: 23px; color: var(--ink-2); }
+.s-title .statement .value { display: block; font-size: 40px; font-weight: 600; letter-spacing: -0.012em; margin-top: 6px; }
+.s-title .doc { margin-top: 18px; border: 1px solid var(--rule); border-radius: 12px; padding: 34px 36px 30px; background: #fffef9; }
+.s-title .doc ul { list-style: none; padding: 0; margin: 0; display: grid; gap: 14px; }
+.s-title .doc li { font-family: var(--serif); font-size: 21px; line-height: 1.55; color: #3d4352; }
+.s-title .doc li b { font-weight: 600; color: var(--ink); }
+.s-title .doc .cap { font-size: 19px; line-height: 1.38; color: var(--ink-2); margin-top: 22px; padding-top: 16px; border-top: 1px solid var(--rule); }
+.s-title .team { position: absolute; left: 120px; right: 120px; bottom: 112px; display: flex; gap: 72px; align-items: baseline; font-size: 24px; color: var(--ink-2); }
+.s-title .team b { font-size: 30px; color: var(--ink); font-weight: 600; letter-spacing: -0.01em; }
+
+/* 2. Problem */
+.s-problem .grid { display: grid; grid-template-columns: 1020px 580px; gap: 80px; margin-top: 44px; }
+.trap { padding: 22px 0 24px; border-top: 1px solid var(--rule); }
+.trap:first-child { border-top: 2px solid var(--ink); }
+.trap .case { font-size: 27px; font-weight: 600; letter-spacing: -0.008em; margin-bottom: 10px; }
+.trap .clause { font-size: 24px; }
+.trap .note { font-size: 23px; line-height: 1.42; color: var(--ink-2); margin-top: 8px; }
+.fig { padding: 22px 0 30px; border-top: 1px solid var(--rule); }
+.fig:first-child { border-top: 2px solid var(--ink); }
+.fig .num { font-size: 60px; line-height: 1.04; font-weight: 600; letter-spacing: -0.025em; }
+.fig .desc { font-size: 23px; line-height: 1.42; color: var(--ink-2); margin-top: 14px; }
+
+/* 3. What it does */
+.s-what .grid { display: grid; grid-template-columns: 620px 1000px; gap: 60px; margin-top: 46px; align-items: start; }
+.steps { list-style: none; margin: 0; padding: 0; counter-reset: step; }
+.steps li { counter-increment: step; display: grid; grid-template-columns: 46px 1fr; padding: 13px 0 14px; border-top: 1px solid var(--rule); }
+.steps li:first-child { border-top: 2px solid var(--ink); }
+.steps li::before { content: counter(step); font-size: 25px; font-weight: 600; color: var(--ink-2); font-variant-numeric: tabular-nums; line-height: 1.3; }
+.steps .t { font-size: 25px; font-weight: 600; line-height: 1.3; letter-spacing: -0.006em; }
+.steps .d { font-size: 22px; line-height: 1.38; color: var(--ink-2); margin-top: 2px; }
+
+/* 4, 5, 7: text beside an exhibit */
+.split { display: grid; gap: 72px; margin-top: 40px; align-items: start; }
+.s-elig .split { grid-template-columns: 860px 748px; }
+.s-kit .split { grid-template-columns: 880px 728px; }
+.s-dd .split { grid-template-columns: 908px 700px; }
+.blocks > * + * { margin-top: 26px; }
+.block-title { font-size: 26px; font-weight: 600; letter-spacing: -0.006em; margin-bottom: 6px; }
+.block-text { font-size: 24px; line-height: 1.42; color: var(--ink-2); }
+.block-text b { color: var(--ink); font-weight: 600; }
+.team-table { width: 100%; border-collapse: collapse; font-size: 23px; line-height: 1.35; margin-top: 4px; }
+.team-table td { padding: 9px 18px 9px 0; border-bottom: 1px solid var(--rule); vertical-align: top; }
+.team-table tr:first-child td { border-top: 2px solid var(--ink); }
+.team-table td:first-child { font-weight: 600; width: 220px; }
+.team-table .flag { color: var(--out); font-weight: 600; }
+.levels { display: grid; grid-template-columns: 150px 1fr; row-gap: 16px; align-items: center; margin-top: 8px; }
+.levels .stamp { justify-self: start; }
+.levels p { font-size: 23px; line-height: 1.38; color: var(--ink-2); }
+.levels p b { color: var(--ink); font-weight: 600; }
+.sum { font-size: 24px; line-height: 1.42; color: var(--ink-2); border-left: 4px solid var(--ink); padding: 4px 0 4px 22px; }
+.sum b { color: var(--ink); font-weight: 600; }
+
+/* 6. How it decides */
+.s-how .grid { display: grid; grid-template-columns: 1fr 1fr; column-gap: 64px; row-gap: 40px; margin-top: 46px; }
+.rule { border-top: 2px solid var(--ink); padding-top: 18px; }
+.rule h2 { font-size: 29px; font-weight: 600; letter-spacing: -0.01em; margin: 0 0 14px; line-height: 1.2; }
+.rule dl { display: grid; grid-template-columns: 136px 1fr; row-gap: 10px; margin: 0; }
+.rule dt { font-size: 22px; font-weight: 600; line-height: 1.4; }
+.rule dd { font-size: 23px; line-height: 1.4; color: var(--ink-2); margin: 0; }
+.rule dt.gem { color: var(--gem); }
+.rule dt.fail { color: var(--check); }
+
+/* 7. Real example */
+.side { display: grid; grid-template-columns: 44px 1fr; gap: 0 4px; align-items: start; }
+.side .lab { font: 700 18px/1 var(--mono); color: var(--check); background: #fbefd9; border-radius: 6px; width: 30px; height: 30px; display: grid; place-items: center; margin-top: 3px; }
+.side .clause { font-size: 23px; line-height: 1.48; }
+
+/* 8. Architecture */
+.s-arch .diagram { margin-top: 38px; }
+.s-arch svg { display: block; width: 1680px; height: auto; }
+
+/* 9 and 10: tables */
+table.t { width: 100%; border-collapse: collapse; font-size: 22px; line-height: 1.38; }
+table.t th { text-align: left; font-weight: 600; font-size: 19px; color: var(--ink-2); padding: 0 22px 10px 0; border-bottom: 2px solid var(--ink); vertical-align: bottom; }
+table.t td { padding: 12px 22px 12px 0; border-bottom: 1px solid var(--rule); vertical-align: top; color: var(--ink-2); }
+table.t td:first-child { color: var(--ink); font-weight: 600; }
+table.t .num { font-variant-numeric: tabular-nums; white-space: nowrap; }
+.s-inside table.t { margin-top: 40px; }
+.s-inside .guard { display: grid; grid-template-columns: repeat(3, 1fr); gap: 56px; margin-top: 40px; }
+.s-inside .guard .block-title { font-size: 24px; }
+.s-inside .guard .block-text { font-size: 22px; }
+.s-eval .lede { font-size: 25px; max-width: 1680px; }
+.s-eval table.t { margin-top: 30px; font-size: 22px; }
+.s-eval table.t td { color: var(--ink); }
+.s-eval table.t td:first-child { font-weight: 400; color: var(--ink-2); }
+.s-eval table.t tr.best td { font-weight: 600; background: var(--wash); }
+.s-eval table.t tr.best td:first-child { color: var(--ink); padding-left: 0; }
+.s-eval .after { display: grid; grid-template-columns: 1fr 1fr; gap: 64px; margin-top: 30px; }
+.s-eval .after ol { margin: 0; padding-left: 28px; }
+.s-eval .after li { font-size: 22px; line-height: 1.4; color: var(--ink-2); margin-top: 4px; }
+.s-eval .after p.block-text { font-size: 22px; }
+
+/* 11. Business case */
+.s-biz .lede { font-size: 25px; }
+.s-biz .grid { display: grid; grid-template-columns: 1fr 1fr; column-gap: 72px; row-gap: 34px; margin-top: 36px; }
+.s-biz .cell { border-top: 2px solid var(--ink); padding-top: 14px; }
+.s-biz .cell h2 { font-size: 26px; font-weight: 600; margin: 0 0 8px; letter-spacing: -0.006em; }
+.s-biz .cell h2 span { font-weight: 400; color: var(--check); }
+ul.plain { list-style: none; margin: 0; padding: 0; }
+ul.plain li { position: relative; padding-left: 26px; font-size: 22px; line-height: 1.4; color: var(--ink-2); margin-top: 6px; }
+ul.plain li::before { content: ""; position: absolute; left: 2px; top: .62em; width: 12px; height: 2px; background: var(--ink-2); }
+ul.plain li b { color: var(--ink); font-weight: 600; }
+
+/* 12. Roadmap and limits */
+.s-next .grid { display: grid; grid-template-columns: 1fr 1fr; gap: 80px; margin-top: 46px; }
+.s-next .col h2 { font-size: 30px; font-weight: 600; margin: 0 0 6px; padding-top: 16px; border-top: 2px solid var(--ink); }
+.s-next ul.plain li { font-size: 25px; margin-top: 18px; }
+.s-next ol.prio { margin: 0; padding: 0; list-style: none; counter-reset: p; }
+.s-next ol.prio li { counter-increment: p; display: grid; grid-template-columns: 40px 1fr; font-size: 25px; line-height: 1.4; color: var(--ink-2); margin-top: 18px; }
+.s-next ol.prio li::before { content: counter(p); font-weight: 600; color: var(--ink); }
+.s-next ol.prio li b { color: var(--ink); font-weight: 600; }
+
+/* 13. Team */
+.s-team .lede { font-size: 26px; }
+.s-team .grid { display: grid; grid-template-columns: 920px 1fr; gap: 96px; margin-top: 56px; align-items: start; }
+.s-team dl.links { margin: 0; border-top: 2px solid var(--ink); }
+.s-team dl.links dt { font-size: 21px; color: var(--ink-2); padding-top: 18px; }
+.s-team dl.links dd { margin: 4px 0 0; font-size: 28px; line-height: 1.3; padding-bottom: 18px; border-bottom: 1px solid var(--rule); white-space: nowrap; }
+.s-team dl.links dd.strong { font-weight: 600; font-size: 32px; }
+.s-team dl.links dd code { font-size: 25px; }
+.s-team .notes > div { border-top: 2px solid var(--ink); padding-top: 16px; }
+.s-team .notes > div + div { margin-top: 40px; }
+</style>
+</head>
+<body>
+
+<!-- 1 · Title -->
+<section class="slide s-title">
+  <div class="grid">
+    <div>
+      <p class="event">Google Cloud AI Builder Cup 2026</p>
+      <h1 class="product">No Fine Print</h1>
+      <p class="tagline">Which competitions can your team actually win?</p>
+      <p class="what">It reads the rules of hackathons, grants and innovation challenges, checks every member of your team against them, quotes the clause behind every verdict, and ranks what is left by prize money per entrant.</p>
+      <div class="statement">
+        <span class="label">Problem statement</span>
+        <span class="value">Future of Work &amp; Enterprise Productivity</span>
+      </div>
+    </div>
+    <div class="doc" aria-label="Excerpt from the AI Builder Cup terms and conditions">
+      <ul>
+        <li><b>Age Limit:</b> Every participant must be at least 21 years of age at the time of registration.</li>
+        <li><b>Professional Status Only:</b> Participation is strictly restricted to working professionals, entrepreneurs, and startups.</li>
+        <li><b>Strict Student Prohibition:</b> Full-time or part-time students are strictly ineligible. <mark>If any single member of a team is found to be a student, the entire team will be immediately disqualified,</mark> even if discovered after shortlisting, selection, or completion of the Grand Finale.</li>
+        <li><b>Geographic &amp; Residency Restriction:</b> All participants must be physically based in and legal residents of countries within the JAPAC (Japan &amp; Asia-Pacific) region. […]</li>
+      </ul>
+      <p class="cap">From this competition’s terms and conditions: the kind of clause No Fine Print reads, checks against every teammate, and quotes back.</p>
+    </div>
+  </div>
+  <div class="team">
+    <b>Team No Fine Print</b>
+    <span>Live app: no-fine-print-233540464251.asia-southeast1.run.app</span>
+    <span>Code: github.com/chizheyu/no-fine-print</span>
+  </div>
+  <footer class="fine"><span class="src">Every number in this deck names its source at the foot of its slide. <b>Excerpt:</b> AI Builder Cup terms and conditions, as saved on 11 Oct 2026 in the repository (<code>eval/snapshots</code>).</span><span class="pg">1 / 13</span></footer>
+</section>
+
+<!-- 2 · Problem -->
+<section class="slide s-problem">
+  <h1>The clause that disqualifies a team is the one nobody reads</h1>
+  <p class="lede">Small teams pick competitions with almost no decision support. Three traps, all from this competition’s own terms:</p>
+  <div class="grid">
+    <div>
+      <div class="trap">
+        <p class="case">One teammate studies part-time</p>
+        <p class="clause">“Full-time or part-time students are strictly ineligible. <mark>If any single member of a team is found to be a student, the entire team will be immediately disqualified,</mark> even if discovered after shortlisting, selection, or completion of the Grand Finale.”</p>
+      </div>
+      <div class="trap">
+        <p class="case">The prototype was started before the build window</p>
+        <p class="clause">“Pre-existing products, ongoing projects, or <mark>code developed prior to the official launch</mark> will be disqualified.”</p>
+        <p class="note">The terms never give the date of that launch. What counts is the first commit, not the day the repository went public.</p>
+      </div>
+      <div class="trap">
+        <p class="case">One teammate works for the sponsor</p>
+        <p class="note">The terms name no company whose staff are excluded, yet sponsors usually bar their own staff. Silence is not permission.</p>
+      </div>
+    </div>
+    <div>
+      <div class="fig">
+        <p class="num">98 of 113</p>
+        <p class="desc">open competitions in our seed dataset had at least one condition (residency, student status, or whether existing work counts) that our first research pass could not pin down from the official pages.</p>
+      </div>
+      <div class="fig">
+        <p class="num">S$0.55 to S$2,322</p>
+        <p class="desc">expected prize per registrant, across the 25 events where both the prize pool and the registrant count are public. A big pool can be worth little per entrant.</p>
+      </div>
+    </div>
+  </div>
+  <footer class="fine"><span class="src"><b>Sources:</b> clauses from the AI Builder Cup terms and conditions, saved 11 Oct 2026 (<code>eval/snapshots</code>), labels in <code>eval/gold.json</code>. Figures from the README: seed dataset of 175 events checked against official pages, 28 Sep to 6 Oct 2026.</span><span class="pg">2 / 13</span></footer>
+</section>
+
+<!-- 3 · What it does -->
+<section class="slide s-what">
+  <h1>From one GitHub link to a shortlist you can defend</h1>
+  <div class="grid">
+    <ol class="steps">
+      <li><div><p class="t">Dossier from a GitHub link</p><p class="d">Quoted README facts and the first-commit date</p></div></li>
+      <li><div><p class="t">Eligibility, member by member</p><p class="d">Every verdict quotes the clause it rests on</p></div></li>
+      <li><div><p class="t">Ranking by expected prize per entrant</p><p class="d">Prize pool divided by registrants, not pool size</p></div></li>
+      <li><div><p class="t">Due diligence with sources</p><p class="d">Gemini searches; every sentence cites a page</p></div></li>
+      <li><div><p class="t">An application kit that cannot overclaim</p><p class="d">Facts cite the dossier; a guard checks numbers</p></div></li>
+      <li><div><p class="t">Blind judge simulation</p><p class="d">Sees only the kit and the official criteria</p></div></li>
+      <li><div><p class="t">Prediction ledger</p><p class="d">Odds logged before you commit, scored after results</p></div></li>
+    </ol>
+    <figure class="exhibit">
+      <img src="img/find.jpg" alt="The live app: a project dossier on the left and ranked event tickets stamped Eligible on the right">
+      <figcaption><b>Exhibit A.</b> The live app ranking 132 events for a fictional three-person sample team: 14 eligible, 99 to check, 19 out.</figcaption>
+    </figure>
+  </div>
+  <footer class="fine"><span class="src"><b>Source:</b> live app, captured 11 Oct 2026 with Playwright at 1440 by 900. The sample team ships with the app and is fictional.</span><span class="pg">3 / 13</span></footer>
+</section>
+
+<!-- 4 · Eligibility -->
+<section class="slide s-elig">
+  <h1>Every verdict names the member, the rule and the clause</h1>
+  <div class="split">
+    <div class="blocks">
+      <div>
+        <p class="block-title">The sample team (fictional)</p>
+        <table class="team-table">
+          <tr><td>Engineer</td><td>Singapore citizen, employed</td></tr>
+          <tr><td>Designer</td><td>Based in Asia-Pacific, employed</td></tr>
+          <tr><td>Data scientist</td><td>Singapore PR, employed, <span class="flag">studies part-time</span></td></tr>
+        </table>
+      </div>
+      <p class="sum">For the AI Builder Cup the engine returns <b>Out</b>: one part-time student disqualifies the whole team. The clause is quoted, with a link to read it in context.</p>
+      <div class="levels">
+        <span class="stamp ok">Eligible</span><p><b>Passes every rule</b> we could check against the team</p>
+        <span class="stamp check">Check</span><p><b>The rules or the dossier leave it open:</b> verify before you build</p>
+        <span class="stamp out">Out</span><p><b>A rule disqualifies the team</b></p>
+      </div>
+      <p class="block-text">No model takes part here: <code>src/engine/eligibility.js</code> is plain code with tests. Ranking then uses expected prize per entrant: <b>S$38,700 ÷ 20,621 registrants, about S$1.88 each.</b></p>
+    </div>
+    <figure class="exhibit">
+      <img src="img/eligibility.jpg" alt="Event drawer for the Google Cloud AI Builder Cup 2026, stamped Out, listing each eligibility finding with the quoted clause">
+      <figcaption><b>Exhibit B.</b> The AI Builder Cup, checked member by member for the sample team (top of the event panel).</figcaption>
+    </figure>
+  </div>
+  <footer class="fine"><span class="src"><b>Sources:</b> live app, 11 Oct 2026 (pool, registrants counted 5 Oct 2026, and the per-registrant figure are as the app shows them); <code>src/engine/eligibility.js</code>.</span><span class="pg">4 / 13</span></footer>
+</section>
+
+<!-- 5 · Drafts, judges, ledger -->
+<section class="slide s-kit">
+  <h1>Every number in a draft must come from the dossier</h1>
+  <div class="split">
+    <div class="blocks">
+      <div>
+        <p class="block-title">The Coach drafts (Gemini)</p>
+        <p class="block-text">A pitch, a map to the judging criteria, submission text, a 3-minute demo script, a checklist and the compliance risks. A sentence that relies on a fact ends with its evidence id, like <b>[E3]</b>. A missing fact becomes <b>[TODO]</b>, never a made‑up number.</p>
+      </div>
+      <div>
+        <p class="block-title">The guard checks (code)</p>
+        <p class="block-text">It flags any number the dossier does not contain, matching whole numbers and units: a “40%” judging weight does not back “saved 40 hours”. It also flags citations to evidence that does not exist, and promises such as “guaranteed to win”.</p>
+      </div>
+      <div>
+        <p class="block-title">Blind judges (Gemini)</p>
+        <p class="block-text">A separate call sees only the kit and the official criteria with their weights. It scores each criterion and names the three changes that would raise the score most.</p>
+      </div>
+      <div>
+        <p class="block-title">Prediction ledger</p>
+        <p class="block-text">Log your chance of a prize and the hours you will spend before you commit. Once results are in, the ledger scores your calibration with the Brier score: 0 is perfect, 0.25 is a coin flip. Drafts stay drafts: teams rewrite and submit their own work.</p>
+      </div>
+    </div>
+    <figure class="exhibit">
+      <img src="img/kit.jpg" alt="Application kit drafted for the AI Builder Cup, with a green banner saying the guard passed and evidence ids E1 to E4 in the criteria table">
+      <figcaption><b>Exhibit C.</b> The top of a kit for the AI Builder Cup, drafted from the sample dossier. Evidence ids link each claim to the dossier; gaps are left as [TODO], not invented.</figcaption>
+    </figure>
+  </div>
+  <footer class="fine"><span class="src"><b>Sources:</b> live app, 11 Oct 2026; <code>src/agents/coach.js</code>, <code>src/engine/guards.js</code>, <code>web/app.js</code> (Brier score); README.</span><span class="pg">5 / 13</span></footer>
+</section>
+
+<!-- 6 · How it decides -->
+<section class="slide s-how">
+  <h1>Gemini reads; code decides</h1>
+  <p class="lede">The model may propose anything; only code that anyone can read and test acts on it. Four rules hold everywhere:</p>
+  <div class="grid">
+    <div class="rule">
+      <h2>Every claim about the rules quotes the rules</h2>
+      <dl>
+        <dt class="gem">Gemini</dt><dd>fills each eligibility field and copies the sentence that states it</dd>
+        <dt>Code</dt><dd>finds that sentence in the page we fetched, tolerating typography and list bullets, nothing else</dd>
+        <dt class="fail">If not found</dt><dd>the field resets to “unknown” and is shown to you as something to read</dd>
+      </dl>
+    </div>
+    <div class="rule">
+      <h2>Verdicts come from a rule engine, not a model</h2>
+      <dl>
+        <dt class="gem">Gemini</dt><dd>not used</dd>
+        <dt>Code</dt><dd>checks each member’s location, residency, student and employment status, age and employer against each rule, and returns the clause it relied on</dd>
+        <dt>Tested</dt><dd>on cases that misjudged real projects: repository date instead of first commit; sponsor staff when the rules are silent</dd>
+      </dl>
+    </div>
+    <div class="rule">
+      <h2>Drafts cannot overclaim</h2>
+      <dl>
+        <dt class="gem">Gemini</dt><dd>drafts the application kit, citing the dossier as [E3]</dd>
+        <dt>Code</dt><dd>flags numbers the dossier lacks, citations that do not exist, and promised outcomes</dd>
+        <dt class="fail">If flagged</dt><dd>the number is highlighted before anyone copies the draft</dd>
+      </dl>
+    </div>
+    <div class="rule">
+      <h2>Web findings must cite a page</h2>
+      <dl>
+        <dt class="gem">Gemini</dt><dd>searches with Google Search grounding and reads the event’s pages with URL context</dd>
+        <dt>Code</dt><dd>lays the API’s grounding supports over every sentence: all of its digits and at least 95% of its letters must be covered</dd>
+        <dt class="fail">If not</dt><dd>it goes to a collapsed “without a source” list. A contradiction needs each side backed on its own</dd>
+      </dl>
+    </div>
+  </div>
+  <footer class="fine"><span class="src"><b>Sources:</b> README (How it decides); <code>src/quotes.js</code>, <code>src/agents/clerk.js</code>, <code>src/engine/eligibility.js</code>, <code>src/engine/guards.js</code>, <code>src/agents/investigator.js</code>.</span><span class="pg">6 / 13</span></footer>
+</section>
+
+<!-- 7 · Real example -->
+<section class="slide s-dd">
+  <h1>A real catch: this event’s themes page contradicts itself</h1>
+  <div class="split">
+    <div class="blocks">
+      <p class="block-text">We pressed <b>Investigate</b> on the Google Cloud AI Builder Cup. Gemini read <b>3 of 3</b> official pages and ran <b>7</b> Google searches. All <b>4</b> sentences it wrote are tied to a cited page by Google’s grounding, so all 4 are shown.</p>
+      <div class="side"><span class="lab">A</span><p class="block-text">The page lists six themes: BFSI; Retail &amp; Commerce; Manufacturing; Media, Content &amp; Digital Experiences; Future of Work &amp; Enterprise Productivity; Sustainability &amp; Social Impact.</p></div>
+      <div class="side"><span class="lab">B</span><p class="clause">“Category Specification: Clearly identify the problem statement you are submitting for <mark>(Healthcare, Education, Sustainability, Accessibility, Social Good).</mark>”</p></div>
+      <p class="block-text">Both sides cite <b>aibuildercup.com/themes.html</b>, the event’s own page, and the card says so. That is why this submission names its problem statement in full: <b>Future of Work &amp; Enterprise Productivity.</b></p>
+      <p class="block-text">The rules engine never acts on a card. It is evidence for you to read, shown with Google’s Search Suggestions as grounding requires.</p>
+    </div>
+    <figure class="exhibit">
+      <img src="img/due-diligence.jpg" alt="Due-diligence card for the AI Builder Cup: judges and sponsors with numbered sources, and a contradiction with sides A and B both citing the themes page">
+      <figcaption><b>Exhibit D.</b> The card as the live app shows it, made 11 Oct 2026 at 16:10 SGT. Its “Two pages disagree” heading is the fallback this card was made with; it now reads “These statements disagree”.</figcaption>
+    </figure>
+  </div>
+  <footer class="fine"><span class="src"><b>Sources:</b> live app, due-diligence card of 11 Oct 2026; side B quoted from aibuildercup.com/themes.html, read 11 Oct 2026; README (Due diligence, with sources).</span><span class="pg">7 / 13</span></footer>
+</section>
+
+<!-- 8 · Architecture -->
+<section class="slide s-arch">
+  <h1>Serverless on Google Cloud, with Gemini on Vertex AI</h1>
+  <div class="diagram">
+<!--ARCH:START-->
+<svg id="arch" viewBox="0 0 1680 770" width="1680" height="770" role="img" aria-labelledby="arch-title arch-desc" xmlns="http://www.w3.org/2000/svg">
+<title id="arch-title">No Fine Print on Google Cloud</title>
+<desc id="arch-desc">A browser talks to a Cloud Run service. Cloud Scheduler starts a nightly Cloud Run job that scans Devpost into Firestore. The service keeps sessions and shared due-diligence cards in Firestore and calls Gemini 3.8 Flash on Vertex AI, with structured output, Google Search grounding and URL context, through a least-privilege service account.</desc>
+<defs>
+<marker id="a-head" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="9" markerHeight="9" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#545b69"/></marker>
+<style>
+.a-svc { fill: #f4f6f9; stroke: #9aa3b2; stroke-width: 1.5; }
+.a-run { fill: #f4f6f9; stroke: #1a1f2b; stroke-width: 2; }
+.a-gem { fill: #eaf0fe; stroke: #2d5bd7; stroke-width: 1.5; }
+.a-code { fill: #ffffff; stroke: #1a1f2b; stroke-width: 1.5; }
+.a-ext { fill: #ffffff; stroke: #7d8696; stroke-width: 1.5; stroke-dasharray: 7 5; }
+.a-line { stroke: #545b69; stroke-width: 2; fill: none; }
+#arch text { font-family: "Instrument Sans", "Helvetica Neue", Arial, sans-serif; }
+.a-t { font-size: 23px; font-weight: 600; fill: #1a1f2b; }
+.a-m { font-size: 21px; font-weight: 600; fill: #1a1f2b; }
+.a-s { font-size: 18px; font-weight: 400; fill: #4f5666; }
+.a-b { font-size: 18px; font-weight: 400; fill: #1a1f2b; }
+</style>
+</defs>
+
+<!-- Browser (outside Google Cloud) -->
+<rect class="a-ext" x="1" y="340" width="218" height="120" rx="14"/>
+<text class="a-t" x="24" y="386">Browser</text>
+<text class="a-s" x="24" y="414">Web client,</text>
+<text class="a-s" x="24" y="437">no build step</text>
+<text class="a-s" x="1" y="500">Long tasks stream</text>
+<text class="a-s" x="1" y="523">each step back as it</text>
+<text class="a-s" x="1" y="546">happens (NDJSON)</text>
+<line class="a-line" x1="221" y1="400" x2="297" y2="400" marker-start="url(#a-head)" marker-end="url(#a-head)"/>
+
+<!-- Nightly scout -->
+<rect class="a-svc" x="300" y="10" width="250" height="110" rx="14"/>
+<text class="a-t" x="324" y="56">Cloud Scheduler</text>
+<text class="a-s" x="324" y="86">Nightly, 02:30 SGT</text>
+<line class="a-line" x1="551" y1="65" x2="607" y2="65" marker-end="url(#a-head)"/>
+<rect class="a-svc" x="610" y="10" width="470" height="110" rx="14"/>
+<text class="a-t" x="634" y="50">Cloud Run job: Scout</text>
+<text class="a-s" x="634" y="79">Reads the Devpost API and rules pages;</text>
+<text class="a-s" x="634" y="102">clause patterns, no model</text>
+<line class="a-line" x1="1081" y1="65" x2="1157" y2="65" marker-end="url(#a-head)"/>
+
+<!-- Cloud Run service -->
+<rect class="a-run" x="300" y="180" width="780" height="525" rx="18"/>
+<text class="a-t" x="324" y="222">Cloud Run service</text>
+<text class="a-s" x="324" y="249">Node.js 22 and Express, asia-southeast1</text>
+
+<rect class="a-gem" x="324" y="272" width="232" height="128" rx="10"/>
+<text class="a-m" x="340" y="304">Profiler</text>
+<text class="a-b" x="340" y="333">GitHub API dates;</text>
+<text class="a-b" x="340" y="356">Gemini summarises the</text>
+<text class="a-b" x="340" y="379">README, facts quoted</text>
+
+<rect class="a-gem" x="574" y="272" width="232" height="128" rx="10"/>
+<text class="a-m" x="590" y="304">Clerk</text>
+<text class="a-b" x="590" y="333">Gemini fills the form;</text>
+<text class="a-b" x="590" y="356">each quote is found in</text>
+<text class="a-b" x="590" y="379">the page, or reset</text>
+
+<rect class="a-code" x="824" y="272" width="232" height="128" rx="10"/>
+<text class="a-m" x="840" y="304">Engine</text>
+<text class="a-b" x="840" y="333">Eligibility per member</text>
+<text class="a-b" x="840" y="356">and expected prize per</text>
+<text class="a-b" x="840" y="379">entrant, no model</text>
+
+<rect class="a-gem" x="324" y="418" width="232" height="128" rx="10"/>
+<text class="a-m" x="340" y="450">Investigator</text>
+<text class="a-b" x="340" y="479">Gemini with Search and</text>
+<text class="a-b" x="340" y="502">URL context; every</text>
+<text class="a-b" x="340" y="525">sentence checked</text>
+
+<rect class="a-gem" x="574" y="418" width="232" height="128" rx="10"/>
+<text class="a-m" x="590" y="450">Coach</text>
+<text class="a-b" x="590" y="479">Gemini drafts the kit;</text>
+<text class="a-b" x="590" y="502">guard checks numbers,</text>
+<text class="a-b" x="590" y="525">citations, promises</text>
+
+<rect class="a-gem" x="824" y="418" width="232" height="128" rx="10"/>
+<text class="a-m" x="840" y="450">Judges</text>
+<text class="a-b" x="840" y="479">Gemini scores the kit</text>
+<text class="a-b" x="840" y="502">blind, against the</text>
+<text class="a-b" x="840" y="525">official criteria</text>
+
+<rect class="a-code" x="324" y="564" width="232" height="120" rx="10"/>
+<text class="a-m" x="340" y="596">Ledger</text>
+<text class="a-b" x="340" y="625">Predictions before you</text>
+<text class="a-b" x="340" y="648">commit; Brier score</text>
+<text class="a-b" x="340" y="671">after results</text>
+
+<rect class="a-code" x="574" y="564" width="482" height="120" rx="10"/>
+<text class="a-m" x="590" y="596">Guardrails</text>
+<text class="a-b" x="590" y="625">Token and investigation caps per session and</text>
+<text class="a-b" x="590" y="648">for the whole deployment; rate limits; fetching</text>
+<text class="a-b" x="590" y="671">refuses private and metadata addresses</text>
+
+<!-- Firestore -->
+<rect class="a-svc" x="1160" y="10" width="519" height="240" rx="14"/>
+<text class="a-t" x="1184" y="54">Firestore</text>
+<text class="a-s" x="1184" y="82">Native mode, asia-southeast1</text>
+<text class="a-b" x="1184" y="124">Per session: dossiers, added events,</text>
+<text class="a-b" x="1184" y="147">predictions, daily AI usage</text>
+<text class="a-b" x="1184" y="185">Shared: scanned events, and one</text>
+<text class="a-b" x="1184" y="208">due-diligence card per event per day</text>
+<line class="a-line" x1="1081" y1="215" x2="1157" y2="215" marker-start="url(#a-head)" marker-end="url(#a-head)"/>
+
+<!-- Vertex AI -->
+<rect class="a-svc" x="1160" y="290" width="519" height="256" rx="14"/>
+<text class="a-t" x="1184" y="334">Vertex AI: Gemini 3.8 Flash</text>
+<text class="a-s" x="1184" y="362">Global endpoint, model pinned at deploy</text>
+<text class="a-b" x="1184" y="404">Structured output with a JSON schema</text>
+<text class="a-b" x="1184" y="436">Grounding with Google Search</text>
+<text class="a-b" x="1184" y="468">URL context for the event’s own pages</text>
+<text class="a-b" x="1184" y="500">Streaming, so long tasks show progress</text>
+<line class="a-line" x1="1081" y1="420" x2="1157" y2="420" marker-start="url(#a-head)" marker-end="url(#a-head)"/>
+
+<!-- Identity -->
+<rect class="a-code" x="1160" y="585" width="519" height="120" rx="14"/>
+<text class="a-m" x="1184" y="619">Least privilege</text>
+<text class="a-b" x="1184" y="648">Service account nfp-run: aiplatform.user</text>
+<text class="a-b" x="1184" y="671">and datastore.user only. No API keys</text>
+<text class="a-b" x="1184" y="694">in the container.</text>
+
+<!-- Legend -->
+<rect class="a-svc" x="1" y="740" width="30" height="22" rx="5"/>
+<text class="a-s" x="42" y="758">Google Cloud service</text>
+<rect class="a-gem" x="300" y="740" width="30" height="22" rx="5"/>
+<text class="a-s" x="341" y="758">Calls Gemini, then code checks the result</text>
+<rect class="a-code" x="760" y="740" width="30" height="22" rx="5"/>
+<text class="a-s" x="801" y="758">Our code, no model</text>
+<rect class="a-ext" x="1000" y="740" width="30" height="22" rx="5"/>
+<text class="a-s" x="1041" y="758">Outside Google Cloud</text>
+</svg>
+<!--ARCH:END-->
+  </div>
+  <footer class="fine"><span class="src"><b>Sources:</b> README (Architecture; Deploy to Google Cloud); live <code>/api/status</code> on 11 Oct 2026: Vertex AI, gemini-3.8-flash, Firestore.</span><span class="pg">8 / 13</span></footer>
+</section>
+
+<!-- 9 · Inside the service -->
+<section class="slide s-inside">
+  <h1>Each Gemini call has one job, and code checks its work</h1>
+  <table class="t">
+    <thead><tr><th style="width:180px">Agent</th><th style="width:400px">What Gemini does</th><th style="width:530px">How it is called</th><th>What code checks before you see it</th></tr></thead>
+    <tbody>
+      <tr><td>Profiler</td><td>Summarises the README into a dossier</td><td>Structured output (JSON schema), temperature 0</td><td>Each fact must quote the README; dates, licence and stars come from the GitHub API</td></tr>
+      <tr><td>Clerk</td><td>Fills the eligibility form from the rules</td><td>Structured output, temperature 0, up to 150,000 characters of rules</td><td>Each quote must be found in the fetched page, or the field resets to “unknown”</td></tr>
+      <tr><td>Investigator</td><td>Past editions, judges, sponsors, staff exclusions, contradictions</td><td>Google Search grounding, URL context on up to 3 official pages, low thinking, at most 6 searches requested</td><td>Grounding supports laid over each sentence: all digits and 95% of letters, or it is set apart</td></tr>
+      <tr><td>Coach</td><td>Drafts the application kit</td><td>Streamed at temperature 0.4, with live progress</td><td>Numbers not in the dossier, citations to missing evidence, promised outcomes</td></tr>
+      <tr><td>Judges</td><td>Score the kit blind</td><td>Structured output, temperature 0.2; given only the kit and the official criteria</td><td>Advice only: the team rewrites and submits its own work</td></tr>
+    </tbody>
+  </table>
+  <div class="guard">
+    <div><p class="block-title">Spending is capped per day</p><p class="block-text">400,000 tokens per session and 3,000,000 for the deployment; 30 model calls per session per 10 minutes; 8 investigations per session and 40 in all, because grounding is billed per search query.</p></div>
+    <div><p class="block-title">One card per event per day</p><p class="block-text">A due-diligence card holds only public facts, so every visitor shares it: a second click costs nothing. The rules engine is never rate-limited.</p></div>
+    <div><p class="block-title">Untrusted input stays data</p><p class="block-text">Prompts mark fetched rules, READMEs and submissions as data, never instructions. Fetching refuses private and metadata addresses, after redirects and DNS too.</p></div>
+  </div>
+  <footer class="fine"><span class="src"><b>Sources:</b> <code>src/agents/</code> (clerk, profiler, investigator, coach, llm), <code>src/app.js</code>, <code>src/sources/fetchPage.js</code>; README (Deploy to Google Cloud: spending caps).</span><span class="pg">9 / 13</span></footer>
+</section>
+
+<!-- 10 · Evaluation -->
+<section class="slide s-eval">
+  <h1>We test extraction on 45 hand-labelled fields, traps included</h1>
+  <p class="lede">Five events: the AI Builder Cup terms, PayPal AI Hackathon, Build With AI: Basics, Qloo Agentic Hackathon and Meta VR START. Each label was checked against a saved snapshot of the official page, the exact text the model reads, and carries the sentence that justifies it. Nine labels are traps; for five of them “unknown” is the only right answer.</p>
+  <table class="t">
+    <thead><tr><th style="width:290px">Run</th><th style="width:500px">Model (Vertex AI endpoint)</th><th>Events</th><th>Fields correct</th><th>Quotes verified</th><th>Confident errors</th><th>Traps passed</th></tr></thead>
+    <tbody>
+      <tr><td>2026-10-08</td><td>gemini-3.8-flash (global)</td><td class="num">2</td><td class="num">17 / 17</td><td class="num">14 / 14</td><td class="num">0</td><td class="num">1 / 1</td></tr>
+      <tr><td>2026-10-11</td><td>gemini-2.5-flash (asia-southeast1)</td><td class="num">5</td><td class="num">28 / 45</td><td class="num">22 / 28</td><td class="num">2</td><td class="num">5 / 9</td></tr>
+      <tr><td>2026-10-11</td><td>gemini-3.8-flash (global, production)</td><td class="num">5</td><td class="num">42 / 45</td><td class="num">31 / 35</td><td class="num">0</td><td class="num">9 / 9</td></tr>
+      <tr><td>2026-10-11, after fixes</td><td>gemini-2.5-flash (asia-southeast1)</td><td class="num">5</td><td class="num">41 / 45</td><td class="num">34 / 35</td><td class="num">2</td><td class="num">8 / 9</td></tr>
+      <tr class="best"><td>2026-10-11, after fixes</td><td>gemini-3.8-flash (global, production)</td><td class="num">5</td><td class="num">45 / 45</td><td class="num">31 / 32</td><td class="num">0</td><td class="num">9 / 9</td></tr>
+    </tbody>
+  </table>
+  <div class="after">
+    <div>
+      <p class="block-title">What the eval caught</p>
+      <p class="block-text">The first five-event runs exposed three bugs in the Clerk, none in the labels:</p>
+      <ol>
+        <li>A correct quote running across two list items never matched.</li>
+        <li>The judge-employer exclusion shared its quote with the sponsor-staff clause, so a judge clause the rules do not have could still pass.</li>
+        <li>One model copied 29,000 characters into a single quote and ran out of output.</li>
+      </ol>
+    </div>
+    <div>
+      <p class="block-title">What it does not settle yet</p>
+      <p class="block-text">Each row is one run at temperature 0, and one run is not enough to call a result settled: the production model’s three misses in the first run were unquoted claims, reset by design, that did not recur. gemini-2.5-flash’s two confident errors remain: genuine quotes, misread. No label was changed after seeing a run.</p>
+    </div>
+  </div>
+  <footer class="fine"><span class="src"><b>Sources:</b> README (Evaluation); <code>eval/results/</code>, <code>eval/gold.json</code>. A confident error is a wrong value that still carried a quote we could verify. In the first gemini-2.5-flash run one event returned malformed JSON twice, so all 10 of its fields count as wrong.</span><span class="pg">10 / 13</span></footer>
+</section>
+
+<!-- 11 · Business case -->
+<section class="slide s-biz">
+  <h1>Who it is for, and how we will know it works</h1>
+  <p class="lede">Our problem statement, Future of Work &amp; Enterprise Productivity, asks how people and organisations “access knowledge, collaborate, make decisions, and complete everyday work”. Choosing where to compete, and proving you are allowed to, is that kind of work.</p>
+  <div class="grid">
+    <div class="cell">
+      <h2>Who it is for</h2>
+      <ul class="plain">
+        <li><b>Builders and startups</b> deciding where to spend their next few weeks</li>
+        <li><b>Student teams:</b> some events are for students only, others bar them outright</li>
+        <li><b>Accelerators and university innovation offices</b> screening many teams against many events</li>
+        <li><b>SME grant applicants:</b> the dataset covers grants and programmes, not only hackathons</li>
+      </ul>
+    </div>
+    <div class="cell">
+      <h2>Why now</h2>
+      <ul class="plain">
+        <li>AI tools make building faster, so choosing where to compete becomes the slow part</li>
+        <li>Rules move: the AI Builder Cup terms are a published Google Doc, “Updated automatically every 5 minutes”</li>
+        <li>Grounded Gemini turns due diligence on one event into 10 to 60 seconds of reading and searching</li>
+      </ul>
+    </div>
+    <div class="cell">
+      <h2>How it could pay for itself <span>(plans, not yet tested)</span></h2>
+      <ul class="plain">
+        <li>Free for builders and teams: the rules engine needs no model calls, and shared cards make due-diligence cost grow with events, not users</li>
+        <li>A paid workspace for accelerators and universities that screen whole cohorts</li>
+        <li>A pre-launch check for organisers, so contradictions and missing dates are fixed first</li>
+        <li>No success fees and no share of any prize or grant</li>
+      </ul>
+    </div>
+    <div class="cell">
+      <h2>How we will measure impact <span>(no user study yet)</span></h2>
+      <ul class="plain">
+        <li><b>Time to a shortlist:</b> from a GitHub link to the events the team can actually enter</li>
+        <li><b>Ineligible entries avoided:</b> events marked Out or Check that a team had planned to enter</li>
+        <li><b>Calibration:</b> Brier score of predictions logged before entering, once results are in</li>
+        <li>Until then we claim no time saved</li>
+      </ul>
+    </div>
+  </div>
+  <footer class="fine"><span class="src"><b>Sources:</b> theme text from aibuildercup.com/themes.html; the terms banner as saved in <code>eval/snapshots</code>; README (10 to 60 seconds; one card per event per day). The revenue items are plans.</span><span class="pg">11 / 13</span></footer>
+</section>
+
+<!-- 12 · Roadmap and limits -->
+<section class="slide s-next">
+  <h1>What it cannot do yet, and what comes next</h1>
+  <div class="grid">
+    <div class="col">
+      <h2>Limits, stated up front</h2>
+      <ul class="plain">
+        <li><b>Not legal advice.</b> Singapore’s Ministry of Manpower has published no guidance on work-pass holders winning cash prizes; we say so rather than guess.</li>
+        <li><b>Devpost refuses server traffic</b> to its rules pages with a Cloudflare check. The nightly scout still gets dates, prizes and registrant counts; for the rules, paste them into “Add an event”, or Investigate reads them through Google.</li>
+        <li><b>The eval is small:</b> five events, 45 fields, one run per row.</li>
+        <li><b>Grounding ties a sentence to a cited page;</b> it does not prove the page is right, and search results vary from run to run.</li>
+        <li><b>Employer matching</b> knows the big corporate families; smaller sponsors match by name only.</li>
+      </ul>
+    </div>
+    <div class="col">
+      <h2>Next, in priority order</h2>
+      <ol class="prio">
+        <li><span><b>A pilot with real teams,</b> measuring time to a shortlist, ineligible entries avoided and Brier scores.</span></li>
+        <li><span><b>A larger gold set,</b> with several runs per model before we call any result settled.</span></li>
+        <li><span><b>More sources for the nightly scout,</b> such as Hack2skill and Tencent Cloud’s competition platform, with a person approving new events before they join the shared list.</span></li>
+        <li><span><b>Sign-in with Firebase Authentication,</b> in place of anonymous browser sessions.</span></li>
+      </ol>
+    </div>
+  </div>
+  <footer class="fine"><span class="src"><b>Sources:</b> README (Limits; Evaluation). The roadmap items are plans, not commitments to dates.</span><span class="pg">12 / 13</span></footer>
+</section>
+
+<!-- 13 · Team -->
+<section class="slide s-team">
+  <h1>Team No Fine Print</h1>
+  <p class="lede">Which competitions can your team actually win? Open the live app and press “Try a sample team”: every verdict shows the clause it rests on.</p>
+  <div class="grid">
+    <dl class="links">
+      <dt>Problem statement</dt><dd class="strong">Future of Work &amp; Enterprise Productivity</dd>
+      <dt>Live app</dt><dd>https://no-fine-print-233540464251.asia-southeast1.run.app</dd>
+      <dt>Source code</dt><dd>https://github.com/chizheyu/no-fine-print</dd>
+      <dt>This deck</dt><dd><code>docs/No_Fine_Print_deck.pdf</code> in the repository</dd>
+    </dl>
+    <div class="notes">
+      <div><p class="block-title">Built during the event</p><p class="block-text">Every line in the repository was written after the team formed; the first commit is dated 6 Oct 2026. The rule‑engine design was prototyped on 5 Oct 2026, inside the official building window.</p></div>
+      <div><p class="block-title">Open source under Apache-2.0</p><p class="block-text"><code>npm test</code> runs 68 tests with no network and no model; <code>npm run eval</code> reruns the extraction eval against the saved snapshots.</p></div>
+    </div>
+  </div>
+  <footer class="fine"><span class="src"><b>Sources:</b> git history (first commit, 6 Oct 2026); README (Built during the event; Run it); <code>npm test</code>, 68 passing on 11 Oct 2026.</span><span class="pg">13 / 13</span></footer>
+</section>
+
+</body>
+</html>
