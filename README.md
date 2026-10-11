@@ -80,7 +80,7 @@ The steps appear as they happen (reading and searching usually takes 10 to 60 se
 
 ```bash
 npm install
-npm test                       # 68 tests, no network, no model
+npm test                       # 74 tests, no network, no model
 npm start                      # http://localhost:8080 — rules engine only
 GEMINI_API_KEY=... npm start   # with Gemini (or GOOGLE_GENAI_USE_VERTEXAI=true + GOOGLE_CLOUD_PROJECT)
 npm run scan                   # pull open Devpost hackathons into data/scanned.json
