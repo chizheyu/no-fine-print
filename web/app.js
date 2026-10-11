@@ -4,7 +4,7 @@ const $ = (s, el = document) => el.querySelector(s);
 const esc = (s) => String(s ?? '').replace(/[&<>"']/g, (c) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]));
 const escRe = (s) => s.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
 
-const S = { status: null, dossier: null, results: [], filter: 'ok', q: '', open: null, kits: {}, judges: {}, busy: {}, bets: [], view: 'find', addOpen: false };
+const S = { status: null, dossier: null, results: [], filter: 'ok', q: '', open: null, kits: {}, judges: {}, cards: {}, busy: {}, bets: [], view: 'find', addOpen: false };
 const STAMP = { ok: 'Eligible', check: 'Check', out: 'Out' };
 const RANK = { out: 0, check: 1, warn: 2, ok: 3 };
 const ICON = { ok: '✓', warn: '!', check: '?', out: '×' };
@@ -25,6 +25,77 @@ async function api(path, body) {
   if (!res.ok) throw new Error(data?.error?.message || `Request failed (${res.status})`);
   return data;
 }
+
+// Long tasks stream their progress as NDJSON lines ({"step"}, {"note"}, then
+// {"result"} or {"error"}; see replier() in src/app.js).
+async function apiStream(path, body, { step, note }) {
+  const res = await fetch(path, { method: 'POST', headers: { 'Content-Type': 'application/json', Accept: 'application/x-ndjson' }, body: JSON.stringify(body) });
+  if (!/x-ndjson/.test(res.headers.get('content-type') || '')) {
+    const data = await res.json().catch(() => ({}));
+    if (!res.ok) throw new Error(data?.error?.message || `Request failed (${res.status})`);
+    return data;
+  }
+  const reader = res.body.getReader();
+  const decoder = new TextDecoder();
+  let buf = '';
+  for (;;) {
+    const { value, done } = await reader.read();
+    buf += decoder.decode(value || new Uint8Array(), { stream: !done }) + (done ? '\n' : '');
+    const lines = buf.split('\n');
+    buf = lines.pop();
+    for (const line of lines.filter((l) => l.trim())) {
+      const msg = JSON.parse(line);
+      if (msg.error) throw new Error(msg.error.message || 'Something went wrong on our side.');
+      if ('result' in msg) return msg.result;
+      if (msg.step) step(msg.step);
+      if (msg.note) note(msg.note);
+    }
+    if (done) throw new Error('The connection closed before the answer arrived. Try again.');
+  }
+}
+
+/* ---------- Progress of long tasks ---------- */
+
+// Running tasks by key: "gh", "add", "inv:<event>", "kit:<event>", "judge:<event>".
+// Each paints into its own slot, so a step never re-renders the rest of the page.
+const TASKS = {};
+
+function taskHTML(key) {
+  const t = TASKS[key];
+  if (!t) return '';
+  return `<ol class="progress">${t.steps.map((st, i) => {
+    const next = t.steps[i + 1];
+    const secs = Math.floor(((next ? next.at : Date.now()) - st.at) / 1000);
+    return `<li class="${next ? 'done' : 'now'}">${next ? lvl('ok') : '<span class="spin" aria-hidden="true"></span>'}<span>${esc(st.text)}${st.note ? ` <em>${esc(st.note)}</em>` : ''}</span><time${next ? '' : ` data-since="${st.at}"`}>${secs}s</time></li>`;
+  }).join('')}</ol>`;
+}
+
+const paintTask = (key) => document.querySelectorAll(`[data-task="${key}"]`).forEach((el) => { el.innerHTML = taskHTML(key); });
+const slot = (key) => `<div data-task="${esc(key)}" aria-live="polite">${taskHTML(key)}</div>`;
+
+async function runTask(key, path, body) {
+  // A placeholder until the server's first step arrives (it replaces this one).
+  TASKS[key] = { steps: [{ text: 'Sending the request.', at: Date.now(), placeholder: true }] };
+  paintTask(key);
+  try {
+    return await apiStream(path, body, {
+      step: (text) => {
+        const t = TASKS[key];
+        t.steps = t.steps.filter((st) => !st.placeholder);
+        t.steps.push({ text, at: Date.now() });
+        paintTask(key);
+      },
+      note: (text) => { TASKS[key].steps.at(-1).note = text; paintTask(key); },
+    });
+  } finally {
+    delete TASKS[key];
+    paintTask(key);
+  }
+}
+
+setInterval(() => document.querySelectorAll('[data-since]').forEach((el) => {
+  el.textContent = `${Math.floor((Date.now() - Number(el.dataset.since)) / 1000)}s`;
+}), 1000);
 
 function toast(msg) {
   const t = $('#toast');
@@ -66,6 +137,7 @@ function renderDossier() {
       <p class="lede">Paste a public GitHub repository. We read the README, take the date of the <em>first commit</em> (the date "new work only" rules care about), and check your team against every event.</p>
       <form id="gh" class="field"><input type="url" name="url" placeholder="https://github.com/owner/repo" required aria-label="GitHub repository URL">
       <button class="btn"${S.busy.gh ? ' disabled' : ''}>${S.busy.gh ? '<span class="spin"></span>Reading' : 'Build dossier'}</button></form>
+      ${slot('gh')}
       <p class="hint">No repository yet? <button class="linkish" data-act="sample">Try a sample team</button></p>`;
     return;
   }
@@ -148,7 +220,7 @@ function renderResults() {
       <input type="url" name="url" placeholder="Link to the rules or terms page">
       <textarea name="text" placeholder="…or paste the rules text (works for pages that need a browser)"></textarea>
       <div class="field"><span class="hint" style="margin:0;flex:1">Gemini fills in the eligibility form; every field must quote the rules or it stays unknown.</span>
-      <button class="btn"${S.busy.add ? ' disabled' : ''}>${S.busy.add ? '<span class="spin"></span>Reading rules' : 'Read the rules'}</button></div></form>` : ''}
+      <button class="btn"${S.busy.add ? ' disabled' : ''}>${S.busy.add ? '<span class="spin"></span>Reading rules' : 'Read the rules'}</button></div>${slot('add')}</form>` : ''}
     <div class="cards"></div>`;
   renderCards();
 }
@@ -212,6 +284,39 @@ function reasonHTML(x) {
 
 const EXISTING = { yes: 'Existing projects accepted', no: 'New work only', partial: 'Existing projects if significantly updated', unknown: 'Not stated' };
 
+const safeUrl = (u) => (/^https?:\/\//i.test(u || '') ? u : '#');
+function shortUrl(u) {
+  try { const x = new URL(u); return (x.hostname.replace(/^www\./, '') + x.pathname.replace(/\/$/, '')).slice(0, 80); } catch { return String(u || ''); }
+}
+
+// The Investigator's card. Only sentences that Google's grounding ties to a cited page
+// appear as findings; the rest are listed, collapsed, as unsupported.
+function ddHTML({ card: c, cached }) {
+  const cite = (ns) => ns.map((n) => {
+    const s = c.sources[n - 1];
+    return s ? `<a class="src" href="${esc(safeUrl(s.url))}" target="_blank" rel="noopener" title="${esc(shortUrl(s.url))}">${n}</a>` : '';
+  }).join('');
+  const read = c.pagesRead || [];
+  const made = new Date(c.madeAt).toLocaleString('en-SG', { timeZone: 'Asia/Singapore', day: 'numeric', month: 'short', hour: '2-digit', minute: '2-digit' });
+  const sections = c.sections.map((sec) => `<h5>${esc(sec.title)}</h5>${sec.claims.length
+    ? `<ul class="claims">${sec.claims.map((x) => `<li>${esc(x.text)}${cite(x.sources)}</li>`).join('')}</ul>`
+    : '<p class="hint">Nothing found that a source backs.</p>'}`).join('');
+  const conflicts = c.contradictions.length ? c.contradictions.map((k) => `<div class="conflict"><b>${esc(k.topic)}</b>
+      ${k.sides.map((sd) => `<p><span class="side">${esc(sd.label)}</span>${esc(sd.text)}${cite(sd.sources)}${sd.eventSite ? '' : ' <span class="tag weak">not from the event\'s own pages</span>'}</p>`).join('')}
+      ${k.samePage ? '<p class="hint">Both statements are on the same page.</p>' : ''}</div>`).join('')
+    : '<p class="hint">None found with a source on each side.</p>';
+  return `<section class="dd" aria-label="Due diligence">
+    <h4>Due diligence</h4>
+    <p class="hint">Gemini (${esc(c.model || 'Gemini')}) ${read.length ? `read ${read.filter((r) => r.ok).length} of ${read.length} official pages and ` : ''}ran ${c.stats.searches} Google searches${cached ? ', earlier today' : ''} (${esc(made)} SGT). ${c.stats.backed} of ${c.stats.sentences} sentences are tied to a cited page by Google's grounding; only those are shown as findings. The rules engine does not act on this card.</p>
+    ${c.suggestions ? `<iframe class="gsearch" title="Google Search suggestions" sandbox="allow-popups allow-popups-to-escape-sandbox" referrerpolicy="no-referrer" srcdoc="${esc(`<!doctype html><html><head><base target="_blank"><style>:root{color-scheme:light dark}body{margin:0}</style></head><body>${c.suggestions}</body></html>`)}"></iframe>` : ''}
+    ${sections}
+    <h5>Contradictions between pages</h5>${conflicts}
+    ${c.unsupported.length ? `<details class="unsupported"><summary>${c.unsupported.length} statement${c.unsupported.length === 1 ? '' : 's'} without a source, not shown as findings</summary><ul>
+      ${c.unsupported.map((u) => `<li><span class="tag none">unsupported</span> ${esc(u.text)}<small>${esc(u.section)}: ${esc(u.reason)}</small></li>`).join('')}</ul></details>` : ''}
+    ${c.sources.length ? `<h5>Sources</h5><ol class="sources">${c.sources.map((s) => `<li value="${s.n}"><a href="${esc(safeUrl(s.url))}" target="_blank" rel="noopener">${esc(shortUrl(s.url))}</a>${s.eventSite ? ' <span class="tag own">event site</span>' : ''}</li>`).join('')}</ol>` : ''}
+  </section>`;
+}
+
 function renderDrawer() {
   const drawer = $('#drawer');
   const r = S.results.find((x) => x.opp.id === S.open);
@@ -219,6 +324,7 @@ function renderDrawer() {
   const o = r.opp;
   const kit = S.kits[o.id];
   const judge = S.judges[o.id];
+  const dd = S.cards[o.id];
   const ai = S.status?.ai?.on;
   const prize = o.prize?.total_sgd ? `S$${Number(o.prize.total_sgd).toLocaleString('en-US')} pool${o.prize.top_sgd ? ` · top S$${Number(o.prize.top_sgd).toLocaleString('en-US')}` : ''}${o.prize.cash ? ' · cash' : ''}` : '';
   const teamSize = o.elig?.team_min || o.elig?.team_max ? `${o.elig.team_min || 1}–${o.elig.team_max || 'any'} people` : '';
@@ -234,10 +340,13 @@ function renderDrawer() {
     </div>
     ${o.unverified?.length ? `<h4>Claims we could not quote</h4><ul class="reasons">${o.unverified.map((u) => `<li>${lvl('check')}<div>${esc(u.field)}: “${esc(u.claimed)}”${u.quote ? `<blockquote>Model's quote, not found in the page: “${esc(u.quote)}”</blockquote>` : ''}</div></li>`).join('')}</ul>` : ''}
     <div class="actions">
+      ${dd ? '' : `<button class="btn ghost" data-act="investigate" title="Past editions, judges, sponsors, employee exclusions and contradictions between the event's pages, each with its source"${!ai || S.busy.inv ? ' disabled' : ''}>${S.busy.inv ? '<span class="spin"></span>Investigating' : 'Investigate'}</button>`}
       <button class="btn" data-act="kit"${!ai || S.busy.kit ? ' disabled' : ''}>${S.busy.kit ? '<span class="spin"></span>Drafting' : kit ? 'Redraft application kit' : 'Draft application kit'}</button>
       <button class="btn ghost" data-act="judge"${!ai || !kit || S.busy.judge ? ' disabled' : ''}>${S.busy.judge ? '<span class="spin"></span>Judging' : 'Simulate the judges'}</button>
       ${ai ? '' : '<span class="hint">AI is off on this server; the eligibility engine still works.</span>'}
     </div>
+    ${slot(`inv:${o.id}`)}${dd ? ddHTML(dd) : ''}
+    ${slot(`kit:${o.id}`)}${slot(`judge:${o.id}`)}
     ${kit ? `<div class="out-box">
       <div class="audit ${kit.audit.ok ? 'ok' : 'bad'}">${kit.audit.ok ? 'Guard passed: every number is in your dossier and every citation exists.' : [
         kit.audit.numbers.length ? `Numbers not in your dossier (highlighted): ${kit.audit.numbers.map(esc).join(', ')}` : '',
@@ -307,6 +416,7 @@ document.addEventListener('click', async (ev) => {
   else if (act === 'add-member') { S.dossier.team.push(BLANK()); renderDossier(); changed(); }
   else if (act === 'del-member') { S.dossier.team.splice(Number(t.dataset.i), 1); renderDossier(); changed(); }
   else if (act === 'toggle-add') { S.addOpen = !S.addOpen; renderResults(); }
+  else if (act === 'investigate') runInvestigate();
   else if (act === 'kit') runKit();
   else if (act === 'judge') runJudge();
   else if (act === 'copy-kit') { await navigator.clipboard.writeText(S.kits[S.open]?.text || ''); toast('Copied.'); }
@@ -342,7 +452,7 @@ document.addEventListener('submit', async (ev) => {
   if (f.id === 'gh') {
     S.busy.gh = true; renderDossier();
     try {
-      const r = await api('/api/dossiers/from-github', { url: f.url.value });
+      const r = await runTask('gh', '/api/dossiers/from-github', { url: f.url.value });
       await useDossier(r.dossier);
       toast(r.ai ? `Dossier built. ${r.dropped ? `${r.dropped} README claim(s) dropped because the quote didn't match.` : ''}` : 'Dossier built from GitHub data (AI is off, so the README was not summarised).');
     } catch (e) { toast(e.message); }
@@ -350,7 +460,7 @@ document.addEventListener('submit', async (ev) => {
   } else if (f.id === 'add') {
     S.busy.add = true; renderResults();
     try {
-      const { opp, stats } = await api('/api/opportunities/extract', { url: f.url.value, text: f.text.value });
+      const { opp, stats } = await runTask('add', '/api/opportunities/extract', { url: f.url.value, text: f.text.value });
       S.addOpen = false;
       await rank();
       openDrawer(opp.id);
@@ -367,17 +477,24 @@ document.addEventListener('submit', async (ev) => {
   }
 });
 
+async function runInvestigate() {
+  const id = S.open;
+  S.busy.inv = true; renderDrawer();
+  try { S.cards[id] = await runTask(`inv:${id}`, '/api/investigate', { oppId: id }); } catch (e) { toast(e.message); }
+  S.busy.inv = false; if (S.open === id) renderDrawer();
+}
+
 async function runKit() {
   const id = S.open;
   S.busy.kit = true; renderDrawer();
-  try { S.kits[id] = await api('/api/kit', { dossier: S.dossier, oppId: id }); delete S.judges[id]; } catch (e) { toast(e.message); }
+  try { S.kits[id] = await runTask(`kit:${id}`, '/api/kit', { dossier: S.dossier, oppId: id }); delete S.judges[id]; } catch (e) { toast(e.message); }
   S.busy.kit = false; if (S.open === id) renderDrawer();
 }
 
 async function runJudge() {
   const id = S.open;
   S.busy.judge = true; renderDrawer();
-  try { S.judges[id] = await api('/api/judge', { oppId: id, kitText: S.kits[id].text }); } catch (e) { toast(e.message); }
+  try { S.judges[id] = await runTask(`judge:${id}`, '/api/judge', { oppId: id, kitText: S.kits[id].text }); } catch (e) { toast(e.message); }
   S.busy.judge = false; if (S.open === id) renderDrawer();
 }
 

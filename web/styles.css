@@ -158,6 +158,34 @@ mark.flag { background: var(--mark); color: inherit; padding: 0 2px; border-radi
 .bet { display: grid; grid-template-columns: 120px 120px 1fr auto; gap: 8px; align-items: end; }
 .bet label { font-size: 12px; color: var(--muted); display: grid; gap: 4px; }
 
+/* Progress of long tasks */
+.progress { list-style: none; padding: 0; margin: 12px 0 0; display: grid; gap: 6px; font-size: 13.5px; }
+.progress li { display: grid; grid-template-columns: 18px 1fr auto; gap: 8px; align-items: start; }
+.progress li.done { color: var(--muted); }
+.progress .spin { margin: 3px 0 0 1px; }
+.progress em { font-style: normal; font-family: var(--mono); font-size: 12.5px; color: var(--muted); }
+.progress time { font: 12px/1.6 var(--mono); color: var(--muted); }
+
+/* Due diligence card */
+.dd { margin-top: 16px; border: 1px solid var(--line); border-radius: 12px; padding: 16px; background: var(--paper); }
+.dd h4 { margin-top: 0; }
+.dd h5 { font-size: 11.5px; text-transform: uppercase; letter-spacing: .07em; color: var(--muted); margin: 18px 0 6px; }
+.dd .claims { margin: 0; padding-left: 18px; display: grid; gap: 5px; font-size: 14px; }
+.src { font: 600 10.5px/1 var(--mono); color: var(--ok); background: var(--ok-bg); padding: 2px 5px; border-radius: 4px; text-decoration: none; margin-left: 4px; vertical-align: 1px; }
+.conflict { border-left: 3px solid var(--check); background: var(--card); border-radius: 0 8px 8px 0; padding: 9px 12px; margin: 8px 0; font-size: 14px; }
+.conflict p { margin: 6px 0 0; }
+.side { font: 700 11px/1 var(--mono); background: var(--check-bg); color: var(--check); padding: 2px 5px; border-radius: 4px; margin-right: 6px; }
+.tag { font: 600 10.5px/1.5 var(--mono); letter-spacing: .02em; padding: 0 6px; border-radius: 99px; border: 1px solid currentColor; white-space: nowrap; }
+.tag.own { color: var(--ok); } .tag.weak { color: var(--check); } .tag.none { color: var(--muted); }
+.dd details { margin-top: 16px; font-size: 13.5px; }
+.dd summary { cursor: pointer; color: var(--muted); }
+.dd details ul { padding-left: 18px; }
+.dd details li { margin: 8px 0; color: var(--muted); }
+.dd details li small { display: block; font-size: 12px; }
+.sources { margin: 0; padding-left: 24px; font-size: 13px; display: grid; gap: 3px; overflow-wrap: anywhere; }
+/* Google's Search Suggestions widget, shown as provided (a requirement of Grounding with Google Search). */
+.gsearch { display: block; width: 100%; height: 50px; border: 0; margin-top: 12px; background: transparent; color-scheme: light dark; }
+
 /* Ledger */
 .ledger table { width: 100%; border-collapse: collapse; background: var(--card); border: 1px solid var(--line); border-radius: 12px; overflow: hidden; }
 .ledger th, .ledger td { padding: 10px 12px; border-bottom: 1px solid var(--line); text-align: left; font-size: 14px; }
